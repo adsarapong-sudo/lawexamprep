@@ -5,212 +5,388 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f4ecdc" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1d1b18" media="(prefers-color-scheme: dark)">
-<title>ไต่บัลลังก์ศาลปกครองสูงสุด · เกมทบทวนก่อนสอบ</title>
+<title>ตุลาการเจ้าของสำนวน · เกมข้อสอบจำลองพนักงานคดีปกครอง</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f4ecdc;--card:#fbf6ec;--ink:#2f2b25;--mute:#6f685c;--line:#e3d9c6;--navy:#0b3d66;--blue:#0a55c2;--blue-bg:#dfe8f3;--green:#1e7a46;--green-bg:#dcecdc;--orange:#b35a00;--orange-bg:#f6e2c8;--red:#b3401f;--red-bg:#f6ddd3;--purple:#7b3fb3;--gold:#c08a00;--gold-bg:#f6e9c6}
 @media (prefers-color-scheme:dark){:root{--bg:#1d1b18;--card:#262320;--ink:#e6dfd2;--mute:#a59d8f;--line:#3a352d;--navy:#9cc8f0;--blue:#8ab8ff;--blue-bg:#1b2c45;--green:#6fd39a;--green-bg:#17321f;--orange:#ffb36b;--orange-bg:#3a2612;--red:#ff8a7a;--red-bg:#3a1d17;--purple:#c9a2f0;--gold:#f0c45a;--gold-bg:#3a3014}}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:'Sarabun',system-ui,sans-serif;font-size:17px;line-height:1.55}
-main{max-width:560px;margin:0 auto;padding:calc(14px + env(safe-area-inset-top)) 16px calc(110px + env(safe-area-inset-bottom))}
-h1{font-size:1.75rem;line-height:1.2;margin:.2em 0 .2em;color:var(--navy)}
-.sub{color:var(--mute);margin:0 0 14px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Sarabun',system-ui,sans-serif;font-size:17px;line-height:1.6}
+main{max-width:600px;margin:0 auto;padding:calc(14px + env(safe-area-inset-top)) 16px calc(120px + env(safe-area-inset-bottom))}
+h1{font-size:1.7rem;line-height:1.2;margin:.2em 0;color:var(--navy)}
+h2{font-size:1.25rem;line-height:1.3;margin:.2em 0 .4em;color:var(--navy)}
+.sub{color:var(--mute);margin:.2em 0 .8em}
 .btn{font:inherit;font-weight:800;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:12px 16px;cursor:pointer}
 .btn.main{background:var(--navy);border-color:var(--navy);color:var(--card)}
-.stage{display:flex;gap:12px;align-items:center;width:100%;text-align:left;margin:8px 0;border-left:6px solid var(--c)}
-.stage .ic{flex:none;width:46px;height:46px;border-radius:12px;background:var(--c);color:var(--card);display:grid;place-items:center;font-size:1.3rem}
-.stage b{display:block;font-size:1.05rem}
-.stage small{display:block;color:var(--mute);font-weight:400;font-size:.85rem;line-height:1.35}
-.stage .best{margin-left:auto;font-size:.85rem;color:var(--gold);white-space:nowrap}
-.hud{display:flex;justify-content:space-between;align-items:center;font-weight:800;margin-bottom:6px}
-.hearts{letter-spacing:2px}
-.streak{color:var(--orange)}
-.timer{height:8px;border-radius:4px;background:var(--line);overflow:hidden;margin-bottom:12px}
-.timer i{display:block;height:100%;background:var(--c,var(--navy));width:100%}
-.qcard{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--c);border-radius:16px;padding:16px}
-.qtag{font-size:.8rem;font-weight:800;color:var(--c)}
-.qtext{font-size:1.12rem;font-weight:600;margin:6px 0 4px}
-.facts{line-height:2.1;margin:6px 0}
-.fact{display:inline;padding:3px 4px;border-radius:6px;border-bottom:2px dashed var(--mute);cursor:pointer}
-.fact.trap{background:var(--green-bg);border-bottom-color:var(--green)}
-.fact.wrongpick{background:var(--red-bg);border-bottom-color:var(--red)}
-.opt{display:block;width:100%;text-align:left;margin-top:9px;font:inherit;font-size:1rem;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
-.opt.right{border-color:var(--green);background:var(--green-bg);font-weight:700}
+.btn:disabled{opacity:.45}
+.tile{display:flex;gap:12px;align-items:center;width:100%;text-align:left;margin:8px 0;border-left:6px solid var(--c,var(--navy))}
+.tile .ic{flex:none;width:46px;height:46px;border-radius:12px;background:var(--c,var(--navy));color:var(--card);display:grid;place-items:center;font-size:1.3rem}
+.tile b{display:block;font-size:1.04rem;line-height:1.3}
+.tile small{display:block;color:var(--mute);font-weight:400;font-size:.85rem;line-height:1.4}
+.tile .best{margin-left:auto;font-size:.82rem;color:var(--gold);white-space:nowrap}
+.card{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--c,var(--navy));border-radius:16px;padding:14px 16px;margin:10px 0}
+.top{display:flex;justify-content:space-between;align-items:center;font-size:.86rem;color:var(--mute);font-weight:600;gap:8px}
+.badge{display:inline-block;font-size:.78rem;font-weight:800;padding:2px 10px;border-radius:999px;background:var(--c,var(--navy));color:var(--card)}
+.steps{display:flex;gap:4px;margin:8px 0}
+.steps i{flex:1;height:5px;border-radius:3px;background:var(--line)}.steps i.d{background:var(--c,var(--navy))}.steps i.n{background:var(--gold)}
+.prompt{font-size:.98rem}
+.prompt summary{cursor:pointer;font-weight:800;color:var(--navy)}
+.q{font-weight:700;font-size:1.06rem;margin:4px 0 8px}
+.hint{color:var(--mute);font-size:.88rem}
+.seg{cursor:pointer;border-radius:5px;padding:1px 2px;border-bottom:2px dashed var(--line)}
+.seg.m-use{background:var(--orange-bg);border-bottom-color:var(--orange)}
+.seg.m-trap{background:var(--red-bg);border-bottom-color:var(--red)}
+.seg.t-ok{outline:2px solid var(--green);outline-offset:1px}
+.seg.t-miss{outline:2px dashed var(--red);outline-offset:1px}
+.seg.t-bad{text-decoration:line-through}
+.pens{display:flex;gap:8px;margin:6px 0 10px}
+.pen{flex:1;font:inherit;font-weight:800;padding:9px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.pen[aria-pressed=true].use{border-color:var(--orange);background:var(--orange-bg)}
+.pen[aria-pressed=true].trap{border-color:var(--red);background:var(--red-bg)}
+.pen[aria-pressed=true].erase{border-color:var(--mute)}
+.door{display:flex;align-items:center;gap:10px;margin:8px 0;padding:10px 12px;border-radius:12px;background:var(--bg);border:1px solid var(--line)}
+.door .lk{font-size:1.4rem}
+.door input{width:84px;font:inherit;font-weight:800;font-size:1.1rem;padding:8px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);text-align:center}
+.door.ok{border-color:var(--green);background:var(--green-bg)}.door.bad{border-color:var(--red);background:var(--red-bg)}
+input[type=text],textarea{width:100%;font:inherit;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+textarea{min-height:150px}
+.opt{display:block;width:100%;text-align:left;margin-top:8px;font:inherit;font-size:.98rem;padding:11px 13px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.opt[aria-pressed=true]{border-color:var(--navy);box-shadow:inset 0 0 0 2px var(--navy)}
+.opt.right{border-color:var(--green);background:var(--green-bg)}
 .opt.wrong{border-color:var(--red);background:var(--red-bg)}
-.tf{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.tf .opt{text-align:center;font-weight:800;font-size:1.1rem}
-.exp{margin-top:12px;padding:12px;border-radius:12px;background:var(--bg);border-left:4px solid var(--c);font-size:.98rem}
-.verdict{font-weight:800;font-size:1.1rem}
-.ok{color:var(--green)}.no{color:var(--red)}
+.hp{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;align-items:center;font-size:.85rem;font-weight:700;margin:6px 0 10px}
+.hp i{display:block;height:10px;border-radius:5px;background:var(--line);overflow:hidden}.hp i b{display:block;height:100%;transition:width .4s}
+.arg{background:var(--red-bg);border-radius:12px;padding:10px 12px;font-weight:600;margin:6px 0}
+.lbl{font-weight:800;font-size:.9rem;margin-top:10px}
+.pool,.built{display:flex;flex-wrap:wrap;gap:6px;min-height:46px;padding:8px;border:1px dashed var(--line);border-radius:12px;margin-top:6px}
+.chip{font:inherit;font-size:.95rem;padding:7px 11px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;text-align:left}
+.built .chip{background:var(--blue-bg);border-color:var(--blue)}
+.blk{display:block;width:100%;margin:6px 0}
+.slotrow{display:flex;flex-wrap:wrap;gap:5px;margin:4px 0 10px}
+.slot{font:inherit;font-size:.8rem;padding:4px 9px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.slot[aria-pressed=true]{background:var(--navy);color:var(--card);border-color:var(--navy)}
+.slot.right{background:var(--green);color:var(--card);border-color:var(--green)}
+.slot.wrong{background:var(--red);color:var(--card);border-color:var(--red)}
+.cmp{display:flex;align-items:center;gap:8px;margin:7px 0}
+.cmp span{flex:1;font-size:.95rem}
+.cmp button{flex:none;width:110px}
+.fb{margin-top:12px;padding:12px;border-radius:12px;background:var(--bg);border-left:4px solid var(--c,var(--navy));font-size:.96rem}
+.fb .v{font-weight:800}.ok{color:var(--green)}.no{color:var(--red)}
 .pts{float:right;font-weight:800;color:var(--gold)}
+.tl{position:relative;height:66px;margin:12px 4px 6px}
+.tl .line{position:absolute;left:0;right:0;top:30px;height:6px;border-radius:3px;background:var(--line)}
+.tl .pin{position:absolute;top:18px;transform:translateX(-50%);text-align:center;font-size:.72rem;font-weight:700;white-space:nowrap}
+.tl .pin i{display:block;width:16px;height:16px;border-radius:50%;margin:0 auto 18px;background:var(--c)}
 .sec{color:var(--purple);font-weight:800;white-space:nowrap}
 .num{color:var(--blue);background:var(--blue-bg);border-radius:4px;padding:0 4px;font-weight:800;white-space:nowrap}
 .adm{color:var(--green);background:var(--green-bg);border-radius:4px;padding:0 4px;font-weight:800}
 .jus{color:var(--orange);background:var(--orange-bg);border-radius:4px;padding:0 4px;font-weight:800}
 .but{color:var(--red);font-weight:800}
-.dock{position:fixed;left:0;right:0;bottom:0;padding:10px 16px calc(14px + env(safe-area-inset-bottom));background:linear-gradient(transparent,var(--bg) 30%)}
-.dock .in{max-width:560px;margin:0 auto;display:flex;gap:10px}
-.dock .btn{flex:1}
-.big{font-size:3.4rem;font-weight:800;line-height:1;color:var(--navy)}
-.stars{font-size:2.2rem;letter-spacing:6px;margin:8px 0}
-.miss{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--red);border-radius:12px;padding:10px 12px;margin:8px 0;font-size:.95rem}
-.miss b{display:block}
-.rule{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:.93rem;margin:12px 0}
-.pop{animation:pop .35s cubic-bezier(.3,1.6,.5,1)}
-@keyframes pop{from{transform:scale(.85);opacity:0}to{transform:none;opacity:1}}
-.shake{animation:shake .35s}
-@keyframes shake{25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-3px)}}
-.float{position:fixed;left:50%;top:40%;transform:translateX(-50%);font-weight:800;font-size:1.6rem;color:var(--gold);pointer-events:none;animation:fl .9s forwards}
-@keyframes fl{to{transform:translate(-50%,-60px);opacity:0}}
+.dock{position:fixed;left:0;right:0;bottom:0;padding:10px 16px calc(14px + env(safe-area-inset-bottom));background:linear-gradient(transparent,var(--bg) 28%);z-index:5}
+.dock .in{max-width:600px;margin:0 auto;display:flex;gap:10px}.dock .btn{flex:1}
+table.sheet{width:100%;border-collapse:collapse;font-size:.92rem}
+table.sheet td,table.sheet th{border-bottom:1px solid var(--line);padding:7px 4px;text-align:left}
+table.sheet td:last-child,table.sheet th:last-child{text-align:right;white-space:nowrap}
+.codes{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.codes span{padding:4px 10px;border-radius:999px;background:var(--red-bg);color:var(--red);font-weight:800;font-size:.86rem}
+.big{font-size:3rem;font-weight:800;line-height:1;color:var(--navy)}
+.rank{font-size:1.2rem;font-weight:800;color:var(--gold)}
+.pop{animation:pop .3s ease-out}@keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.shake{animation:shake .35s}@keyframes shake{25%{transform:translateX(-5px)}50%{transform:translateX(5px)}75%{transform:translateX(-2px)}}
+.clock{font-variant-numeric:tabular-nums}
 [hidden]{display:none!important}
 </style>
 </head>
 <body>
-<main>
-<section id="home">
- <h1>⚖️ ไต่บัลลังก์ศาลปกครองสูงสุด</h1>
- <p class="sub">เกมทบทวนก่อนสอบพนักงานคดีปกครอง 15 พ.ย. 2569 · เน้นหัวข้อที่คาดว่าจะออกและหลักที่ต้องแม่น</p>
- <div id="stages"></div>
- <div class="rule"><b>กติกา</b><br>❤️ 3 ชีวิตต่อด่าน · ⏱ ตอบให้ทันเวลา · 🔥 ตอบถูกติดกันได้คะแนนคูณสูงสุด ×3 · 🕵️ ข้อ "จับกับดัก" ต้องแตะข้อเท็จจริงที่โจทย์ใส่มาล่อ แล้วจึงตอบ · ข้อที่พลาดจะสรุปให้ทวนท้ายด่าน</div>
- <p class="sub" style="font-size:.82rem">เนื้อหาเพื่อการเตรียมสอบ · ตรวจถ้อยคำเต็มของตัวบทก่อนอ้างอิง · <a href="/pkp/" style="color:var(--navy)">กลับหน้าแฟลชการ์ด</a></p>
-</section>
-
-<section id="play" hidden>
- <div class="hud"><span class="hearts" id="hearts"></span><span id="prog"></span><span class="streak" id="streak"></span></div>
- <div class="hud" style="font-weight:600;font-size:.9rem;color:var(--mute)"><span id="stName"></span><span>คะแนน <b id="score" style="color:var(--gold)">0</b></span></div>
- <div class="timer"><i id="tbar"></i></div>
- <div class="qcard" id="qcard"></div>
-</section>
-
-<section id="end" hidden>
- <p class="sub" id="endName"></p>
- <div class="big" id="endScore"></div>
- <div class="stars" id="endStars"></div>
- <p id="endMsg"></p>
- <div id="missList"></div>
-</section>
-</main>
+<main id="app"></main>
 <div class="dock" id="dock" hidden><div class="in" id="dockIn"></div></div>
-
 <script>
-/* ---------------- ข้อมูลคำถาม ----------------
- type: mc (ตัวเลือก) | tf (ถูก/ผิด) | trap (แตะกับดัก + ตัวเลือก)
-*/
-const S=t=>t; // marker
-const STAGES=[
-{id:'vp',name:'ด่าน 1 · วิธีปฏิบัติราชการ',sub:'คาดว่าข้อ 1 · เพิกถอนคำสั่ง ม.49-53 · เหตุผล ม.37 · ม.41 · ความไม่เป็นกลาง',ic:'📜',c:'var(--blue)',time:30,q:[
- {t:'mc',q:'คำสั่งทางปกครองที่ไม่ชอบและเป็นการให้ประโยชน์ เจ้าหน้าที่ต้องเพิกถอนภายในกำหนดเวลาใด',o:['15 วันนับแต่ออกคำสั่ง','90 วันนับแต่ได้รู้ถึงเหตุที่จะให้เพิกถอน','1 ปีนับแต่ออกคำสั่ง','เพิกถอนเมื่อใดก็ได้'],a:1,e:'ว.ป. <span class="sec">ม.49 วรรคสอง</span> กำหนดให้เพิกถอนภายใน <span class="num">90 วัน</span>นับแต่ได้รู้ถึงเหตุที่จะให้เพิกถอน เว้นแต่คำสั่งนั้นออกเพราะข้อความเท็จ การปกปิดข้อเท็จจริง การข่มขู่ หรือการชักจูงโดยมิชอบ'},
- {t:'tf',q:'ผู้รับคำสั่งให้ประโยชน์ที่ไม่ชอบ ซึ่ง "รู้ถึงความไม่ชอบด้วยกฎหมายของคำสั่ง" ยังอ้างความเชื่อโดยสุจริตเพื่อคัดค้านการเพิกถอนได้',a:false,e:'อ้างไม่ได้ ตาม <span class="sec">ม.51</span> ผู้รับประโยชน์อ้างความเชื่อโดยสุจริตไม่ได้ ถ้าแสดงข้อความเท็จ ปกปิดข้อเท็จจริง ข่มขู่ หรือชักจูงโดยมิชอบ ให้ข้อความไม่ถูกต้องหรือไม่ครบถ้วนในสาระสำคัญ หรือ<b>รู้ถึงความไม่ชอบ</b>หรือไม่รู้เพราะประมาทเลินเล่ออย่างร้ายแรง'},
- {t:'trap',tag:'จับกับดัก · เพิกถอนคำสั่ง',f:['กรมอนุมัติเงินช่วยเหลือให้นาย ก. 200,000 บาท','นาย ก. ใช้เงินซ่อมบ้านไปหมดแล้ว','ต่อมากรมพบว่าคำสั่งอนุมัติไม่ชอบเพราะเจ้าหน้าที่คำนวณผิดเอง','กรมจึงสั่งเพิกถอนและเรียกเงินคืนทั้งหมด'],trap:3,q:'กรมเรียกเงินคืนทั้งหมดได้หรือไม่',o:['ได้ เพราะคำสั่งไม่ชอบต้องเพิกถอนเสมอ','ต้องคำนึงถึงความเชื่อโดยสุจริตของนาย ก. ตาม ม.51 เพราะนาย ก. ใช้ประโยชน์ไปแล้วและไม่ได้เป็นต้นเหตุของความผิดพลาด','ได้ เพราะยังไม่พ้น 90 วัน','ไม่ได้ เพราะคำสั่งที่ให้ประโยชน์เพิกถอนไม่ได้'],a:1,e:'<span class="but">แม้</span>คำสั่งไม่ชอบและกรมเพิกถอนได้ภายใน <span class="num">90 วัน</span> <span class="but">แต่</span>คำสั่งที่ให้เงินต้องคำนึงถึงความเชื่อโดยสุจริตตาม <span class="sec">ม.51</span> เมื่อนาย ก. ใช้เงินไปแล้วโดยไม่ได้ให้ข้อมูลเท็จหรือรู้ถึงความไม่ชอบ ความเชื่อโดยสุจริตจึงได้รับความคุ้มครอง การเรียกคืน "ทั้งหมด" จึงไม่ชอบ'},
- {t:'mc',q:'คำสั่งที่ "ชอบด้วยกฎหมาย" และให้ประโยชน์ จะเพิกถอนได้ตามมาตราใด',o:['ม.49','ม.51','ม.52','ม.53'],a:3,e:'<span class="sec">ม.53</span> เพิกถอนคำสั่งชอบที่ให้ประโยชน์ได้เฉพาะเหตุที่กำหนด เช่น มีข้อสงวนสิทธิ ไม่ปฏิบัติตามเงื่อนไข ข้อเท็จจริงหรือกฎหมายเปลี่ยนไป หรือป้องกันความเสียหายร้ายแรงต่อประโยชน์สาธารณะ และวรรคสามให้ค่าทดแทนเฉพาะเหตุ (3)-(5)'},
- {t:'mc',q:'เหตุผลของคำสั่งทางปกครองตาม ม.37 ต้องมีอะไรบ้าง',o:['ข้อเท็จจริงอันเป็นสาระสำคัญ ข้อกฎหมายที่อ้างอิง และข้อพิจารณาและข้อสนับสนุนในการใช้ดุลพินิจ','ชื่อผู้ออกคำสั่งและวันที่','สิทธิอุทธรณ์และระยะเวลาอุทธรณ์','ความเห็นของผู้บังคับบัญชา'],a:0,e:'<span class="sec">ม.37 วรรคหนึ่ง</span> กำหนดเหตุผลสามส่วน ถ้าขาดไป แก้ไขภายหลังได้ตาม <span class="sec">ม.41 (2)</span> ก่อนสิ้นสุดกระบวนการพิจารณาอุทธรณ์'},
- {t:'trap',tag:'จับกับดัก · ม.30 + ม.41',f:['เจ้าหน้าที่สั่งพักใช้ใบอนุญาตของบริษัท','โดยไม่ได้ให้บริษัทชี้แจงก่อน','ต่อมาในชั้นอุทธรณ์ บริษัทได้ชี้แจงข้อเท็จจริงครบถ้วนแล้ว'],trap:1,q:'คำสั่งยังไม่ชอบเพราะไม่ให้โอกาสโต้แย้งหรือไม่',o:['ยังไม่ชอบ เพราะต้องให้โอกาสก่อนออกคำสั่งเท่านั้น','ข้อบกพร่องได้รับการแก้ไขแล้วตาม ม.41 (3) และวรรคสอง','ชอบ เพราะเข้าข้อยกเว้น ม.30 วรรคสอง','ต้องออกคำสั่งใหม่ทั้งหมด'],a:1,e:'<span class="but">แม้</span>ไม่ได้ให้โอกาสโต้แย้งก่อนตาม <span class="sec">ม.30</span> <span class="but">แต่</span> <span class="sec">ม.41 (3)</span> ให้แก้ไขภายหลังได้ และวรรคสองให้ทำก่อนสิ้นสุดกระบวนการพิจารณาอุทธรณ์'},
- {t:'tf',q:'กรรมการสอบสวนเป็นเจ้าหนี้ของคู่กรณี เป็นเหตุห้ามพิจารณาทางปกครองตาม ว.ป. ม.13',a:true,e:'<span class="sec">ม.13</span> ห้ามเจ้าหน้าที่ซึ่งเป็นคู่กรณีเอง คู่หมั้นหรือคู่สมรส ญาติตามที่กำหนด ผู้แทนหรือตัวแทน และ<b>เจ้าหนี้ ลูกหนี้ หรือนายจ้าง</b>ของคู่กรณี ส่วนเหตุอื่นที่มีสภาพร้ายแรงอันอาจทำให้ไม่เป็นกลาง ใช้ <span class="sec">ม.16</span>'},
- {t:'mc',q:'อุทธรณ์คำสั่งทางปกครองตาม ว.ป. ม.44 ต้องยื่นภายในเวลาใด และยื่นต่อใคร',o:['30 วัน ต่อผู้บังคับบัญชา','15 วันนับแต่ได้รับแจ้งคำสั่ง ต่อเจ้าหน้าที่ผู้ทำคำสั่ง','90 วัน ต่อศาลปกครอง','15 วัน ต่อรัฐมนตรี'],a:1,e:'<span class="sec">ม.44</span> ยื่นต่อเจ้าหน้าที่ผู้ทำคำสั่งภายใน <span class="num">15 วัน</span> ผู้ทำคำสั่งพิจารณาให้เสร็จใน <span class="num">30 วัน</span> ถ้าไม่เห็นด้วย ให้รายงานผู้มีอำนาจพิจารณาอุทธรณ์ตาม <span class="sec">ม.45</span>'},
- {t:'tf',q:'เจ้าหน้าที่พบอาหารเน่าเสียกำลังจะออกจำหน่าย สั่งยึดทันทีโดยไม่ให้เจ้าของชี้แจง คำสั่งนี้ไม่ชอบเพราะขัด ม.30',a:false,e:'ไม่ขัด เพราะเข้าข้อยกเว้น <span class="sec">ม.30 วรรคสอง (1)</span> คือความจำเป็นรีบด่วน หากชักช้าจะเสียหายร้ายแรงต่อประโยชน์สาธารณะ'},
- {t:'mc',q:'มาตรการบังคับทางปกครองสำหรับคำสั่งที่ให้ "ชำระเงิน" คืออะไร',o:['ฟ้องศาลยุติธรรมเท่านั้น','ยึดหรืออายัดทรัพย์สินแล้วขายทอดตลาด หลังมีหนังสือเตือนแล้วไม่ชำระ','จับกุมผู้รับคำสั่ง','ปรับวันละไม่เกิน 50,000 บาท'],a:1,e:'คำสั่งให้ชำระเงิน บังคับโดยยึดหรืออายัดทรัพย์สินและขายทอดตลาด หลังมีหนังสือเตือนให้ชำระแล้วไม่ชำระ (หมวดบังคับทางปกครอง <span class="sec">ม.63/1</span> เป็นต้นไป) ส่วนค่าปรับบังคับการไม่เกิน <span class="num">50,000 บาทต่อวัน</span>ใช้กับคำสั่งให้กระทำหรือละเว้นกระทำ (<span class="sec">ม.63/21</span>)'},
-]},
-{id:'tort',name:'ด่าน 2 · ละเมิด · สัญญา',sub:'คาดว่าข้อ 2 · ละเลยต่อหน้าที่ · ม.11 · ม.51 · สัญญา ม.3 · ไล่เบี้ย',ic:'🛡️',c:'var(--red)',time:30,q:[
- {t:'trap',tag:'จับกับดัก · เขตอำนาจคดีละเมิด',f:['พนักงานขับรถของกรม','ขับรถราชการไปส่งเอกสารตามคำสั่งผู้บังคับบัญชา','เกิดอุบัติเหตุชนรถของนาย ข.'],trap:1,q:'นาย ข. ต้องฟ้องใคร ต่อศาลใด',o:['ฟ้องกรม ต่อศาลปกครอง','ฟ้องกรม ต่อศาลยุติธรรม','ฟ้องพนักงานขับรถ ต่อศาลยุติธรรม','ฟ้องทั้งสอง ต่อศาลปกครอง'],a:1,e:'<span class="but">แม้</span>ขับรถตามคำสั่งในหน้าที่ <span class="but">แต่</span>การชนเป็นการกระทำทางกายภาพ ไม่ได้เกิดจากการใช้อำนาจตามกฎหมาย กฎ คำสั่ง หรือการละเลยต่อหน้าที่ตาม <span class="sec">ม.9 ว.1 (3)</span> จึงอยู่ใน<span class="jus">ศาลยุติธรรม</span> ส่วนผู้ถูกฟ้องต้องเป็นกรมตาม <span class="sec">ม.5</span>'},
- {t:'mc',q:'ทางหลวงชำรุดเป็นหลุมลึกมาหลายเดือน หน่วยงานไม่ซ่อมและไม่ติดป้ายเตือน จนผู้ขับขี่ล้มบาดเจ็บ คดีเรียกค่าเสียหายเป็นคดีประเภทใด',o:['ละเมิดทางกายภาพ ศาลยุติธรรม','ละเมิดจากการละเลยต่อหน้าที่ตามที่กฎหมายกำหนด ศาลปกครอง ม.9 ว.1 (3)','คดีอาญา','สัญญาทางปกครอง'],a:1,e:'ความเสียหายเกิดจากการ<b>ละเลยต่อหน้าที่</b>ดูแลทาง จึงเป็นละเมิดตาม <span class="sec">ม.9 ว.1 (3)</span> อยู่ใน<span class="adm">ศาลปกครอง</span> ต่างจากรถราชการชนคนซึ่งเป็นการกระทำทางกายภาพ'},
- {t:'mc',q:'คดีละเมิดตาม ม.9 ว.1 (3) ต้องฟ้องภายในเวลาใด',o:['90 วันนับแต่รู้เหตุ','1 ปีนับแต่รู้หรือควรรู้ถึงเหตุแห่งการฟ้องคดี แต่ไม่เกิน 10 ปีนับแต่วันที่มีเหตุ','2 ปีนับแต่รู้เหตุ','5 ปีนับแต่วันทำละเมิด'],a:1,e:'ศป. <span class="sec">ม.51</span> ใช้กับคดีตาม (3) และ (4): <span class="num">1 ปี</span>นับแต่รู้หรือควรรู้ แต่ไม่เกิน <span class="num">10 ปี</span>นับแต่วันที่มีเหตุ'},
- {t:'tf',q:'ผู้เสียหายจากละเมิดของเจ้าหน้าที่ ยื่นคำขอให้หน่วยงานของรัฐชดใช้ค่าสินไหมทดแทนได้ โดยไม่ต้องฟ้องคดีก่อน',a:true,e:'ละเมิด <span class="sec">ม.11</span> ให้ยื่นคำขอต่อหน่วยงานของรัฐได้ หน่วยงานต้องพิจารณาให้แล้วเสร็จภายใน <span class="num">180 วัน</span>'},
- {t:'trap',tag:'จับกับดัก · ละเมิดส่วนตัว',f:['เจ้าหน้าที่ของกรม','ใช้รถราชการ','หลังเลิกงานขับไปรับลูกที่โรงเรียน','ชนรถของนาย ค.'],trap:1,q:'นาย ค. ต้องฟ้องใคร',o:['ฟ้องกรมตาม ม.5','ฟ้องเจ้าหน้าที่ผู้นั้นเป็นการส่วนตัว ต่อศาลยุติธรรม','ฟ้องกรม ต่อศาลปกครอง','ฟ้องได้ทั้งสองคนร่วมกัน'],a:1,e:'<span class="but">แม้</span>ใช้รถราชการ <span class="but">แต่</span>การไปรับลูกหลังเลิกงานไม่ใช่การปฏิบัติหน้าที่ จึงเป็นละเมิดตาม <span class="sec">ม.6</span> ฟ้องเจ้าหน้าที่ต่อ<span class="jus">ศาลยุติธรรม</span>ตามรัฐธรรมนูญ <span class="sec">ม.194</span>'},
- {t:'mc',q:'กรมไล่เบี้ยเจ้าหน้าที่ได้เมื่อใด',o:['ทุกกรณีที่ทำละเมิด','เฉพาะเมื่อกระทำโดยจงใจหรือประมาทเลินเล่ออย่างร้ายแรง','เฉพาะเมื่อศาลพิพากษาแล้ว','เมื่อเจ้าหน้าที่ยินยอม'],a:1,e:'<span class="sec">ม.8 วรรคหนึ่ง</span> ไล่เบี้ยได้เฉพาะจงใจหรือประมาทเลินเล่ออย่างร้ายแรง วรรคสองให้คำนึงถึงระดับความร้ายแรงและความเป็นธรรม ไม่จำต้องเต็มจำนวน'},
- {t:'tf',q:'เจ้าหน้าที่สองคนร่วมกันทำละเมิด หน่วยงานเรียกให้คนหนึ่งชดใช้แทนอีกคนที่ล้มละลายได้ เพราะเป็นลูกหนี้ร่วม',a:false,e:'ไม่ได้ <span class="sec">ม.8 วรรคสี่</span> มิให้นำหลักลูกหนี้ร่วมมาใช้ แต่ละคนรับผิดเฉพาะส่วนของตน'},
- {t:'trap',tag:'จับกับดัก · คำสั่งให้ชดใช้',f:['เจ้าหน้าที่ถูกสอบสวนวินัย','ผลสอบชี้ชัดว่าประมาทเลินเล่ออย่างร้ายแรง','อธิบดีจึงออกคำสั่งให้ชดใช้ตาม ม.12 ทันที โดยไม่ตั้งกรรมการสอบข้อเท็จจริงความรับผิดทางละเมิด'],trap:1,q:'คำสั่งให้ชดใช้ชอบหรือไม่',o:['ชอบ เพราะผลสอบวินัยชัดแล้ว','ไม่ชอบ เพราะต้องตั้งกรรมการสอบข้อเท็จจริงความรับผิดทางละเมิดก่อน','ชอบ ถ้าให้โอกาสโต้แย้งแล้ว','ไม่ชอบ เพราะต้องฟ้องศาลเท่านั้น'],a:1,e:'<span class="but">แม้</span>ผลสอบวินัยชัด <span class="but">แต่</span>ระเบียบสำนักนายกฯ ข้อ 8 ให้ตั้งกรรมการสอบข้อเท็จจริงความรับผิดทางละเมิดก่อนใช้ <span class="sec">ม.12</span> (แนวธง 2566)'},
- {t:'mc',q:'สัญญาใดเป็น "สัญญาทางปกครอง" ตาม ศป. ม.3',o:['กรมซื้อคอมพิวเตอร์ใช้ในสำนักงาน','กรมจ้างเอกชนก่อสร้างเขื่อนหรือถนนสาธารณะ','กรมเช่ารถตู้รับส่งพนักงาน','กรมซื้อกระดาษ A4'],a:1,e:'<span class="sec">ม.3</span> สัญญาทางปกครองรวมถึง สัมปทาน · จัดทำบริการสาธารณะ · <b>จัดให้มีสิ่งสาธารณูปโภค</b> · แสวงประโยชน์จากทรัพยากรธรรมชาติ ส่วนการซื้อของใช้สำนักงานเป็นสัญญาทางแพ่ง'},
- {t:'tf',q:'หนังสือบอกเลิกสัญญาที่กรมใช้สิทธิตามข้อสัญญา เป็นคำสั่งทางปกครอง ฟ้องเพิกถอนตาม ม.9 ว.1 (1) ได้',a:false,e:'ไม่ใช่คำสั่งทางปกครอง เพราะเป็นการใช้สิทธิตามสัญญา ถ้าเป็นสัญญาทางปกครอง ต้องฟ้องเป็นคดีพิพาทเกี่ยวกับสัญญาตาม <span class="sec">ม.9 ว.1 (4)</span> (แนวธง 2563)'},
-]},
-{id:'court',name:'ด่าน 3 · เขตอำนาจ · วิธีพิจารณา',sub:'คาดว่าข้อ 3 · ทุเลา ม.66 · ระยะเวลาฟ้อง · ม.42 · ม.75 · คดีก้ำกึ่ง',ic:'🏛️',c:'var(--green)',time:30,q:[
- {t:'mc',q:'ข้อใด "ไม่ใช่" เงื่อนไขในการสั่งทุเลาการบังคับตามกฎหรือคำสั่ง',o:['กฎหรือคำสั่งน่าจะไม่ชอบด้วยกฎหมาย','ถ้าให้มีผลต่อไปจะเกิดความเสียหายร้ายแรงที่ยากแก่การเยียวยาภายหลัง','การทุเลาไม่เป็นอุปสรรคแก่การบริหารงานของรัฐหรือบริการสาธารณะ','ผู้ฟ้องคดีต้องวางเงินประกันเต็มจำนวนความเสียหาย'],a:3,e:'เงื่อนไขทุเลาตาม <span class="sec">ม.66</span> ประกอบระเบียบที่ประชุมใหญ่ฯ มีสามข้อ คือ น่าจะไม่ชอบ · เสียหายร้ายแรงยากเยียวยา · ไม่เป็นอุปสรรคต่อการบริหารงานของรัฐหรือบริการสาธารณะ'},
- {t:'mc',q:'คดีเพิกถอนคำสั่งทางปกครองตาม ม.9 ว.1 (1) ต้องฟ้องภายในเวลาใด',o:['30 วัน','90 วันนับแต่รู้หรือควรรู้ถึงเหตุแห่งการฟ้องคดี','1 ปี','5 ปี'],a:1,e:'ศป. <span class="sec">ม.49</span> ภายใน <span class="num">90 วัน</span>'},
- {t:'mc',q:'คดีละเลยต่อหน้าที่ที่กฎหมายไม่กำหนดเวลา ผู้ฟ้องคดีมีหนังสือร้องขอแล้วหน่วยงานเงียบ ต้องฟ้องเมื่อใด',o:['ทันทีที่ยื่นหนังสือ','ภายใน 90 วันนับแต่วันที่พ้นกำหนด 90 วันนับแต่มีหนังสือร้องขอ','ภายใน 1 ปีนับแต่ยื่นหนังสือ','เมื่อใดก็ได้'],a:1,e:'<span class="sec">ม.49</span> ทางที่สอง: มีหนังสือ → รอ <span class="num">90 วัน</span> → ฟ้องภายใน <span class="num">90 วัน</span>นับแต่วันที่พ้นกำหนดนั้น'},
- {t:'tf',q:'คดีเกี่ยวกับการคุ้มครองประโยชน์สาธารณะหรือสถานะของบุคคล จะยื่นฟ้องเมื่อใดก็ได้',a:true,e:'ศป. <span class="sec">ม.52 วรรคหนึ่ง</span> ส่วนวรรคสองให้ศาลรับคดีที่พ้นกำหนดได้ ถ้าเป็นประโยชน์แก่ส่วนรวมหรือมีเหตุจำเป็นอื่น'},
- {t:'trap',tag:'จับกับดัก · ขั้นตอนก่อนฟ้อง',f:['ผู้รับคำสั่งเห็นว่าคำสั่งไม่ชอบอย่างชัดแจ้ง','จึงฟ้องศาลปกครองทันทีภายใน 10 วัน','โดยยังไม่ได้อุทธรณ์ตาม ว.ป. ม.44'],trap:0,q:'ศาลรับฟ้องได้หรือไม่',o:['ได้ เพราะไม่ชอบชัดแจ้ง','ไม่ได้ ต้องอุทธรณ์ก่อนตาม ม.42 วรรคสอง','ได้ เพราะยังอยู่ในกำหนด 90 วัน','ได้ ถ้าขอทุเลาด้วย'],a:1,e:'<span class="but">แม้</span>คำสั่งไม่ชอบชัดแจ้งและยังอยู่ในกำหนดเวลา <span class="but">แต่</span> <span class="sec">ม.42 วรรคสอง</span> ให้ฟ้องได้ต่อเมื่อดำเนินการตามขั้นตอนแก้ไขความเดือดร้อนที่กฎหมายกำหนดแล้ว'},
- {t:'trap',tag:'จับกับดัก · ใบสั่งจราจร',f:['เจ้าพนักงานจราจรเป็นเจ้าหน้าที่ของรัฐ','ออกใบสั่งให้นาย ง. ชำระค่าปรับ','นาย ง. ฟ้องศาลปกครองขอเพิกถอนใบสั่ง'],trap:0,q:'ศาลปกครองรับฟ้องได้หรือไม่',o:['ได้ เพราะเป็นคำสั่งทางปกครอง','ไม่ได้ เพราะเป็นขั้นตอนในกระบวนการยุติธรรมทางอาญา','ได้ ถ้าอุทธรณ์ก่อน','ได้ เพราะผู้ออกเป็นเจ้าหน้าที่ของรัฐ'],a:1,e:'<span class="but">แม้</span>ผู้ออกใบสั่งเป็นเจ้าหน้าที่ของรัฐ <span class="but">แต่</span>ใบสั่งและการเปรียบเทียบปรับเป็นขั้นตอนในกระบวนการยุติธรรมทางอาญา ผู้ต้องหาโต้แย้งในศาลยุติธรรมได้ จึงไม่ใช่คดีปกครอง'},
- {t:'tf',q:'ประกาศ สตช. ที่กำหนดอัตราค่าปรับจราจรใช้บังคับเป็นการทั่วไป เป็น "กฎ" ฟ้องเพิกถอนต่อศาลปกครองได้',a:true,e:'เป็นกฎตาม <span class="sec">ม.9 ว.1 (1)</span> ศาลปกครองสูงสุดเคยเพิกถอนประกาศลักษณะนี้ในคดี อ.50/2568'},
- {t:'mc',q:'ขอให้พิจารณาคดีใหม่ตาม ศป. ม.75 ต้องยื่นภายในเวลาใด',o:['30 วันนับแต่มีคำพิพากษา','90 วันนับแต่รู้เหตุ แต่ไม่เกิน 5 ปีนับแต่มีคำพิพากษา','1 ปีนับแต่รู้เหตุ','เมื่อใดก็ได้'],a:1,e:'<span class="sec">ม.75 วรรคสาม</span> ภายใน <span class="num">90 วัน</span>นับแต่รู้เหตุ แต่ไม่เกิน <span class="num">5 ปี</span>นับแต่มีคำพิพากษา'},
- {t:'mc',q:'อุทธรณ์คำพิพากษาศาลปกครองชั้นต้นต่อศาลปกครองสูงสุด ต้องยื่นภายในเวลาใด',o:['15 วัน','30 วัน','60 วัน','90 วัน'],a:1,e:'ศป. <span class="sec">ม.73</span> ภายใน <span class="num">30 วัน</span>'},
- {t:'tf',q:'คำสั่งไม่รับคำฟ้องของศาลปกครองชั้นต้น ต้องรอจนมีคำพิพากษาก่อนจึงอุทธรณ์ได้',a:false,e:'อุทธรณ์ได้ทันที เพราะคำสั่งไม่รับคำฟ้องทำให้คดีเสร็จไปจากศาล ไม่ใช่คำสั่งระหว่างพิจารณา (แนวธง 2566)'},
- {t:'trap',tag:'จับกับดัก · เจ้าหน้าที่ของรัฐ',f:['ผู้พิพากษาศาลยุติธรรมเป็นข้าราชการตุลาการ','พิพากษาให้นาย จ. แพ้คดี','นาย จ. ฟ้องศาลปกครองขอเพิกถอนคำพิพากษา'],trap:0,q:'ศาลปกครองรับฟ้องได้หรือไม่',o:['ได้ เพราะผู้พิพากษาเป็นเจ้าหน้าที่ของรัฐ','ไม่ได้ เพราะการพิพากษาเป็นการใช้อำนาจตุลาการ ไม่ใช่การกระทำทางปกครอง','ได้ ถ้าคำพิพากษาไม่ชอบ','ได้ ถ้ายังไม่ถึงที่สุด'],a:1,e:'<span class="but">แม้</span>ผู้พิพากษาเป็นข้าราชการ <span class="but">แต่</span>การพิพากษาเป็นอำนาจตุลาการตามรัฐธรรมนูญ <span class="sec">ม.194</span> ไม่ใช่หน่วยงานทางปกครองหรือเจ้าหน้าที่ของรัฐตาม <span class="sec">ม.3</span> และคำพิพากษาผูกพันคู่ความตาม ป.วิ.พ. <span class="sec">ม.145</span> (แนวธง 2567)'},
- {t:'mc',q:'ขอข้อมูลข่าวสารแล้วถูกปฏิเสธ ต้องทำอย่างไรก่อนฟ้อง',o:['ฟ้องศาลปกครองได้ทันที','อุทธรณ์ต่อคณะกรรมการวินิจฉัยการเปิดเผยข้อมูลข่าวสารภายใน 15 วัน','ร้องผู้ตรวจการแผ่นดิน','อุทธรณ์ต่ออธิบดีภายใน 30 วัน'],a:1,e:'พ.ร.บ.ข้อมูลข่าวสารฯ <span class="sec">ม.18</span> อุทธรณ์ภายใน <span class="num">15 วัน</span> เป็นขั้นตอนตามกฎหมายเฉพาะที่ต้องทำก่อนฟ้องตาม <span class="sec">ม.42 วรรคสอง</span>'},
-]},
-{id:'eng',name:'ด่าน 4 · แปลอังกฤษ',sub:'ข้อ 4 · ศัพท์ทางการของศาลปกครอง · โครงประโยคตัวบท',ic:'🌐',c:'var(--gold)',time:25,q:[
- {t:'mc',q:'ตุลาการผู้แถลงคดี',o:['judge-rapporteur','judge-commissioner of justice','chief judge','public prosecutor'],a:1,e:'ชื่อทางการตามสำนักงานศาลปกครอง: ตุลาการผู้แถลงคดี = <b>judge-commissioner of justice</b> · ตุลาการเจ้าของสำนวน = judge-rapporteur'},
- {t:'mc',q:'ตุลาการเจ้าของสำนวน',o:['judge-rapporteur','judge-commissioner of justice','case officer','presiding judge'],a:0,e:'<b>judge-rapporteur</b>'},
- {t:'mc',q:'ระบบไต่สวน',o:['adversarial system','inquisitorial system','accusatorial system','jury system'],a:1,e:'<b>inquisitorial system</b> · ระบบกล่าวหา = adversarial system'},
- {t:'mc',q:'"ให้นำ … มาใช้บังคับโดยอนุโลม"',o:['shall be deemed','shall apply mutatis mutandis','subject to','notwithstanding'],a:1,e:'<b>… shall apply mutatis mutandis</b>'},
- {t:'mc',q:'"ภายใต้บังคับมาตรา 42"',o:['Notwithstanding Section 42','Subject to Section 42','Pursuant to Section 42','Except Section 42'],a:1,e:'<b>Subject to Section 42</b> · Notwithstanding = ทั้งนี้ไม่ว่า… / แม้…'},
- {t:'mc',q:'พ.ร.บ.ความรับผิดทางละเมิดของเจ้าหน้าที่ พ.ศ. 2539',o:['Tort Liability of Government Officers Act','Liability for Wrongful Acts of Officials Act, B.E. 2539 (1996)','State Officials Tort Act 1996','Administrative Liability Act B.E. 2539'],a:1,e:'ชื่อที่ศาลปกครองใช้ในคำพิพากษาฉบับแปล: <b>Liability for Wrongful Acts of Officials Act, B.E. 2539 (1996)</b>'},
- {t:'mc',q:'"มีอำนาจพิจารณาพิพากษา"',o:['has power to judge','has competence to try and adjudicate','is able to decide','has authority to sentence'],a:1,e:'<b>has competence to try and adjudicate</b> คำที่ธงใช้ซ้ำ'},
- {t:'tf',q:'"ห้ามมิให้…" แปลว่า shall not … ได้',a:true,e:'shall not … / no person shall …'},
- {t:'mc',q:'"Such order shall be deemed to be an administrative order." แปลว่า',o:['คำสั่งนั้นอาจเป็นคำสั่งทางปกครอง','ให้ถือว่าคำสั่งดังกล่าวเป็นคำสั่งทางปกครอง','คำสั่งนั้นต้องเป็นคำสั่งทางปกครอง','คำสั่งนั้นไม่ใช่คำสั่งทางปกครอง'],a:1,e:'shall be deemed = <b>ให้ถือว่า</b>'},
- {t:'mc',q:'ระบบศาลคู่',o:['double court','dual court system','two-tier court','twin judiciary'],a:1,e:'<b>dual court system</b>'},
-]},
-{id:'boss',name:'บอส · ตัวเลขและระยะเวลา',sub:'สายฟ้าแลบ 12 วินาทีต่อข้อ · ตัวเลขที่ต้องท่องให้ขึ้นใจ',ic:'⚡',c:'var(--purple)',time:12,q:[
- {t:'mc',q:'อุทธรณ์คำสั่งทางปกครอง (ว.ป. ม.44)',o:['7 วัน','15 วัน','30 วัน','90 วัน'],a:1,e:'<span class="num">15 วัน</span>นับแต่ได้รับแจ้ง'},
- {t:'mc',q:'ผู้ทำคำสั่งพิจารณาอุทธรณ์ให้เสร็จ (ม.45)',o:['15 วัน','30 วัน','60 วัน','90 วัน'],a:1,e:'<span class="num">30 วัน</span>นับแต่ได้รับอุทธรณ์'},
- {t:'mc',q:'เพิกถอนคำสั่งไม่ชอบที่ให้ประโยชน์ (ม.49 ว.2)',o:['30 วัน','60 วัน','90 วันนับแต่รู้เหตุ','1 ปี'],a:2,e:'<span class="num">90 วัน</span>นับแต่ได้รู้ถึงเหตุที่จะให้เพิกถอน'},
- {t:'mc',q:'ฟ้องเพิกถอนคำสั่ง (ศป. ม.49)',o:['30 วัน','90 วัน','1 ปี','5 ปี'],a:1,e:'<span class="num">90 วัน</span>'},
- {t:'mc',q:'ฟ้องคดีละเมิดหรือสัญญา (ศป. ม.51)',o:['90 วัน','1 ปี / ไม่เกิน 10 ปี','2 ปี','5 ปี / ไม่เกิน 10 ปี'],a:1,e:'<span class="num">1 ปี</span> / ไม่เกิน <span class="num">10 ปี</span>'},
- {t:'mc',q:'อุทธรณ์คำพิพากษาศาลปกครองชั้นต้น (ม.73)',o:['15 วัน','30 วัน','60 วัน','90 วัน'],a:1,e:'<span class="num">30 วัน</span>'},
- {t:'mc',q:'ขอพิจารณาคดีใหม่ (ม.75)',o:['30 วัน / 1 ปี','90 วัน / ไม่เกิน 5 ปี','90 วัน / ไม่เกิน 10 ปี','1 ปี / ไม่เกิน 5 ปี'],a:1,e:'<span class="num">90 วัน</span> / ไม่เกิน <span class="num">5 ปี</span>'},
- {t:'mc',q:'หน่วยงานพิจารณาคำขอค่าสินไหมทดแทน (ละเมิด ม.11)',o:['30 วัน','90 วัน','180 วัน','1 ปี'],a:2,e:'<span class="num">180 วัน</span>'},
- {t:'mc',q:'อุทธรณ์คำสั่งไม่เปิดเผยข้อมูลข่าวสาร (ม.18)',o:['7 วัน','15 วัน','30 วัน','90 วัน'],a:1,e:'<span class="num">15 วัน</span>'},
- {t:'mc',q:'ส่งหนังสือทางไปรษณีย์ลงทะเบียนในประเทศ ถือว่าได้รับเมื่อ (ว.ป. ม.71)',o:['3 วัน','7 วันนับแต่วันส่ง','15 วัน','30 วัน'],a:1,e:'<span class="num">7 วัน</span> (ต่างประเทศ <span class="num">15 วัน</span>)'},
- {t:'mc',q:'ค่าปรับบังคับการตาม ว.ป. ม.63/21 (2)',o:['ไม่เกิน 10,000 บาทต่อวัน','ไม่เกิน 50,000 บาทต่อวัน','ไม่เกิน 100,000 บาท','ไม่จำกัด'],a:1,e:'ไม่เกิน <span class="num">50,000 บาท</span>ต่อวัน'},
- {t:'mc',q:'คดีคุ้มครองประโยชน์สาธารณะหรือสถานะบุคคล (ม.52 ว.1)',o:['90 วัน','1 ปี','10 ปี','ฟ้องเมื่อใดก็ได้'],a:3,e:'ฟ้องเมื่อใดก็ได้'},
-]},
+/* =====================================================================
+   เนื้อหา · ทุกข้อมูลตัวบทตรวจกับแหล่งที่ยืนยันแล้วในการเตรียมสอบ
+   รหัสความผิดพลาด: ป ไม่เห็นประเด็น · ม มาตรา · ต ตัวเลข/เวลา · บ ปรับบท · ห หักล้าง · ส สรุป · ว เวลา · ภ ภาษา/โครง
+   ===================================================================== */
+const D=x=>x;
+/* ---------- ชุด ก (แบบปี 2566: บรรยาย 1 + อุทาหรณ์ 2 + แปล) ---------- */
+const PAPER_A={id:'A',name:'ชุด ก · แบบปี 2566',sub:'ข้อ 1 บรรยาย · ข้อ 2-3 อุทาหรณ์ · ข้อ 4 แปลสองทิศทาง · 200 คะแนน',items:[
+{no:1,type:'บรรยาย',pts:60,mins:72,c:'var(--blue)',title:'การเพิกถอนคำสั่งทางปกครองที่ให้ประโยชน์',
+ prompt:'จงอธิบายหลักเกณฑ์การเพิกถอนคำสั่งทางปกครองที่ไม่ชอบด้วยกฎหมายซึ่งเป็นการให้ประโยชน์แก่ผู้รับคำสั่ง ตามพระราชบัญญัติวิธีปฏิบัติราชการทางปกครอง พ.ศ. 2539 โดยเฉพาะหลักคุ้มครองความเชื่อโดยสุจริต กรณีที่ผู้รับคำสั่งอ้างความเชื่อโดยสุจริตไม่ได้ และความแตกต่างจากการเพิกถอนคำสั่งที่ชอบด้วยกฎหมาย พร้อมยกตัวอย่าง',
+ steps:[
+ {k:'outline',w:15,code:'ภ',title:'🗂️ วางโครงบรรยาย',q:'จัดแต่ละบล็อกลงช่องโครงบรรยายให้ถูกตำแหน่ง',slots:['หลัก/ความหมาย','ฐานกฎหมาย','องค์ประกอบ/เงื่อนไข','ข้อยกเว้น','ตัวอย่าง'],blocks:[
+  ['ฝ่ายปกครองต้องชั่งน้ำหนักระหว่างหลักความชอบด้วยกฎหมายกับความมั่นคงแห่งนิติฐานะของผู้รับคำสั่งที่เชื่อโดยสุจริต',0],
+  ['ว.ป. ม.49 ให้เพิกถอนคำสั่งที่ไม่ชอบได้ และคำสั่งที่ให้ประโยชน์ต้องเพิกถอนภายใน 90 วันนับแต่ได้รู้ถึงเหตุที่จะให้เพิกถอน',1],
+  ['ม.51 คำสั่งที่ให้เงิน ทรัพย์สิน หรือประโยชน์ที่แบ่งแยกได้ ต้องคำนึงถึงความเชื่อโดยสุจริต ซึ่งได้รับความคุ้มครองเมื่อได้ใช้ประโยชน์หรือดำเนินการเกี่ยวกับทรัพย์สินไปแล้วโดยแก้ไขไม่ได้หรือแก้ไขแล้วจะเสียหายเกินควร',2],
+  ['ผู้รับคำสั่งอ้างความเชื่อโดยสุจริตไม่ได้ ถ้าให้ข้อความเท็จหรือปกปิด ให้ข้อความไม่ถูกต้องหรือไม่ครบในสาระสำคัญ หรือรู้ถึงความไม่ชอบหรือไม่รู้เพราะประมาทเลินเล่ออย่างร้ายแรง',3],
+  ['กรมอนุมัติเงินช่วยเหลือเกินสิทธิเพราะเจ้าหน้าที่คำนวณผิด ผู้รับนำเงินไปซ่อมบ้านแล้ว จึงได้รับความคุ้มครองความเชื่อโดยสุจริต',4],
+  ['ส่วนคำสั่งที่ชอบด้วยกฎหมายและให้ประโยชน์ เพิกถอนได้เฉพาะเหตุตาม ม.53 และได้รับค่าทดแทนเฉพาะเหตุ (3)-(5)',2]],
+  why:'โครงบรรยายของคุณ: หลัก/ความหมาย → ฐานกฎหมาย → องค์ประกอบ/เงื่อนไข → ข้อยกเว้น → ตัวอย่าง → ประโยคปิด · ย่อหน้าเรื่อง <span class="sec">ม.53</span> เป็นเงื่อนไขที่ใช้เทียบ จึงอยู่ในช่ององค์ประกอบ/เงื่อนไข'},
+ {k:'recall',w:20,code:'ป',title:'✍️ ไล่รายการให้ครบ',q:'พิมพ์เหตุที่ผู้รับคำสั่ง "อ้างความเชื่อโดยสุจริตไม่ได้" ตาม ว.ป. ม.51 ให้ครบ 3 ประการ (บรรทัดละหนึ่งข้อ เขียนแบบประการแรก ประการที่สอง…)',items:[
+  {label:'แสดงข้อความอันเป็นเท็จ ปกปิดข้อเท็จจริงที่ควรแจ้ง ข่มขู่ หรือชักจูงใจโดยการให้ทรัพย์สินหรือประโยชน์อื่นใดที่มิชอบ',kw:['เท็จ','ปกปิด','ข่มขู่','ชักจูง']},
+  {label:'ให้ข้อความที่ไม่ถูกต้องหรือไม่ครบถ้วนในสาระสำคัญ',kw:['ไม่ถูกต้อง','ไม่ครบ']},
+  {label:'รู้ถึงความไม่ชอบด้วยกฎหมายของคำสั่ง หรือไม่รู้เพราะประมาทเลินเล่ออย่างร้ายแรง',kw:['รู้ถึงความไม่ชอบ','ประมาทเลินเล่ออย่างร้ายแรง','ร้ายแรง','รู้ว่าไม่ชอบ']}],
+  why:'ถ้าเข้าเหตุใดเหตุหนึ่ง ผู้รับคำสั่งต้องคืนประโยชน์ทั้งหมดตั้งแต่วันที่รับไป ในห้องสอบให้เขียนเป็นร้อยแก้ว "ประการแรก… ประการที่สอง… ประการสุดท้าย…"'},
+ {k:'compare',w:10,code:'บ',title:'⚖️ ตารางเปรียบเทียบ',q:'แตะเพื่อสลับว่าแต่ละข้อเป็นของคำสั่งประเภทใด',cols:['คำสั่งไม่ชอบ (ม.49-52)','คำสั่งชอบ (ม.53)'],items:[
+  ['คำสั่งให้ประโยชน์ต้องเพิกถอนภายใน 90 วันนับแต่รู้เหตุ',0],['เพิกถอนได้เฉพาะเหตุที่กฎหมายกำหนด เช่น ข้อเท็จจริงเปลี่ยนไป',1],['ต้องคำนึงถึงความเชื่อโดยสุจริตของผู้รับเงินหรือทรัพย์สิน',0],['ค่าทดแทนความเสียหายเฉพาะเหตุ (3)-(5)',1],['ผู้รับคำสั่งให้ข้อความเท็จ จึงอ้างความเชื่อโดยสุจริตไม่ได้',0],['ไม่ปฏิบัติตามเงื่อนไขของคำสั่ง จึงเพิกถอนได้',1]],
+  why:'จุดแยกสำคัญ: <span class="sec">ม.49-52</span> เริ่มจาก "ความไม่ชอบ" แล้วถ่วงด้วยความเชื่อโดยสุจริต ส่วน <span class="sec">ม.53</span> เริ่มจาก "คำสั่งชอบ" ซึ่งเพิกถอนได้เฉพาะเหตุที่กฎหมายเปิดไว้'},
+ {k:'gate',w:15,code:'ม',title:'🚪 ประตูตัวเลข',q:'พิมพ์ตัวเลขเองจากความจำ (ไม่ต้องพิมพ์ ม.)',gates:[
+  {q:'มาตราที่ให้อำนาจเพิกถอนคำสั่งไม่ชอบ และกำหนดเวลาเพิกถอนคำสั่งที่ให้ประโยชน์',a:['49']},
+  {q:'กำหนดเวลาเพิกถอนคำสั่งไม่ชอบที่ให้ประโยชน์ (วัน)',a:['90']},
+  {q:'มาตราว่าด้วยความเชื่อโดยสุจริตในคำสั่งที่ให้เงินหรือทรัพย์สิน',a:['51']},
+  {q:'มาตราว่าด้วยการเพิกถอนคำสั่งที่ชอบด้วยกฎหมาย',a:['53']}],
+  why:'<span class="sec">ม.49</span> · <span class="num">90 วัน</span> · <span class="sec">ม.51</span> · <span class="sec">ม.53</span>'}]},
+
+{no:2,type:'อุทาหรณ์',pts:60,mins:72,c:'var(--red)',title:'ถนนชำรุด · ละเลยต่อหน้าที่',
+ prompt:'เทศบาลตำบลสายชลมีหน้าที่ตามกฎหมายในการดูแลรักษาถนนสายหลักในเขตเทศบาล ถนนช่วงหน้าตลาดเป็นหลุมลึกมาประมาณสามเดือน ประชาชนร้องเรียนหลายครั้ง แต่เทศบาลไม่ซ่อมและไม่ติดตั้งป้ายเตือนใด ๆ เมื่อวันที่ 10 มกราคม 2569 เวลากลางคืน นายขจรขับรถจักรยานยนต์ตกหลุมได้รับบาดเจ็บ เสียค่ารักษาพยาบาล 120,000 บาท นายขจรยื่นคำขอต่อเทศบาลให้ชดใช้ค่าสินไหมทดแทน เทศบาลไม่มีคำวินิจฉัยภายใน 180 วัน และชี้แจงว่างบประมาณซ่อมถนนยังไม่ได้รับอนุมัติ นายขจรจึงประสงค์จะฟ้องคดี\n\nให้วินิจฉัยว่า นายขจรต้องฟ้องผู้ใด ต่อศาลใด ภายในกำหนดเวลาเท่าใด และข้ออ้างของเทศบาลรับฟังได้หรือไม่',
+ steps:[
+ {k:'highlight',w:12,code:'ห',title:'🖍️ ขีดสำนวน',q:'เลือกปากกาแล้วแตะข้อความ · ส้ม = ข้อเท็จจริงที่ใช้ปรับบท · แดง = ข้อเท็จจริงล่อที่ต้องหักล้าง',segs:[
+  ['เทศบาลตำบลสายชล','use'],['มีหน้าที่ตามกฎหมายในการดูแลรักษาถนน','use'],['สายหลักในเขตเทศบาล',0],['ถนนเป็นหลุมลึกมาประมาณสามเดือน','use'],['ประชาชนร้องเรียนหลายครั้ง','use'],['เทศบาลไม่ซ่อมและไม่ติดตั้งป้ายเตือน','use'],['เวลากลางคืน',0],['นายขจรตกหลุมได้รับบาดเจ็บ','use'],['ยื่นคำขอต่อเทศบาลให้ชดใช้','trap'],['ไม่มีคำวินิจฉัยภายใน 180 วัน',0],['งบประมาณซ่อมถนนยังไม่ได้รับอนุมัติ','trap']],
+  why:'ข้อเท็จจริงล่อ 2 จุด: <b>การยื่นคำขอ</b> (ไม่ได้ตัดสิทธิฟ้อง) และ<b>งบประมาณยังไม่อนุมัติ</b> (ไม่ทำให้พ้นหน้าที่ เพราะอย่างน้อยติดป้ายเตือนได้)'},
+ {k:'gate',w:12,code:'ม',title:'🚪 ประตูรับฟ้อง',q:'เปิดประตูตามลำดับ · พิมพ์เลขมาตรา',gates:[
+  {q:'ศป. — เทศบาลเป็นหน่วยงานทางปกครอง (มาตรา)',a:['3']},
+  {q:'ศป. — คดีละเมิดจากการละเลยต่อหน้าที่ (มาตรา … วรรคหนึ่ง (3))',a:['9']},
+  {q:'ละเมิด — ฟ้องหน่วยงานโดยตรง ฟ้องเจ้าหน้าที่ไม่ได้ (มาตรา)',a:['5']},
+  {q:'ศป. — ระยะเวลาฟ้องคดีละเมิด 1 ปี / ไม่เกิน 10 ปี (มาตรา)',a:['51']}],
+  why:'<span class="sec">ศป. ม.3</span> → <span class="sec">ม.9 ว.1 (3)</span> → <span class="sec">ละเมิด ม.5</span> → <span class="sec">ศป. ม.51</span>'},
+ {k:'duel',w:12,code:'ห',title:'⚔️ ดวลทนายฝ่ายเทศบาล',rounds:[
+  {arg:'"งบประมาณซ่อมถนนยังไม่ได้รับอนุมัติ เทศบาลจึงไม่ได้ละเลยต่อหน้าที่"',
+   mae:['แม้งบประมาณซ่อมถนนจะยังไม่ได้รับอนุมัติ','แม้เทศบาลจะเป็นหน่วยงานทางปกครอง','แม้นายขจรจะขับรถตอนกลางคืน'],ma:0,
+   tae:['แต่การซ่อมถนนเป็นอำนาจดุลพินิจของเทศบาล','แต่เทศบาลยังมีหน้าที่ป้องกันอันตรายเบื้องต้นด้วยการติดป้ายเตือน และปล่อยหลุมไว้นานถึงสามเดือนทั้งที่มีผู้ร้องเรียน จึงเป็นการละเลยต่อหน้าที่','แต่นายขจรได้ยื่นคำขอไว้แล้ว'],ta:1},
+  {arg:'"นายขจรยื่นคำขอตาม ม.11 ไว้แล้ว จึงฟ้องคดีต่อศาลไม่ได้"',
+   mae:['แม้นายขจรจะได้รับบาดเจ็บ','แม้นายขจรจะยื่นคำขอต่อเทศบาลตาม ม.11','แม้คดีจะเป็นคดีละเมิด'],ma:1,
+   tae:['แต่การยื่นคำขอเป็นช่องทางทางเลือกที่ไม่ตัดสิทธิฟ้องคดี และเทศบาลไม่วินิจฉัยภายใน 180 วัน นายขจรจึงฟ้องได้','แต่ต้องรอให้เทศบาลวินิจฉัยก่อนเสมอ','แต่ต้องฟ้องศาลยุติธรรม'],ta:0}],
+  why:'แต่ละประโยค "แม้…แต่…" ต้องยกข้อเท็จจริงล่อขึ้นมา แล้วหักล้างด้วยหลักกฎหมายพร้อมเลขมาตรา'},
+ {k:'timeline',w:9,code:'ต',title:'📅 ปักหมุดเส้นตาย',q:'นายขจรรู้ถึงเหตุแห่งการฟ้องคดีในวันเกิดเหตุ 10 ม.ค. 2569 ต้องฟ้องภายในวันใด',start:'10 ม.ค. 2569',opts:['9 ม.ค. 2570','10 ม.ค. 2570','10 เม.ย. 2569','10 ม.ค. 2579'],a:1,pins:[['10 ม.ค. 69 · รู้เหตุ',0],['10 ม.ค. 70 · ครบ 1 ปี',55],['ไม่เกิน 10 ปี',100]],
+  why:'<span class="sec">ศป. ม.51</span>: <span class="num">1 ปี</span>นับแต่รู้หรือควรรู้ถึงเหตุแห่งการฟ้องคดี (ไม่นับวันแรก ครบ 1 ปีวันที่ 10 ม.ค. 2570) แต่ไม่เกิน <span class="num">10 ปี</span>นับแต่วันที่มีเหตุ'},
+ {k:'build',w:15,code:'บ',title:'🧱 เรียงคำพิพากษา',q:'แตะบล็อกเรียงเป็นย่อหน้าวินิจฉัยตามโครง: ตัวบท → ข้อเท็จจริง → แม้…แต่… → ดังนั้น…จึง…',blocks:[
+  'พระราชบัญญัติจัดตั้งศาลปกครองฯ มาตรา 9 วรรคหนึ่ง (3) กำหนดให้ศาลปกครองมีอำนาจพิจารณาคดีพิพาทเกี่ยวกับการกระทำละเมิดที่เกิดจากการละเลยต่อหน้าที่ตามที่กฎหมายกำหนดให้ต้องปฏิบัติ',
+  'เมื่อข้อเท็จจริงปรากฏว่าเทศบาลมีหน้าที่ดูแลถนน แต่ปล่อยหลุมลึกไว้สามเดือนโดยไม่ซ่อมและไม่ติดป้ายเตือน จนนายขจรได้รับบาดเจ็บ',
+  'แม้เทศบาลจะอ้างว่างบประมาณยังไม่ได้รับอนุมัติ แต่การติดป้ายเตือนเป็นมาตรการเบื้องต้นที่ทำได้ทันที ข้ออ้างจึงรับฟังไม่ได้',
+  'ดังนั้น นายขจรจึงต้องฟ้องเทศบาลตำบลสายชลต่อศาลปกครองตามมาตรา 5 แห่งพระราชบัญญัติความรับผิดทางละเมิดฯ ภายในหนึ่งปีตามมาตรา 51'],
+  why:'โครงย่อหน้าตามกติกาของคุณ: ตัวบท (กำหนดให้) → ข้อเท็จจริง → แม้…แต่… → ดังนั้น…จึง… (ใช้ครั้งเดียวท้ายย่อหน้า)'}]},
+
+{no:3,type:'อุทาหรณ์',pts:60,mins:72,c:'var(--green)',title:'คำสั่งปิดร้าน · ทุเลาการบังคับ · ละเลยต่อหน้าที่',
+ prompt:'(ก) เจ้าพนักงานท้องถิ่นมีคำสั่งปิดร้านอาหารของนางคำแก้ว 30 วัน อ้างว่าร้านปล่อยน้ำเสียลงลำราง โดยอาศัยผลตรวจคุณภาพน้ำซึ่งระบุเลขที่ตั้งของร้านข้างเคียง นางคำแก้วอุทธรณ์ตามกฎหมายแล้ว ผู้มีอำนาจพิจารณาอุทธรณ์มีคำวินิจฉัยยกอุทธรณ์ นางคำแก้วจึงฟ้องขอเพิกถอนคำสั่ง และขอให้ศาลทุเลาการบังคับ เพราะร้านมีลูกจ้าง 20 คน และวัตถุดิบที่สั่งไว้ล่วงหน้าจะเน่าเสีย เจ้าพนักงานท้องถิ่นแถลงว่าการทุเลาจะทำให้คำสั่งของเจ้าหน้าที่ไร้ผลและเป็นอุปสรรคต่อการบริหารงานของรัฐ\n\n(ข) ต่อมานางคำแก้วพบว่าโรงงานต้นน้ำเป็นผู้ปล่อยน้ำเสียจริง จึงมีหนังสือลงวันที่ 1 มกราคม 2569 ร้องขอให้เทศบาลดำเนินการตามอำนาจหน้าที่ แต่เทศบาลเพิกเฉย โดยกฎหมายมิได้กำหนดระยะเวลาให้เทศบาลต้องดำเนินการไว้\n\nให้วินิจฉัยว่า ศาลควรสั่งทุเลาการบังคับหรือไม่ และนางคำแก้วต้องฟ้องคดีตาม (ข) ภายในวันใด',
+ steps:[
+ {k:'evidence',w:12,code:'บ',title:'🔍 ไต่สวนหาพยาน',q:'ในระบบไต่สวน ตุลาการเรียกพยานหลักฐานเองได้ เลือกพยานที่ช่วยพิสูจน์เงื่อนไขการทุเลา (เลือกได้หลายข้อ)',opts:[
+  ['ผลตรวจคุณภาพน้ำที่ระบุเลขที่ตั้งของร้านข้างเคียง',true],['บัญชีรายชื่อลูกจ้างและสัญญาซื้อวัตถุดิบล่วงหน้า',true],['ข้อมูลว่าร้านเดียวปิด 30 วันไม่กระทบบริการสาธารณะ',true],['ใบประกาศเกียรติคุณร้านอาหารยอดนิยม',false],['รายชื่อร้านอื่นในซอยที่ไม่ถูกตรวจ',false]],
+  why:'พยานต้องตอบเงื่อนไขทุเลาสามข้อ: คำสั่ง<b>น่าจะไม่ชอบ</b> (ผลตรวจเป็นของร้านอื่น) · <b>เสียหายร้ายแรงยากเยียวยา</b> (ลูกจ้าง วัตถุดิบ) · <b>ไม่เป็นอุปสรรค</b>ต่อการบริหารงานของรัฐหรือบริการสาธารณะ'},
+ {k:'recall',w:15,code:'ป',title:'✍️ เงื่อนไขทุเลาการบังคับ',q:'พิมพ์เงื่อนไขที่ศาลใช้สั่งทุเลาการบังคับตามกฎหรือคำสั่งให้ครบ 3 ข้อ',items:[
+  {label:'กฎหรือคำสั่งนั้นน่าจะไม่ชอบด้วยกฎหมาย',kw:['ไม่ชอบ']},
+  {label:'การให้กฎหรือคำสั่งมีผลใช้บังคับต่อไปจะทำให้เกิดความเสียหายอย่างร้ายแรงที่ยากแก่การเยียวยาแก้ไขในภายหลัง',kw:['ร้ายแรง','เยียวยา']},
+  {label:'การทุเลาไม่เป็นอุปสรรคแก่การบริหารงานของรัฐหรือแก่บริการสาธารณะ',kw:['อุปสรรค','บริการสาธารณะ','บริหารงาน']}],
+  why:'<span class="sec">ศป. ม.66</span> ประกอบระเบียบของที่ประชุมใหญ่ตุลาการในศาลปกครองสูงสุดฯ · ต้องครบทั้งสามเงื่อนไข'},
+ {k:'duel',w:12,code:'ห',title:'⚔️ ดวลเจ้าพนักงานท้องถิ่น',rounds:[
+  {arg:'"การทุเลาจะทำให้คำสั่งของเจ้าหน้าที่ไร้ผล และเป็นอุปสรรคต่อการบริหารงานของรัฐ"',
+   mae:['แม้การทุเลาจะทำให้คำสั่งยังไม่มีผลบังคับชั่วคราว','แม้นางคำแก้วจะอุทธรณ์แล้ว','แม้ร้านจะมีลูกจ้าง 20 คน'],ma:0,
+   tae:['แต่คำสั่งเจ้าหน้าที่ต้องมีผลบังคับเสมอ','แต่คำสั่งนี้กระทบร้านเดียว และผลตรวจที่อ้างเป็นของร้านข้างเคียง การทุเลาจึงไม่เป็นอุปสรรคต่อการบริหารงานของรัฐหรือบริการสาธารณะ','แต่ศาลต้องรอพิพากษาก่อน'],ta:1}],
+  why:'ข้ออ้างว่า "คำสั่งจะไร้ผล" เป็นผลปกติของการทุเลาทุกคดี จึงไม่ใช่เหตุที่จะไม่ทุเลา ต้องดูว่ากระทบการบริหารงานของรัฐหรือบริการสาธารณะจริงหรือไม่'},
+ {k:'timeline',w:12,code:'ต',title:'📅 ม.49 ทางที่สอง',q:'นางคำแก้วมีหนังสือร้องขอวันที่ 1 ม.ค. 2569 เทศบาลเงียบ (กฎหมายไม่กำหนดเวลาไว้) ต้องฟ้องภายในวันใด',start:'1 ม.ค. 2569',opts:['31 มี.ค. 2569','1 เม.ย. 2569','30 มิ.ย. 2569','1 ม.ค. 2570'],a:2,pins:[['1 ม.ค. · มีหนังสือ',0],['1 เม.ย. · พ้น 90 วัน',50],['30 มิ.ย. · วันสุดท้าย',100]],
+  why:'<span class="sec">ศป. ม.49</span>: ฟ้องภายใน <span class="num">90 วัน</span>นับแต่วันที่<b>พ้นกำหนด 90 วัน</b>นับแต่มีหนังสือร้องขอ → ช่วงแรกครบ 1 เม.ย. 2569 → ช่วงที่สองครบ 30 มิ.ย. 2569 (ไม่นับวันแรกทั้งสองช่วง) · ปี 2569 เดือนกุมภาพันธ์มี 28 วัน'},
+ {k:'gate',w:9,code:'ม',title:'🚪 ประตูมาตรา',q:'พิมพ์เลขมาตรา',gates:[
+  {q:'ศป. — คุ้มครองชั่วคราว / ทุเลาการบังคับ',a:['66']},
+  {q:'ศป. — ต้องดำเนินการตามขั้นตอนแก้ไขความเดือดร้อนก่อนฟ้อง (มาตรา … วรรคสอง)',a:['42']},
+  {q:'ศป. — คดีละเลยต่อหน้าที่หรือล่าช้าเกินสมควร (มาตรา … วรรคหนึ่ง (2))',a:['9']}],
+  why:'<span class="sec">ม.66</span> · <span class="sec">ม.42 ว.2</span> (นางคำแก้วอุทธรณ์แล้ว จึงผ่านเงื่อนไข) · <span class="sec">ม.9 ว.1 (2)</span>'}]},
+
+{no:4,type:'แปล',pts:20,mins:24,c:'var(--gold)',title:'แปลไทย ↔ อังกฤษ',
+ prompt:'(ก) แปลเป็นภาษาอังกฤษ (10 คะแนน): "ศาลปกครองใช้ระบบไต่สวน ซึ่งตุลาการมีบทบาทเชิงรุกในการแสวงหาข้อเท็จจริง"\n\n(ข) แปลเป็นภาษาไทย (10 คะแนน · ข้อความสมมติเพื่อฝึก): "This year marks the 25th anniversary of the Administrative Court. The Court has continued to promote access to justice through electronic filing and mediation, while artificial intelligence shall be used only to support, not to replace, the judgment of judges."',
+ steps:[
+ {k:'term',w:5,code:'ภ',title:'🇹🇭→🇬🇧 ศัพท์สำคัญ',q:'พิมพ์คำแปลภาษาอังกฤษของศัพท์ในข้อ (ก)',pairs:[['ศาลปกครอง',['administrative court','the administrative court']],['ระบบไต่สวน',['inquisitorial system','the inquisitorial system']],['การแสวงหาข้อเท็จจริง',['fact-finding','fact finding']],['ตุลาการ',['judges','judge','administrative judges','administrative judge']]],
+  why:'ศัพท์ทางการ: Administrative Court · inquisitorial system · fact-finding · (administrative) judges'},
+ {k:'tiles',w:5,code:'ภ',title:'🇹🇭→🇬🇧 เรียงประโยค',q:'แตะคำเรียงเป็นคำแปลข้อ (ก)',en:'The Administrative Court applies the inquisitorial system , in which judges play an active role in fact-finding .',why:'โครง "…ซึ่ง…" ในภาษาไทย แปลด้วย <b>, in which …</b> เพื่อขยายระบบที่กล่าวถึง'},
+ {k:'clause',w:10,code:'ภ',title:'🇬🇧→🇹🇭 แปลทีละท่อน',rows:[
+  {en:'This year marks the 25th anniversary of the Administrative Court.',o:['ปีนี้ทำเครื่องหมาย 25 ปีศาลปกครอง','ปีนี้เป็นปีครบรอบ 25 ปีของศาลปกครอง','ศาลปกครองมีอายุ 25 ปีแล้วในปีนี้เท่านั้น'],a:1},
+  {en:'The Court has continued to promote access to justice',o:['ศาลได้ส่งเสริมการเข้าถึงความยุติธรรมอย่างต่อเนื่อง','ศาลยังคงโปรโมตการเข้าถึงความยุติธรรม','ศาลได้เข้าถึงความยุติธรรมต่อไป'],a:0},
+  {en:'through electronic filing and mediation,',o:['ผ่านแฟ้มอิเล็กทรอนิกส์และการเจรจา','โดยการยื่นฟ้องคดีทางอิเล็กทรอนิกส์และการไกล่เกลี่ยข้อพิพาท','ด้วยการเก็บไฟล์และการประนีประนอม'],a:1},
+  {en:'while artificial intelligence shall be used only to support, not to replace, the judgment of judges.',o:['ขณะที่ AI จะต้องถูกใช้เพื่อสนับสนุนแต่ไม่แทนที่คำพิพากษาของผู้พิพากษา','โดยให้ใช้ปัญญาประดิษฐ์เพียงเพื่อสนับสนุน มิใช่เพื่อทดแทนการวินิจฉัยของตุลาการ','และปัญญาประดิษฐ์อาจใช้แทนตุลาการได้บางกรณี'],a:1}],
+  why:'แปลความ ไม่แปลทีละคำ · marks the anniversary = เป็นปีครบรอบ · filing = การยื่นฟ้อง (ไม่ใช่แฟ้ม) · shall = ให้… · judges ในบริบทศาลปกครองใช้ "ตุลาการ" · judgment ในที่นี้คือ "การวินิจฉัย"'}]}
+]};
+
+/* ---------- ห้องฝึก (โหมด A) ---------- */
+const ROOMS=[
+{id:'r-desc',name:'📖 ห้องบรรยาย',sub:'ไล่รายการให้ครบ · ตารางเปรียบเทียบ',c:'var(--blue)',steps:[
+ {k:'recall',w:10,code:'ป',title:'ข้อยกเว้นการให้โอกาสโต้แย้ง ม.30 วรรคสอง',q:'พิมพ์ให้ครบ 6 กรณี',items:[
+  {label:'(1) จำเป็นรีบด่วน หากชักช้าจะเสียหายร้ายแรงแก่ผู้หนึ่งผู้ใดหรือประโยชน์สาธารณะ',kw:['รีบด่วน','ฉุกเฉิน']},
+  {label:'(2) ทำให้ระยะเวลาที่กฎหมายหรือกฎกำหนดไว้ต้องล่าช้าออกไป',kw:['ล่าช้า','ระยะเวลา']},
+  {label:'(3) เป็นข้อเท็จจริงที่คู่กรณีได้ให้ไว้ในคำขอ คำให้การ หรือคำแถลง',kw:['คู่กรณีให้','คำขอ','คำให้การ','คำแถลง']},
+  {label:'(4) โดยสภาพเห็นได้ชัดว่าการให้โอกาสดังกล่าวไม่อาจกระทำได้',kw:['สภาพ','ไม่อาจ']},
+  {label:'(5) เป็นมาตรการบังคับทางปกครอง',kw:['บังคับทางปกครอง','มาตรการบังคับ']},
+  {label:'(6) กรณีอื่นตามที่กำหนดในกฎกระทรวง',kw:['กฎกระทรวง']}],why:'ส่วนวรรคสามห้ามให้โอกาส ถ้าจะก่อผลเสียหายร้ายแรงต่อประโยชน์สาธารณะ'},
+ {k:'recall',w:10,code:'ป',title:'เหตุเพิกถอนคำสั่งชอบที่ให้ประโยชน์ ม.53',q:'พิมพ์ให้ครบ 5 เหตุ',items:[
+  {label:'(1) มีกฎหมายให้เพิกถอนได้ หรือมีข้อกำหนดให้เพิกถอนได้ในคำสั่งนั้นเอง',kw:['ข้อกำหนด','สงวน','กฎหมายให้']},
+  {label:'(2) มีเงื่อนไขให้ผู้รับประโยชน์ต้องปฏิบัติ แต่ไม่ปฏิบัติภายในเวลาที่กำหนด',kw:['เงื่อนไข']},
+  {label:'(3) ข้อเท็จจริงและพฤติการณ์เปลี่ยนไป ซึ่งถ้ามีมาแต่แรกจะไม่ออกคำสั่ง และถ้าไม่เพิกถอนอาจเกิดความเสียหายต่อประโยชน์สาธารณะ',kw:['ข้อเท็จจริง','พฤติการณ์']},
+  {label:'(4) บทกฎหมายเปลี่ยนแปลงไป ซึ่งถ้ามีมาแต่แรกจะไม่ออกคำสั่ง (เฉพาะผู้รับประโยชน์ยังไม่ได้ใช้ประโยชน์) และถ้าไม่เพิกถอนอาจเกิดความเสียหายต่อประโยชน์สาธารณะ',kw:['บทกฎหมาย','กฎหมายเปลี่ยน']},
+  {label:'(5) อาจเกิดความเสียหายอย่างร้ายแรงต่อประโยชน์สาธารณะหรือต่อประชาชนอันจำเป็นต้องป้องกันหรือขจัด',kw:['ร้ายแรงต่อประโยชน์สาธารณะ','ร้ายแรง','ขจัด']}],why:'วรรคสามให้ค่าทดแทนความเสียหายเฉพาะเหตุ (3)-(5)'},
+ {k:'recall',w:10,code:'ป',title:'ข้อบกพร่องที่แก้ไขได้ ม.41',q:'พิมพ์ให้ครบ 4 กรณี',items:[
+  {label:'(1) ออกคำสั่งโดยยังไม่มีผู้ยื่นคำขอ ถ้าภายหลังมีการยื่นคำขอแล้ว',kw:['คำขอ']},
+  {label:'(2) คำสั่งที่ต้องมีเหตุผลตาม ม.37 ถ้าได้จัดให้มีเหตุผลในภายหลัง',kw:['เหตุผล']},
+  {label:'(3) การรับฟังคู่กรณีไม่สมบูรณ์ ถ้าได้รับฟังให้สมบูรณ์ในภายหลัง',kw:['รับฟัง','โต้แย้ง','ฟังความ']},
+  {label:'(4) คำสั่งที่ต้องให้เจ้าหน้าที่อื่นเห็นชอบก่อน ถ้าได้เห็นชอบในภายหลัง',kw:['เห็นชอบ']}],why:'วรรคสอง: กรณี (2)-(4) ต้องแก้ไขก่อนสิ้นสุดกระบวนการพิจารณาอุทธรณ์'},
+ {k:'compare',w:10,code:'บ',title:'อุทธรณ์บังคับ / เผื่อเลือก',q:'แตะเพื่อสลับ',cols:['อุทธรณ์บังคับ','อุทธรณ์เผื่อเลือก'],items:[['ต้องอุทธรณ์ภายในฝ่ายปกครองก่อน จึงฟ้องศาลได้',0],['เลือกฟ้องศาลได้ทันทีโดยไม่ต้องอุทธรณ์',1],['ระบบไทยตาม ว.ป. ม.44 ประกอบ ศป. ม.42 วรรคสอง',0],['ถ้าไม่อุทธรณ์ก่อน ศาลไม่รับฟ้อง',0]],why:'ระบบไทยเป็นอุทธรณ์บังคับ (แนวธง 2566 ข้อ 1)'},
+ {k:'compare',w:10,code:'บ',title:'ระบบไต่สวน / ระบบกล่าวหา',q:'แตะเพื่อสลับ',cols:['ไต่สวน (ศาลปกครอง)','กล่าวหา'],items:[['ศาลแสวงหาข้อเท็จจริงเองได้',0],['คู่ความมีภาระนำสืบเป็นหลัก',1],['ตุลาการเจ้าของสำนวนเรียกพยานหลักฐานเพิ่มได้',0],['ศาลวางตัวเป็นกลางรอฟังพยานที่คู่ความเสนอ',1]],why:'ศาลปกครองใช้ระบบไต่สวนเพราะคู่กรณีฝ่ายเอกชนเข้าถึงพยานหลักฐานของรัฐได้ยาก'},
+ {k:'compare',w:10,code:'บ',title:'สัญญาทางปกครอง / สัญญาทางแพ่ง',q:'แตะเพื่อสลับ',cols:['ทางปกครอง','ทางแพ่ง'],items:[['สัญญาสัมปทาน',0],['จ้างก่อสร้างถนนสาธารณะ (สิ่งสาธารณูปโภค)',0],['ซื้อคอมพิวเตอร์ใช้ในสำนักงาน',1],['สัญญาแสวงประโยชน์จากทรัพยากรธรรมชาติ',0],['เช่ารถตู้รับส่งพนักงาน',1]],why:'ศป. <span class="sec">ม.3</span> สี่ประเภท + สัญญาที่มีข้อกำหนดแสดงเอกสิทธิ์ของรัฐ'}]},
+{id:'r-case',name:'🏛️ ห้องอุทาหรณ์',sub:'ขีดสำนวน · ประตูรับฟ้อง · ดวลทนาย · คำนวณ',c:'var(--red)',steps:[
+ {k:'highlight',w:10,code:'ห',title:'รถราชการ / ละเมิดส่วนตัว',q:'ส้ม = ใช้ปรับบท · แดง = ข้อเท็จจริงล่อ',segs:[['นายเอกเป็นข้าราชการของกรม','trap'],['ใช้รถราชการ','trap'],['หลังเลิกงาน','use'],['ขับไปรับลูกที่โรงเรียน','use'],['ชนรถของนายบุญ','use']],why:'ไปรับลูกหลังเลิกงานไม่ใช่การปฏิบัติหน้าที่ → <span class="sec">ม.6</span> ฟ้องนายเอกเองต่อ<span class="jus">ศาลยุติธรรม</span> · สถานะข้าราชการและรถราชการเป็นข้อเท็จจริงล่อ'},
+ {k:'calc',w:10,code:'ต',title:'🧮 แบ่งความรับผิด ม.8',q:'กรมชดใช้ให้ผู้เสียหายไปแล้ว 1,000,000 บาท ความเสียหายส่วนหนึ่ง 20% เกิดจากระบบงานของกรมบกพร่อง ส่วนที่เหลือเกิดจากเจ้าหน้าที่ 2 คนซึ่งประมาทเลินเล่ออย่างร้ายแรงในสัดส่วนเท่ากัน กรมเรียกให้เจ้าหน้าที่แต่ละคนชดใช้ได้คนละกี่บาท',a:400000,unit:'บาท',why:'หักส่วนความบกพร่องของหน่วยงาน 20% (<span class="sec">ม.8</span>) → เหลือ 800,000 · ไม่ใช่ลูกหนี้ร่วม แต่ละคนรับผิดเฉพาะส่วนของตน (<span class="sec">ม.8 ว.4</span>) → คนละ <span class="num">400,000 บาท</span> (ในทางจริงยังต้องคำนึงถึงระดับความร้ายแรงและความเป็นธรรมด้วย)'},
+ {k:'gate',w:10,code:'ม',title:'ผู้พิพากษาถูกฟ้องต่อศาลปกครอง',q:'พิมพ์เลขมาตรา',gates:[{q:'รัฐธรรมนูญ — ศาลยุติธรรมมีอำนาจพิจารณาคดีทั้งปวง',a:['194']},{q:'ศป. — นิยามหน่วยงานทางปกครอง / เจ้าหน้าที่ของรัฐ',a:['3']},{q:'ป.วิ.พ. — คำพิพากษาผูกพันคู่ความ',a:['145']}],why:'แนวธง 2567 ข้อ 3: การพิพากษาเป็นอำนาจตุลาการ ไม่ใช่การกระทำทางปกครอง'},
+ {k:'duel',w:10,code:'ห',title:'ใบสั่งจราจร',rounds:[{arg:'"เจ้าพนักงานจราจรเป็นเจ้าหน้าที่ของรัฐ ใบสั่งจึงเป็นคำสั่งทางปกครอง ฟ้องศาลปกครองได้"',mae:['แม้เจ้าพนักงานจราจรเป็นเจ้าหน้าที่ของรัฐ','แม้ใบสั่งจะมีผลกระทบสิทธิ','แม้ผู้ฟ้องจะอุทธรณ์แล้ว'],ma:0,tae:['แต่ใบสั่งและการเปรียบเทียบปรับเป็นขั้นตอนในกระบวนการยุติธรรมทางอาญา ผู้ต้องหาโต้แย้งในศาลยุติธรรมได้ จึงไม่ใช่คดีปกครอง','แต่ต้องอุทธรณ์ก่อน','แต่ต้องฟ้องภายใน 90 วัน'],ta:0}],why:'ต่างจากประกาศ สตช. ที่ใช้บังคับเป็นการทั่วไป ซึ่งเป็นกฎ ฟ้องศาลปกครองได้ (อ.50/2568)'},
+ {k:'evidence',w:10,code:'บ',title:'คำสั่งให้ชดใช้ตาม ม.12',q:'อธิบดีออกคำสั่งให้เจ้าหน้าที่ชดใช้ตาม ม.12 เจ้าหน้าที่ฟ้องเพิกถอน ตุลาการควรเรียกเอกสารใดเพื่อตรวจความชอบของคำสั่ง (เลือกได้หลายข้อ)',opts:[['คำสั่งแต่งตั้งคณะกรรมการสอบข้อเท็จจริงความรับผิดทางละเมิด',true],['รายงานผลการสอบข้อเท็จจริงความรับผิดทางละเมิด',true],['หลักฐานการให้โอกาสเจ้าหน้าที่ชี้แจง',true],['ผลการสอบสวนวินัยเพียงอย่างเดียว',false],['ประวัติการลาของเจ้าหน้าที่',false]],why:'ระเบียบสำนักนายกฯ ข้อ 8 ต้องตั้งกรรมการสอบข้อเท็จจริงความรับผิดทางละเมิดก่อน ผลสอบวินัยใช้แทนไม่ได้ (แนวธง 2566)'}]},
+{id:'r-tr',name:'🌐 ห้องแปล',sub:'ศัพท์ทางการ · โครงประโยคตัวบท · แปลทีละท่อน',c:'var(--gold)',steps:[
+ {k:'term',w:10,code:'ภ',title:'ศัพท์ทางการ (ไทย→อังกฤษ)',q:'พิมพ์คำแปล',pairs:[['ตุลาการผู้แถลงคดี',['judge-commissioner of justice']],['ตุลาการเจ้าของสำนวน',['judge-rapporteur']],['ศาลปกครองสูงสุด',['supreme administrative court','the supreme administrative court']],['ระบบศาลคู่',['dual court system']],['หน่วยงานทางปกครอง',['administrative agency']],['เจ้าหน้าที่ของรัฐ',['state official']]],why:'ชื่อตำแหน่งตามเว็บไซต์ภาษาอังกฤษของสำนักงานศาลปกครอง'},
+ {k:'tiles',w:10,code:'ภ',title:'มีอำนาจพิจารณาพิพากษา',q:'แปล: "ศาลปกครองจึงมีอำนาจพิจารณาพิพากษาคดีนี้"',en:'The Administrative Court therefore has competence to try and adjudicate this case .',why:'<b>has competence to try and adjudicate</b> คำที่ธงใช้ซ้ำ'},
+ {k:'tiles',w:10,code:'ภ',title:'ให้ถือว่า',q:'แปล: "ให้ถือว่าคำสั่งดังกล่าวเป็นคำสั่งทางปกครอง"',en:'Such order shall be deemed to be an administrative order .',why:'ให้ถือว่า = <b>shall be deemed</b>'},
+ {k:'clause',w:10,code:'ภ',title:'อังกฤษ→ไทย โครงตัวบท',rows:[{en:'Subject to Section 42,',o:['ภายใต้บังคับมาตรา 42','เรื่องของมาตรา 42','ตามมาตรา 42 เท่านั้น'],a:0},{en:'Notwithstanding the provisions of Section 5,',o:['แม้ไม่มีมาตรา 5','ทั้งนี้ ไม่ว่าจะมีบทบัญญัติแห่งมาตรา 5 อย่างไรก็ตาม','ตามบทบัญญัติมาตรา 5'],a:1},{en:'… shall apply mutatis mutandis.',o:['ให้นำ … มาใช้บังคับโดยอนุโลม','ให้ใช้ … ด้วยความระมัดระวัง','… อาจใช้บังคับได้'],a:0},{en:'Unless otherwise provided by law,',o:['เว้นแต่กฎหมายจะกำหนดไว้เป็นอย่างอื่น','ถ้ากฎหมายไม่ได้ห้าม','นอกจากกฎหมาย'],a:0}],why:'วลีขึ้นต้นตัวบทที่พบบ่อยในข้อแปล'}]},
 ];
 
-/* ---------------- ระบบเกม ---------------- */
-const $=id=>document.getElementById(id);
+/* =====================================================================
+   เครื่องยนต์เกม
+   ===================================================================== */
+const app=document.getElementById('app'),dockEl=document.getElementById('dock'),dockIn=document.getElementById('dockIn');
 const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
-let best=store.get('gameBest',{});
 const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
-let st,qs,qi,lives,score,streak,missed,timerId,tLeft,locked,trapDone,trapOK;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const thd=s=>String(s).replace(/[๐-๙]/g,d=>'๐๑๒๓๔๕๖๗๘๙'.indexOf(d));
+const normNum=s=>{const m=thd(s).match(/\d+(?:\/\d+)?/);return m?m[0]:''};
+const normEn=s=>s.toLowerCase().replace(/[‐-—]/g,'-').replace(/[^a-z\- ]/g,' ').replace(/\s+/g,' ').trim();
+let best=store.get('courtBest',{});
+function dock(btns){dockIn.innerHTML='';btns.forEach(([l,f,m,dis])=>{const b=document.createElement('button');b.className='btn'+(m?' main':'');b.textContent=l;b.onclick=f;if(dis)b.disabled=true;dockIn.appendChild(b)});dockEl.hidden=!btns.length}
+const RANKS=[[0,'พนักงานคดีปกครอง'],[40,'ตุลาการศาลปกครองชั้นต้น'],[55,'ตุลาการหัวหน้าคณะ'],[70,'ตุลาการศาลปกครองสูงสุด'],[85,'ประธานศาลปกครองสูงสุด']];
+const rankOf=p=>RANKS.filter(r=>p>=r[0]).pop()[1];
 
-function renderHome(){const box=$('stages');box.innerHTML='';
- STAGES.forEach(s=>{const b=document.createElement('button');b.className='btn stage';b.style.setProperty('--c',s.c);
-  b.innerHTML='<span class="ic">'+s.ic+'</span><span><b>'+s.name+'</b><small>'+s.sub+' · '+s.q.length+' ข้อ</small></span><span class="best">'+(best[s.id]!=null?'🏆 '+best[s.id]:'')+'</span>';
-  b.onclick=()=>start(s);box.appendChild(b)});
- const all=document.createElement('button');all.className='btn main';all.style.cssText='width:100%;margin-top:10px';all.textContent='🎲 สุ่มรวมทุกด่าน 20 ข้อ';
- all.onclick=()=>start({id:'mix',name:'สุ่มรวมทุกด่าน',c:'var(--navy)',time:25,q:sh(STAGES.flatMap(s=>s.q.map(q=>Object.assign({_c:s.c,_n:s.name},q)))).slice(0,20)});box.appendChild(all);
- show('home');$('dock').hidden=true}
+/* ---------- หน้าแรก ---------- */
+function home(){window.scrollTo(0,0);dock([]);
+ let h='<h1>⚖️ ตุลาการเจ้าของสำนวน</h1><p class="sub">เกมข้อสอบจำลองพนักงานคดีปกครอง · รูปแบบตามข้อสอบจริง: อุทาหรณ์ · บรรยาย · แปลสองทิศทาง</p>';
+ h+='<h2>โหมด B · ข้อสอบจำลองแบบเกม</h2>';
+ h+=tileHTML('A','📝',PAPER_A.name,PAPER_A.sub,'var(--navy)',best.A!=null?'🏆 '+best.A+'/200':'');
+ h+='<div class="card" style="--c:var(--line)"><b>ชุด ข (แบบปี 2562 · ข้อ ก/ข) และชุด ค (แบบปี 2567)</b><div class="hint">จะเพิ่มหลังสอบ ตามร่างที่ตกลงไว้</div></div>';
+ h+='<h2 style="margin-top:18px">โหมด A · ห้องฝึกแยกประเภท</h2>';
+ ROOMS.forEach(r=>{h+=tileHTML(r.id,r.name.split(' ')[0],r.name.slice(r.name.indexOf(' ')+1),r.sub+' · '+r.steps.length+' ด่าน',r.c,best[r.id]!=null?'🏆 '+best[r.id]+'%':'')});
+ h+='<p class="hint" style="margin-top:16px">กลไก: 🖍️ ขีดสำนวน · 🚪 ประตูมาตรา · 🔍 ไต่สวน · ⚔️ ดวลทนาย · 📅 เส้นเวลา · 🧮 คำนวณ · 🧱 เรียงคำพิพากษา · 🗂️ โครงบรรยาย · ✍️ ไล่รายการ · ⚖️ เปรียบเทียบ · 🌐 แปล<br>เนื้อหาเพื่อการเตรียมสอบ · ตรวจถ้อยคำเต็มของตัวบทก่อนอ้างอิง · <a href="/pkp/game/quiz.html" style="color:var(--navy)">ควิซสายฟ้า (เกมเดิม)</a> · <a href="/pkp/" style="color:var(--navy)">แฟลชการ์ด</a></p>';
+ app.innerHTML=h;
+ app.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{const id=b.dataset.go;if(id==='A')startPaper(PAPER_A);else startRoom(ROOMS.find(r=>r.id===id))})}
+function tileHTML(id,ic,name,sub,c,bst){return '<button class="btn tile" data-go="'+id+'" style="--c:'+c+'"><span class="ic">'+ic+'</span><span><b>'+name+'</b><small>'+sub+'</small></span><span class="best">'+bst+'</span></button>'}
 
-function show(id){['home','play','end'].forEach(x=>$(x).hidden=x!==id);window.scrollTo(0,0)}
-function start(s,only){st=s;qs=only||sh(s.q);qi=0;lives=3;score=0;streak=0;missed=[];show('play');next()}
-function hud(){$('hearts').textContent='❤️'.repeat(lives)+'🤍'.repeat(3-lives);$('prog').textContent=(qi+1)+' / '+qs.length;$('streak').textContent=streak>1?'🔥×'+Math.min(streak,3):'';$('score').textContent=score;$('stName').textContent=st.name}
-function next(){clearInterval(timerId);if(qi>=qs.length||lives<=0)return finish();locked=false;trapDone=false;trapOK=true;const q=qs[qi];const c=q._c||st.c;hud();
- const card=$('qcard');card.style.setProperty('--c',c);card.className='qcard pop';$('tbar').parentNode.style.setProperty('--c',c);
- let h='<div class="qtag">'+(q.tag||(q.t==='tf'?'ถูกหรือผิด':'เลือกคำตอบ'))+(q._n?' · '+q._n:'')+'</div>';
- if(q.t==='trap'){h+='<div class="qtext" style="font-size:.95rem;color:var(--mute)">ขั้น 1 · แตะข้อเท็จจริงที่โจทย์ใส่มาล่อ</div><div class="facts">'+q.f.map((x,i)=>'<span class="fact" data-i="'+i+'">'+x+'</span>').join(' ')+'</div><div id="step2" hidden><div class="qtext">ขั้น 2 · '+q.q+'</div><div id="opts"></div></div>'}
- else{h+='<div class="qtext">'+q.q+'</div><div id="opts" class="'+(q.t==='tf'?'tf':'')+'"></div>'}
- h+='<div id="exp"></div>';card.innerHTML=h;
- if(q.t==='trap'){card.querySelectorAll('.fact').forEach(el=>el.onclick=()=>{if(trapDone||locked)return;trapDone=true;const i=+el.dataset.i;card.querySelectorAll('.fact')[q.trap].classList.add('trap');if(i!==q.trap){el.classList.add('wrongpick');trapOK=false}$('step2').hidden=false;opts(q)})}
- else opts(q);
- $('dock').hidden=true;tLeft=(q._c?25:st.time)*(q.t==='trap'?1.6:1);const total=tLeft;const bar=$('tbar');bar.style.width='100%';
- timerId=setInterval(()=>{tLeft-=.1;bar.style.width=Math.max(0,tLeft/total*100)+'%';if(tLeft<=0){clearInterval(timerId);answer(null)}},100)}
-function opts(q){const box=$('opts');box.innerHTML='';const list=q.t==='tf'?[[true,'✅ ถูก'],[false,'❌ ผิด']]:sh(q.o.map((o,i)=>[i,o]));
- list.forEach(([v,label])=>{const b=document.createElement('button');b.className='opt';b.textContent=label;b.dataset.v=String(v);b.onclick=()=>answer(v,b);box.appendChild(b)})}
-function answer(v,btn){if(locked)return;locked=true;clearInterval(timerId);const q=qs[qi];const right=q.t==='tf'?v===q.a:v===q.a;const ok=right&&(q.t!=='trap'||trapOK)&&v!==null;
- document.querySelectorAll('#opts .opt').forEach(b=>{const bv=q.t==='tf'?b.dataset.v==='true':+b.dataset.v;if(bv===q.a)b.classList.add('right');else if(b===btn)b.classList.add('wrong')});
- if(q.t==='trap'&&!trapDone){document.querySelectorAll('.fact')[q.trap].classList.add('trap')}
- let gain=0;if(ok){streak++;gain=10*Math.min(streak,3)+Math.round(Math.max(0,tLeft));score+=gain;floatTxt('+'+gain)}else{streak=0;lives--;missed.push(q);$('qcard').classList.add('shake')}
- const msg=v===null?'<span class="verdict no">⏱ หมดเวลา</span>':ok?'<span class="verdict ok">ถูกต้อง</span><span class="pts">+'+gain+'</span>':(right&&!trapOK)?'<span class="verdict no">ตอบถูก แต่จับกับดักพลาด</span>':'<span class="verdict no">ยังไม่ถูก</span>';
- $('exp').innerHTML='<div class="exp">'+msg+'<br>'+q.e+'</div>';hud();
- dock([[qi+1>=qs.length||lives<=0?'ดูผล':'ข้อต่อไป →',()=>{qi++;next()},true]])}
-function floatTxt(t){const d=document.createElement('div');d.className='float';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),900)}
-function dock(btns){const d=$('dockIn');d.innerHTML='';btns.forEach(([l,f,m])=>{const b=document.createElement('button');b.className='btn'+(m?' main':'');b.textContent=l;b.onclick=f;d.appendChild(b)});$('dock').hidden=false}
-function finish(){clearInterval(timerId);show('end');const full=qs.length*30;const pct=score/full;const stars=lives<=0?(pct>.3?1:0):pct>.75?3:pct>.5?2:1;
- $('endName').textContent=st.name+(lives<=0?' · หมดชีวิต':' · จบด่าน');$('endScore').textContent=score+' คะแนน';$('endStars').textContent='⭐'.repeat(stars)+'☆'.repeat(3-stars);
- $('endMsg').innerHTML=missed.length?'พลาด <b>'+missed.length+'</b> ข้อ · ทวนด้านล่างแล้วกด "เล่นเฉพาะข้อที่พลาด"':'ไม่พลาดเลย พร้อมเข้าห้องสอบด้านนี้แล้ว';
- if(st.id!=='mix'&&(best[st.id]==null||score>best[st.id])){best[st.id]=score;store.set('gameBest',best)}
- $('missList').innerHTML=missed.map(q=>'<div class="miss"><b>'+(q.q||q.tag)+'</b>'+q.e+'</div>').join('');
- const b=[['🏠 เลือกด่าน',renderHome,false]];if(missed.length){const m=missed.slice();b.push(['🔁 เล่นเฉพาะข้อที่พลาด',()=>start(st,sh(m)),true])}else b.push(['🔁 เล่นอีกครั้ง',()=>start(st,st.id==='mix'?sh(st.q):null),true]);dock(b)}
-renderHome();
+/* ---------- สถานะการเล่น ---------- */
+let run=null; // {kind,paper|room, ii (item idx), si (step idx), results:[{item,step,got,w,code,title}], t0}
+function startPaper(p){run={kind:'paper',p,ii:0,si:0,res:[],t0:Date.now(),itemT0:Date.now()};intro()}
+function startRoom(r){run={kind:'room',r,ii:0,si:0,res:[],t0:Date.now()};step()}
+function curItem(){return run.kind==='paper'?run.p.items[run.ii]:{no:'',type:'ฝึก',pts:0,c:run.r.c,title:run.r.name,steps:run.r.steps}}
+function intro(){const it=curItem();window.scrollTo(0,0);
+ app.innerHTML='<div class="top"><span>'+run.p.name+'</span><span>ข้อ '+it.no+' / '+run.p.items.length+'</span></div>'+
+ '<div class="card pop" style="--c:'+it.c+'"><span class="badge">ข้อ '+it.no+' · '+it.type+' · '+it.pts+' คะแนน</span><h2 style="margin-top:8px">'+it.title+'</h2><div class="prompt">'+esc(it.prompt).replace(/\n/g,'<br>')+'</div>'+
+ '<p class="hint" style="margin-top:10px">งบเวลาในห้องสอบจริง ~'+it.mins+' นาที · ในเกมแบ่งเป็น '+it.steps.length+' ด่าน: '+it.steps.map(s=>s.title.split(' ')[0]).join(' ')+'</p></div>';
+ run.itemT0=Date.now();dock([['🏠',home,false],['เริ่มทำข้อนี้ →',()=>{run.si=0;step()},true]])}
+
+function header(){const it=curItem();const s=it.steps[run.si];
+ let st='<div class="steps" style="--c:'+it.c+'">'+it.steps.map((x,i)=>'<i class="'+(i<run.si?'d':i===run.si?'n':'')+'"></i>').join('')+'</div>';
+ let h='<div class="top"><span>'+(run.kind==='paper'?run.p.name+' · ข้อ '+it.no+' · '+it.type:run.r.name)+'</span><span class="clock" id="clk"></span></div>'+st;
+ if(run.kind==='paper')h+='<details class="card prompt" style="--c:'+it.c+';padding:10px 14px"><summary>📄 โจทย์ข้อ '+it.no+' (แตะเพื่อเปิดอ่าน)</summary><div style="margin-top:6px">'+esc(it.prompt).replace(/\n/g,'<br>')+'</div></details>';
+ return h}
+let clkT=null;function tick(){clearInterval(clkT);clkT=setInterval(()=>{const e=document.getElementById('clk');if(!e)return;const sec=Math.floor((Date.now()-(run.itemT0||run.t0))/1000);e.textContent='⏱ '+Math.floor(sec/60)+':'+String(sec%60).padStart(2,'0')},500)}
+
+function step(){const it=curItem();const s=it.steps[run.si];window.scrollTo(0,0);
+ app.innerHTML=header()+'<div class="card pop" style="--c:'+it.c+'" id="sc"><div class="badge">'+s.title+' · '+s.w+' คะแนน</div><div class="q" style="margin-top:8px">'+(s.q||'')+'</div><div id="body"></div><div id="fb"></div></div>';
+ tick();const body=document.getElementById('body');const api=R[s.k](s,body);
+ dock([['ส่งคำตอบ',()=>{const got=Math.max(0,Math.min(s.w,api.check()));finishStep(s,got)},true]])}
+function finishStep(s,got){const it=curItem();got=Math.round(got*10)/10;
+ run.res.push({item:it.no,itemTitle:it.title,title:s.title,got,w:s.w,code:s.code});
+ const full=got>=s.w-0.01;const fb=document.getElementById('fb');
+ fb.innerHTML='<div class="fb" style="--c:'+it.c+'"><span class="v '+(full?'ok':got>0?'':'no')+'">'+(full?'ถูกครบ':got>0?'ได้บางส่วน':'ยังไม่ถูก')+'</span><span class="pts">'+got+' / '+s.w+'</span><br>'+(s.why||'')+'</div>';
+ if(!full)document.getElementById('sc').classList.add('shake');
+ fb.scrollIntoView({behavior:'smooth',block:'nearest'});
+ const last=run.si>=it.steps.length-1;
+ dock([[last?(run.kind==='paper'?(run.ii>=run.p.items.length-1?'ดูใบคะแนน':'สรุปข้อนี้ →'):'ดูผล'):'ด่านถัดไป →',()=>{if(!last){run.si++;step()}else if(run.kind==='paper')itemSummary();else roomEnd()},true]])}
+
+function itemSummary(){clearInterval(clkT);const it=curItem();const rs=run.res.filter(r=>r.item===it.no);const got=rs.reduce((a,r)=>a+r.got,0);
+ const mins=Math.round((Date.now()-run.itemT0)/60000);window.scrollTo(0,0);
+ app.innerHTML='<div class="top"><span>'+run.p.name+'</span><span>จบข้อ '+it.no+'</span></div><div class="card pop" style="--c:'+it.c+'"><span class="badge">ข้อ '+it.no+' · '+it.type+'</span><div class="big" style="margin-top:8px">'+Math.round(got*10)/10+' <span style="font-size:1.2rem;color:var(--mute)">/ '+it.pts+'</span></div>'+
+ '<table class="sheet" style="margin-top:8px">'+rs.map(r=>'<tr><td>'+r.title+'</td><td>'+r.got+' / '+r.w+'</td></tr>').join('')+'</table><p class="hint">ใช้เวลาในเกม ~'+mins+' นาที</p></div>';
+ const last=run.ii>=run.p.items.length-1;dock([[last?'ดูใบคะแนน 200 คะแนน':'ไปข้อ '+(it.no+1)+' →',()=>{if(last)paperEnd();else{run.ii++;run.si=0;intro()}},true]])}
+
+function codesOf(rs){const m={};rs.forEach(r=>{if(r.got<r.w-0.01)m[r.code]=(m[r.code]||0)+1});return Object.entries(m).sort((a,b)=>b[1]-a[1])}
+const CODE_NAME={'ป':'ไม่เห็นประเด็น','ม':'มาตรา','ต':'ตัวเลข/เวลา','บ':'ปรับบท','ห':'หักล้าง แม้…แต่…','ส':'สรุป','ว':'เวลา','ภ':'ภาษา/โครง'};
+function paperEnd(){clearInterval(clkT);const p=run.p;const tot=Math.round(run.res.reduce((a,r)=>a+r.got,0)*10)/10;const pct=tot/2;
+ if(best[p.id]==null||tot>best[p.id]){best[p.id]=tot;store.set('courtBest',best)}
+ const per=p.items.map(it=>[it,Math.round(run.res.filter(r=>r.item===it.no).reduce((a,r)=>a+r.got,0)*10)/10]);
+ const cs=codesOf(run.res);window.scrollTo(0,0);
+ app.innerHTML='<h1>📋 ใบคะแนน</h1><p class="sub">'+p.name+'</p><div class="card pop"><div class="big">'+tot+' <span style="font-size:1.2rem;color:var(--mute)">/ 200</span></div><div class="rank">🎖️ '+rankOf(pct)+'</div>'+
+ '<table class="sheet" style="margin-top:10px">'+per.map(([it,g])=>'<tr><td>ข้อ '+it.no+' · '+it.type+' · '+it.title+'</td><td>'+g+' / '+it.pts+'</td></tr>').join('')+'</table></div>'+
+ (cs.length?'<div class="card" style="--c:var(--red)"><b>ลงสมุดจุดอ่อน</b><div class="codes">'+cs.map(([c,n])=>'<span>'+c+' · '+CODE_NAME[c]+' ×'+n+'</span>').join('')+'</div><div style="margin-top:8px">'+run.res.filter(r=>r.got<r.w-0.01).map(r=>'<div class="hint">ข้อ '+r.item+' · '+r.title+' · <b>'+r.code+'</b> · '+r.got+'/'+r.w+'</div>').join('')+'</div></div>':'<div class="card" style="--c:var(--green)"><b>ไม่มีจุดพลาด</b> พร้อมเข้าห้องสอบ</div>');
+ dock([['🏠 หน้าแรก',home,false],['🔁 ทำชุดนี้อีกครั้ง',()=>startPaper(p),true]])}
+function roomEnd(){clearInterval(clkT);const r=run.r;const tot=run.res.reduce((a,x)=>a+x.got,0),max=run.res.reduce((a,x)=>a+x.w,0);const pct=Math.round(tot/max*100);
+ if(best[r.id]==null||pct>best[r.id]){best[r.id]=pct;store.set('courtBest',best)}const cs=codesOf(run.res);window.scrollTo(0,0);
+ app.innerHTML='<h1>'+r.name+'</h1><div class="card pop" style="--c:'+r.c+'"><div class="big">'+pct+'%</div><table class="sheet">'+run.res.map(x=>'<tr><td>'+x.title+'</td><td>'+x.got+' / '+x.w+'</td></tr>').join('')+'</table>'+(cs.length?'<div class="codes">'+cs.map(([c,n])=>'<span>'+c+' · '+CODE_NAME[c]+' ×'+n+'</span>').join('')+'</div>':'')+'</div>';
+ dock([['🏠 หน้าแรก',home,false],['🔁 เล่นห้องนี้อีกครั้ง',()=>startRoom(r),true]])}
+
+/* =====================================================================
+   กลไกแต่ละด่าน: R[k](step, el) → {check(): คะแนน}
+   ===================================================================== */
+const R={};
+R.highlight=(s,el)=>{let pen='use';const marks=s.segs.map(()=>null);
+ el.innerHTML='<div class="pens"><button class="pen use" data-p="use" aria-pressed="true">🟧 ใช้ปรับบท</button><button class="pen trap" data-p="trap" aria-pressed="false">🟥 ข้อเท็จจริงล่อ</button><button class="pen erase" data-p="erase" aria-pressed="false">⌫ ลบ</button></div><div style="line-height:2.2">'+s.segs.map((g,i)=>'<span class="seg" data-i="'+i+'">'+esc(g[0])+'</span>').join(' ')+'</div>';
+ el.querySelectorAll('.pen').forEach(b=>b.onclick=()=>{pen=b.dataset.p;el.querySelectorAll('.pen').forEach(x=>x.setAttribute('aria-pressed',x===b))});
+ el.querySelectorAll('.seg').forEach(sp=>sp.onclick=()=>{const i=+sp.dataset.i;marks[i]=pen==='erase'||marks[i]===pen?null:pen;sp.className='seg'+(marks[i]?' m-'+marks[i]:'')});
+ return{check(){const truth=s.segs.map(g=>g[1]||null);const need=truth.filter(Boolean).length;let hit=0,bad=0;
+  el.querySelectorAll('.seg').forEach((sp,i)=>{if(truth[i]&&marks[i]===truth[i]){hit++;sp.classList.add('t-ok')}else if(truth[i]){sp.classList.add('t-miss');sp.classList.add('m-'+truth[i]);if(marks[i])bad++}else if(marks[i]){bad++;sp.classList.add('t-bad')}});
+  el.querySelectorAll('.seg,.pen').forEach(x=>x.onclick=null);return s.w*Math.max(0,hit-bad*.5)/need}}};
+R.gate=(s,el)=>{el.innerHTML=s.gates.map((g,i)=>'<div class="door" id="d'+i+'"><span class="lk">🔒</span><span style="flex:1;font-size:.95rem">'+g.q+'</span><input inputmode="numeric" autocomplete="off" id="g'+i+'"></div>').join('');
+ return{check(){let ok=0;s.gates.forEach((g,i)=>{const inp=document.getElementById('g'+i);const v=normNum(inp.value);const d=document.getElementById('d'+i);const good=g.a.includes(v);if(good)ok++;d.classList.add(good?'ok':'bad');d.querySelector('.lk').textContent=good?'🔓':'🔒';inp.disabled=true;if(!good){const t=document.createElement('b');t.style.cssText='color:var(--green);margin-left:6px';t.textContent=g.a[0];d.appendChild(t)}});return s.w*ok/s.gates.length}}};
+R.evidence=(s,el)=>{const sel=new Set();const order=sh(s.opts.map((o,i)=>i));
+ el.innerHTML='<div class="hint">เลือกแล้วกดส่ง · เลือกผิดหักคะแนน</div>'+order.map(i=>'<button class="opt" data-i="'+i+'" aria-pressed="false">'+esc(s.opts[i][0])+'</button>').join('');
+ el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;sel.has(i)?sel.delete(i):sel.add(i);b.setAttribute('aria-pressed',sel.has(i))});
+ return{check(){const need=s.opts.filter(o=>o[1]).length;let hit=0,bad=0;el.querySelectorAll('.opt').forEach(b=>{const i=+b.dataset.i;b.onclick=null;if(s.opts[i][1]){b.classList.add('right');if(sel.has(i))hit++}else if(sel.has(i)){bad++;b.classList.add('wrong')}});return s.w*Math.max(0,hit-bad)/need}}};
+R.duel=(s,el)=>{let r=0,me=100,op=100,pts=0;const per=s.w/s.rounds.length;
+ function draw(){const x=s.rounds[r];let pick={m:null,t:null};
+  el.innerHTML='<div class="hp"><span>⚖️ คุณ</span><i><b style="width:'+me+'%;background:var(--green)"></b></i><span>🧑‍💼 ทนายรัฐ</span><i><b style="width:'+op+'%;background:var(--red)"></b></i></div>'+
+  '<div class="hint">ข้อโต้แย้ง '+(r+1)+' / '+s.rounds.length+'</div><div class="arg">'+esc(x.arg)+'</div><div class="lbl">เลือกท่อน "แม้…"</div><div id="m"></div><div class="lbl">เลือกท่อน "แต่…"</div><div id="t"></div><div id="dr"></div>';
+  const mk=(id,arr,key)=>{const box=el.querySelector('#'+id);sh(arr.map((o,i)=>i)).forEach(i=>{const b=document.createElement('button');b.className='opt';b.textContent=arr[i];b.dataset.i=i;b.setAttribute('aria-pressed','false');b.onclick=()=>{pick[key]=i;box.querySelectorAll('.opt').forEach(z=>z.setAttribute('aria-pressed',z===b))};box.appendChild(b)})};
+  mk('m',x.mae,'m');mk('t',x.tae,'t');
+  if(r<s.rounds.length-1){const b=document.createElement('button');b.className='btn main';b.style.cssText='width:100%;margin-top:10px';b.textContent='⚔️ โต้กลับ แล้วไปข้อโต้แย้งถัดไป';b.onclick=()=>{if(pick.m==null||pick.t==null)return;resolve(pick);r++;draw()};el.querySelector('#dr').appendChild(b)}
+  el._pick=pick}
+ function resolve(p){const x=s.rounds[r];const a=p.m===x.ma,b=p.t===x.ta;pts+=per*((a?.4:0)+(b?.6:0));if(a&&b)op=Math.max(0,op-100/s.rounds.length);else me=Math.max(0,me-100/s.rounds.length)}
+ draw();
+ return{check(){const p=el._pick;if(p.m!=null&&p.t!=null)resolve(p);const x=s.rounds[r];
+  el.querySelectorAll('#m .opt').forEach(b=>{b.onclick=null;if(+b.dataset.i===x.ma)b.classList.add('right');else if(b.getAttribute('aria-pressed')==='true')b.classList.add('wrong')});
+  el.querySelectorAll('#t .opt').forEach(b=>{b.onclick=null;if(+b.dataset.i===x.ta)b.classList.add('right');else if(b.getAttribute('aria-pressed')==='true')b.classList.add('wrong')});
+  el.querySelector('#dr').innerHTML='<div class="fb" style="--c:var(--red)"><b>ประโยคที่ถูก:</b> <span class="but">'+esc(x.mae[x.ma])+'</span> <span class="but">'+esc(x.tae[x.ta])+'</span></div>';return pts}}};
+R.timeline=(s,el)=>{let pick=null;el.innerHTML=s.opts.map((o,i)=>'<button class="opt" data-i="'+i+'" aria-pressed="false">📌 '+o+'</button>').join('')+'<div id="tlv"></div>';
+ el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{pick=+b.dataset.i;el.querySelectorAll('.opt').forEach(z=>z.setAttribute('aria-pressed',z===b))});
+ return{check(){el.querySelectorAll('.opt').forEach(b=>{b.onclick=null;const i=+b.dataset.i;if(i===s.a)b.classList.add('right');else if(i===pick)b.classList.add('wrong')});
+  el.querySelector('#tlv').innerHTML='<div class="tl"><div class="line"></div>'+s.pins.map((p,i)=>'<div class="pin" style="left:'+Math.min(92,Math.max(8,p[1]))+'%;--c:'+(i===s.pins.length-1?'var(--red)':'var(--navy)')+'"><i></i>'+p[0]+'</div>').join('')+'</div>';return pick===s.a?s.w:0}}};
+R.calc=(s,el)=>{el.innerHTML='<div style="display:flex;gap:8px;align-items:center"><input type="text" inputmode="numeric" id="cv" placeholder="ตัวเลข" style="flex:1;font-size:1.2rem;font-weight:800"><b>'+s.unit+'</b></div>';
+ return{check(){const v=+thd(el.querySelector('#cv').value).replace(/[^0-9.]/g,'');el.querySelector('#cv').disabled=true;return v===s.a?s.w:0}}};
+R.build=(s,el)=>{const order=[];const pool=sh(s.blocks.map((b,i)=>i));
+ function draw(){el.innerHTML='<div class="lbl">ย่อหน้าของคุณ</div><div class="built" id="bt"></div><div class="lbl">บล็อกที่เหลือ</div><div class="pool" id="pl"></div>';
+  order.forEach((i,pos)=>{const b=document.createElement('button');b.className='chip blk';b.textContent=(pos+1)+'. '+s.blocks[i];b.onclick=()=>{order.splice(pos,1);draw()};el.querySelector('#bt').appendChild(b)});
+  pool.filter(i=>!order.includes(i)).forEach(i=>{const b=document.createElement('button');b.className='chip blk';b.textContent=s.blocks[i];b.onclick=()=>{order.push(i);draw()};el.querySelector('#pl').appendChild(b)})}
+ draw();return{check(){let ok=0;order.forEach((i,pos)=>{if(i===pos)ok++});el.querySelectorAll('.chip').forEach(c=>c.onclick=null);
+  el.insertAdjacentHTML('beforeend','<div class="fb"><b>ลำดับที่ถูก</b><br>'+s.blocks.map((b,i)=>(i+1)+'. '+esc(b)).join('<br>')+'</div>');return s.w*ok/s.blocks.length}}};
+R.outline=(s,el)=>{const pick=s.blocks.map(()=>null);const order=sh(s.blocks.map((b,i)=>i));
+ el.innerHTML=order.map(i=>'<div style="margin-top:8px;font-size:.95rem">'+esc(s.blocks[i][0])+'</div><div class="slotrow" data-i="'+i+'">'+s.slots.map((sl,j)=>'<button class="slot" data-j="'+j+'" aria-pressed="false">'+sl+'</button>').join('')+'</div>').join('');
+ el.querySelectorAll('.slotrow').forEach(row=>row.querySelectorAll('.slot').forEach(b=>b.onclick=()=>{const i=+row.dataset.i;pick[i]=+b.dataset.j;row.querySelectorAll('.slot').forEach(z=>z.setAttribute('aria-pressed',z===b))}));
+ return{check(){let ok=0;el.querySelectorAll('.slotrow').forEach(row=>{const i=+row.dataset.i;const a=s.blocks[i][1];if(pick[i]===a)ok++;row.querySelectorAll('.slot').forEach(b=>{b.onclick=null;const j=+b.dataset.j;if(j===a)b.classList.add('right');else if(j===pick[i])b.classList.add('wrong')})});return s.w*ok/s.blocks.length}}};
+R.recall=(s,el)=>{el.innerHTML='<textarea id="rt" placeholder="ประการแรก …&#10;ประการที่สอง …"></textarea><div class="hint">ระบบตรวจจากคำสำคัญ ไม่ต้องเขียนตรงตัวบททุกคำ</div><div id="rv"></div>';
+ return{check(){const t=thd(el.querySelector('#rt').value).replace(/\s+/g,'');let ok=0;const rows=s.items.map(it=>{const hit=it.kw.some(k=>t.includes(k.replace(/\s+/g,'')));if(hit)ok++;return '<div style="margin:4px 0">'+(hit?'✅':'⬜')+' '+esc(it.label)+'</div>'});
+  el.querySelector('#rt').disabled=true;el.querySelector('#rv').innerHTML='<div class="fb">'+rows.join('')+'</div>';return s.w*ok/s.items.length}}};
+R.compare=(s,el)=>{const pick=s.items.map(()=>null);const order=sh(s.items.map((x,i)=>i));
+ el.innerHTML='<div class="hint">แตะปุ่มเพื่อสลับ: '+s.cols[0]+' ⇄ '+s.cols[1]+'</div>'+order.map(i=>'<div class="cmp"><span>'+esc(s.items[i][0])+'</span><button class="btn" data-i="'+i+'">เลือก</button></div>').join('');
+ el.querySelectorAll('.cmp .btn').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;pick[i]=pick[i]===0?1:0;b.textContent=s.cols[pick[i]];b.style.background=pick[i]===0?'var(--blue-bg)':'var(--orange-bg)'});
+ return{check(){let ok=0;el.querySelectorAll('.cmp .btn').forEach(b=>{const i=+b.dataset.i;b.onclick=null;const good=pick[i]===s.items[i][1];if(good)ok++;b.style.background=good?'var(--green-bg)':'var(--red-bg)';if(!good)b.textContent='→ '+s.cols[s.items[i][1]]});return s.w*ok/s.items.length}}};
+R.term=(s,el)=>{el.innerHTML=s.pairs.map((p,i)=>'<div style="margin:8px 0"><b>'+p[0]+'</b><input type="text" id="tm'+i+'" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="English"></div>').join('');
+ return{check(){let ok=0;s.pairs.forEach((p,i)=>{const inp=el.querySelector('#tm'+i);const v=normEn(inp.value);const good=p[1].some(a=>normEn(a)===v);if(good)ok++;inp.disabled=true;inp.style.borderColor=good?'var(--green)':'var(--red)';if(!good)inp.insertAdjacentHTML('afterend','<div class="hint" style="color:var(--green)">✔ '+p[1][0]+'</div>')});return s.w*ok/s.pairs.length}}};
+R.tiles=(s,el)=>{const words=s.en.split(' ');const order=[];const pool=sh(words.map((w,i)=>i));
+ function draw(){el.innerHTML='<div class="built" id="bt"></div><div class="pool" id="pl"></div>';
+  order.forEach((i,pos)=>{const b=document.createElement('button');b.className='chip';b.textContent=words[i];b.onclick=()=>{order.splice(pos,1);draw()};el.querySelector('#bt').appendChild(b)});
+  pool.filter(i=>!order.includes(i)).forEach(i=>{const b=document.createElement('button');b.className='chip';b.textContent=words[i];b.onclick=()=>{order.push(i);draw()};el.querySelector('#pl').appendChild(b)})}
+ draw();return{check(){let ok=0;order.forEach((i,pos)=>{if(words[i]===words[pos])ok++});el.querySelectorAll('.chip').forEach(c=>c.onclick=null);
+  el.insertAdjacentHTML('beforeend','<div class="fb"><b>เฉลย</b><br>'+esc(s.en.replace(/ ([,.])/g,'$1'))+'</div>');return s.w*ok/words.length}}};
+R.clause=(s,el)=>{const pick=s.rows.map(()=>null);
+ el.innerHTML=s.rows.map((r,i)=>'<div style="margin-top:12px"><b>'+esc(r.en)+'</b><div data-r="'+i+'">'+sh(r.o.map((o,j)=>j)).map(j=>'<button class="opt" data-j="'+j+'" aria-pressed="false">'+esc(r.o[j])+'</button>').join('')+'</div></div>').join('');
+ el.querySelectorAll('[data-r]').forEach(box=>box.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{pick[+box.dataset.r]=+b.dataset.j;box.querySelectorAll('.opt').forEach(z=>z.setAttribute('aria-pressed',z===b))}));
+ return{check(){let ok=0;el.querySelectorAll('[data-r]').forEach(box=>{const i=+box.dataset.r;if(pick[i]===s.rows[i].a)ok++;box.querySelectorAll('.opt').forEach(b=>{b.onclick=null;const j=+b.dataset.j;if(j===s.rows[i].a)b.classList.add('right');else if(j===pick[i])b.classList.add('wrong')})});return s.w*ok/s.rows.length}}};
+
+home();
 </script>
 </body>
 </html>
