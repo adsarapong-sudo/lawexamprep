@@ -66,6 +66,21 @@ h1{font-size:1.3rem;margin:4px 0 2px;color:var(--brand)}
 .fact.notrap{background:color-mix(in srgb,var(--no) 18%,transparent)}
 .step{font-size:.85rem;font-weight:700;color:var(--brand2);margin:12px 0 4px}
 .model{margin-top:12px;padding:12px;border-left:4px solid var(--brand2);background:var(--bg);border-radius:6px}
+
+:root{--c-num:#0a5bd3;--c-num-bg:#e3eefc;--c-sec:#7b3fb3;--c-adm:#1e7a46;--c-adm-bg:#e2f4e9;--c-jus:#b35a00;--c-jus-bg:#fdeedd;--c-but:#c0392b;--c-so:#0b3d66;--c-neg:#c0392b;--c-modal:#a1287a}
+@media (prefers-color-scheme:dark){:root{--c-num:#8ab8ff;--c-num-bg:#1b2c45;--c-sec:#c9a2f0;--c-adm:#6fd39a;--c-adm-bg:#17321f;--c-jus:#ffb36b;--c-jus-bg:#3a2612;--c-but:#ff8a7a;--c-so:#9cc8f0;--c-neg:#ff8a7a;--c-modal:#f08ad0}}
+.hl-num{color:var(--c-num);background:var(--c-num-bg);border-radius:4px;padding:0 3px;font-weight:700}
+.hl-sec{color:var(--c-sec);font-weight:700}
+.hl-adm{color:var(--c-adm);background:var(--c-adm-bg);border-radius:4px;padding:0 3px;font-weight:700}
+.hl-jus{color:var(--c-jus);background:var(--c-jus-bg);border-radius:4px;padding:0 3px;font-weight:700}
+.hl-but{color:var(--c-but);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.hl-so{color:var(--c-so);font-weight:700;text-decoration:underline double;text-underline-offset:3px}
+.hl-neg{color:var(--c-neg);font-weight:700}
+.hl-modal{color:var(--c-modal);font-weight:700;font-style:italic}
+.legend{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 12px;margin:0 0 12px;font-size:.86rem}
+.legend summary{cursor:pointer;font-weight:600;color:var(--brand2)}
+.legend div{display:flex;flex-wrap:wrap;gap:6px 12px;margin-top:6px}
+.card,.pane{border-left-width:6px}
 </style>
 </head>
 <body>
@@ -75,6 +90,16 @@ h1{font-size:1.3rem;margin:4px 0 2px;color:var(--brand)}
 <button data-m="flash" aria-pressed="true">การ์ด<small>ทุกหมวด</small></button><button data-m="case" aria-pressed="false">ปรับบท<small>กฎหมาย</small></button><button data-m="lcloze" aria-pressed="false">เติมหลัก<small>กฎหมาย</small></button>
 <button data-m="type" aria-pressed="false">พิมพ์ตอบ<small>อังกฤษ</small></button><button data-m="order" aria-pressed="false">เรียงประโยค<small>อังกฤษ</small></button><button data-m="cloze" aria-pressed="false">เติมคำ<small>อังกฤษ</small></button>
 </div>
+<details class="legend" id="legend"><summary>🎨 สีช่วยจำ (แตะดูความหมาย)</summary><div>
+<span><span class="hl-num">15 วัน</span> ระยะเวลา/ตัวเลข</span>
+<span><span class="hl-sec">ม.42</span> เลขมาตรา/ข้อ</span>
+<span><span class="hl-adm">ศาลปกครอง</span></span>
+<span><span class="hl-jus">ศาลยุติธรรม</span></span>
+<span><span class="hl-but">แม้ … แต่</span> หักล้าง</span>
+<span><span class="hl-so">ดังนั้น … จึง</span> ข้อสรุป</span>
+<span><span class="hl-neg">ไม่ได้ / ไม่ชอบ</span> ผลปฏิเสธ</span>
+<span><span class="hl-modal">shall / may</span> กริยาบังคับ (อังกฤษ)</span>
+<span>สีขอบการ์ด = หมวด</span></div></details>
 <p class="sub">แตะการ์ดเพื่อดูคำตอบ แล้วกด "ยังไม่แม่น" หรือ "จำได้" การ์ดที่ยังไม่แม่นจะวนกลับมาอีกภายในไม่กี่ข้อ</p>
 <div id="mFlash"><div class="chips" id="chips"></div>
 <div class="bar"><i id="prog"></i></div>
@@ -470,6 +495,37 @@ document.querySelectorAll('.modes button').forEach(b=>b.onclick=()=>{document.qu
  if(!started[m]){started[m]=1;if(window.__law&&__law.start[m])__law.start[m]();if(m==='type')tShow();if(m==='order')oShow();if(m==='cloze')cShow()}
  document.querySelector('.sub').hidden=(m!=='flash')});
 window.__eng={T:T.length,O:O.length,C:C.length};
+})();
+</script>
+<script>
+(function(){
+const RULES=[
+ ['hl-adm',/ศาลปกครอง(?:สูงสุด|ชั้นต้น|กลาง)?|Supreme Administrative Court|Administrative Courts?(?: of First Instance)?/g],
+ ['hl-jus',/ศาลยุติธรรม|Courts? of Justice/g],
+ ['hl-num',/(?:\d+|หนึ่ง|สอง|สาม|ห้า|เจ็ด|สิบห้า|สามสิบ|เก้าสิบ|fifteen|thirty|ninety|seven)\s?(?:วัน|เดือน|ปี|days?|months?|years?)|\b\d{1,3}(?:,\d{3})+\s?บาท/g],
+ ['hl-sec',/(?:ม\.|มาตรา\s?|ข้อ\s?|Section\s)\d+(?:\/\d+)?(?:\s?(?:วรรค(?:หนึ่ง|สอง|สาม|สี่|ห้า)|ว\.\s?\d))?(?:\s?\(\d+\))?/g],
+ ['hl-but',/แม้(?=\s|[ก-๙])|(?<=\s)แต่(?=\s|[ก-๙])|Notwithstanding|notwithstanding/g],
+ ['hl-so',/ดังนั้น|(?<=\s|^)จึง|therefore/g],
+ ['hl-neg',/ไม่ได้|ไม่ชอบ(?:ด้วยกฎหมาย)?|ไม่ใช่|shall not|unlawful/g],
+ ['hl-modal',/\b(?:shall|may)\b/g],
+];
+function colorize(root){if(!root)return;const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{if(!n.nodeValue.trim())return 2;let p=n.parentNode;while(p&&p!==root){if(p.classList&&([...p.classList].some(c=>c.startsWith('hl-'))||p.classList.contains('blank')||p.tagName==='BUTTON'))return 2;p=p.parentNode}return 1}});
+ const nodes=[];while(w.nextNode())nodes.push(w.currentNode);
+ nodes.forEach(n=>{const t=n.nodeValue;const hits=[];RULES.forEach(([cls,re])=>{re.lastIndex=0;let m;while((m=re.exec(t))){if(!m[0])break;hits.push([m.index,m.index+m[0].length,cls])}});
+  if(!hits.length)return;hits.sort((a,b)=>a[0]-b[0]||(b[1]-b[0])-(a[1]-a[0]));const keep=[];let end=-1;hits.forEach(h=>{if(h[0]>=end){keep.push(h);end=h[1]}});
+  const f=document.createDocumentFragment();let pos=0;keep.forEach(([a,b,cls])=>{if(a>pos)f.appendChild(document.createTextNode(t.slice(pos,a)));const sp=document.createElement('span');sp.className=cls;sp.textContent=t.slice(a,b);f.appendChild(sp);pos=b});
+  if(pos<t.length)f.appendChild(document.createTextNode(t.slice(pos)));n.parentNode.replaceChild(f,n)})}
+const CATCOL={'ว.ป.':'#1f5a8a','บังคับทางปกครอง':'#6b4fa0','ศาลปกครอง':'#1e7a46','วิธีพิจารณา':'#0f8a8a','ละเมิด':'#b3401f','กฎหมายเฉพาะ':'#8a6d00','โครงประโยค':'#a1287a','แปล: ศัพท์':'#c06a00','แปล: ประโยค':'#d08a1a'};
+function catColor(t){for(const k in CATCOL){if(t&&t.startsWith(k))return CATCOL[k]}const m=(t||'').match(/^(ละเมิด|ว\.ป\.|ศาลปกครอง|วิธีพิจารณา|กฎหมายเฉพาะ|สัญญา)/);return m?(CATCOL[m[1]]||'#0f8a8a'):''}
+const IDS=['a','q','lA','lQ','kModel','tRes','oRes'];let busy=false;
+function run(){if(busy)return;busy=true;try{IDS.forEach(id=>colorize(document.getElementById(id)));
+ const pairs=[['card','tag'],['mLcloze','lTag'],['mCase','kTag']];pairs.forEach(([box,tag])=>{const b=document.getElementById(box),t=document.getElementById(tag);if(b&&t){const c=catColor(t.textContent);b.style.borderLeftColor=c||''}});
+ ['mType','mOrder','mCloze'].forEach(id=>{const b=document.getElementById(id);if(b)b.style.borderLeftColor='#c06a00'});
+ document.querySelectorAll('#chips .chip').forEach(ch=>{const c=CATCOL[ch.textContent];if(c&&ch.getAttribute('aria-pressed')!=='true'){ch.style.borderColor=c;ch.style.color=c}else{ch.style.borderColor='';ch.style.color=''}});
+}finally{busy=false}}
+const mo=new MutationObserver(()=>{if(!busy){mo.disconnect();run();obs()}});
+function obs(){mo.observe(document.querySelector('main'),{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['aria-pressed']})}
+run();obs();
 })();
 </script>
 </body>
