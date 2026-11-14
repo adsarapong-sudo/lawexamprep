@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
+<script>(function(){var t;try{t=localStorage.getItem("courtTheme")}catch(e){}if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"cream";document.documentElement.dataset.theme=t})();</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f4ecdc" media="(prefers-color-scheme: light)">
@@ -9,8 +10,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f4ecdc;--card:#fbf6ec;--ink:#2f2b25;--mute:#6f685c;--line:#e3d9c6;--navy:#0b3d66;--blue:#0a55c2;--blue-bg:#dfe8f3;--green:#1e7a46;--green-bg:#dcecdc;--orange:#b35a00;--orange-bg:#f6e2c8;--red:#b3401f;--red-bg:#f6ddd3;--purple:#7b3fb3;--gold:#c08a00;--gold-bg:#f6e9c6}
-@media (prefers-color-scheme:dark){:root{--bg:#1d1b18;--card:#262320;--ink:#e6dfd2;--mute:#a59d8f;--line:#3a352d;--navy:#9cc8f0;--blue:#8ab8ff;--blue-bg:#1b2c45;--green:#6fd39a;--green-bg:#17321f;--orange:#ffb36b;--orange-bg:#3a2612;--red:#ff8a7a;--red-bg:#3a1d17;--purple:#c9a2f0;--gold:#f0c45a;--gold-bg:#3a3014}}
+:root,[data-theme=cream]{--bg:#f4ecdc;--card:#fbf6ec;--ink:#2f2b25;--mute:#6f685c;--line:#e3d9c6;--navy:#0b3d66;--blue:#0a55c2;--blue-bg:#dfe8f3;--green:#2e7d55;--green-bg:#dcecdc;--orange:#b35a00;--orange-bg:#f6e2c8;--red:#d0703e;--red-bg:#f3d9c2;--purple:#7b3fb3;--gold:#b88400;--gold-bg:#f6e9c6}
+[data-theme=mint]{--bg:#eaf4f4;--card:#f7fbfb;--ink:#22343a;--mute:#5c7378;--line:#cfe2e2;--navy:#1f5f6b;--blue:#1f6fb2;--blue-bg:#dceaf6;--green:#2e8b6a;--green-bg:#d6efe5;--orange:#b06a1c;--orange-bg:#f5e6d0;--red:#e08a4f;--red-bg:#f8e3d2;--purple:#6a4bb0;--gold:#a87d00;--gold-bg:#f3ecd0}
+[data-theme=dark]{--bg:#1d1b18;--card:#262320;--ink:#e6dfd2;--mute:#a59d8f;--line:#3a352d;--navy:#9cc8f0;--blue:#8ab8ff;--blue-bg:#1b2c45;--green:#6fd39a;--green-bg:#17321f;--orange:#ffb36b;--orange-bg:#3a2612;--red:#f0a070;--red-bg:#3a2a1d;--purple:#c9a2f0;--gold:#f0c45a;--gold-bg:#3a3014}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:'Sarabun',system-ui,sans-serif;font-size:17px;line-height:1.6}
 main{max-width:600px;margin:0 auto;padding:calc(14px + env(safe-area-inset-top)) 16px calc(120px + env(safe-area-inset-bottom))}
@@ -120,7 +122,7 @@ const PAPER_A={id:'A',name:'ชุด ก · แบบปี 2566',sub:'ข้�
   ['กรมอนุมัติเงินช่วยเหลือเกินสิทธิเพราะเจ้าหน้าที่คำนวณผิด ผู้รับนำเงินไปซ่อมบ้านแล้ว จึงได้รับความคุ้มครองความเชื่อโดยสุจริต',4],
   ['ส่วนคำสั่งที่ชอบด้วยกฎหมายและให้ประโยชน์ เพิกถอนได้เฉพาะเหตุตาม ม.53 และได้รับค่าทดแทนเฉพาะเหตุ (3)-(5)',2]],
   why:'โครงบรรยายของคุณ: หลัก/ความหมาย → ฐานกฎหมาย → องค์ประกอบ/เงื่อนไข → ข้อยกเว้น → ตัวอย่าง → ประโยคปิด · ย่อหน้าเรื่อง <span class="sec">ม.53</span> เป็นเงื่อนไขที่ใช้เทียบ จึงอยู่ในช่ององค์ประกอบ/เงื่อนไข'},
- {k:'recall',w:20,code:'ป',title:'✍️ ไล่รายการให้ครบ',q:'พิมพ์เหตุที่ผู้รับคำสั่ง "อ้างความเชื่อโดยสุจริตไม่ได้" ตาม ว.ป. ม.51 ให้ครบ 3 ประการ (บรรทัดละหนึ่งข้อ เขียนแบบประการแรก ประการที่สอง…)',items:[
+ {k:'recall',w:20,code:'ป',title:'✍️ ไล่รายการให้ครบ',decoy:['ผู้รับคำสั่งเป็นเจ้าหน้าที่ของรัฐ','คำสั่งออกมาแล้วเกิน 90 วัน'],q:'พิมพ์เหตุที่ผู้รับคำสั่ง "อ้างความเชื่อโดยสุจริตไม่ได้" ตาม ว.ป. ม.51 ให้ครบ 3 ประการ (บรรทัดละหนึ่งข้อ เขียนแบบประการแรก ประการที่สอง…)',items:[
   {label:'แสดงข้อความอันเป็นเท็จ ปกปิดข้อเท็จจริงที่ควรแจ้ง ข่มขู่ หรือชักจูงใจโดยการให้ทรัพย์สินหรือประโยชน์อื่นใดที่มิชอบ',kw:['เท็จ','ปกปิด','ข่มขู่','ชักจูง']},
   {label:'ให้ข้อความที่ไม่ถูกต้องหรือไม่ครบถ้วนในสาระสำคัญ',kw:['ไม่ถูกต้อง','ไม่ครบ']},
   {label:'รู้ถึงความไม่ชอบด้วยกฎหมายของคำสั่ง หรือไม่รู้เพราะประมาทเลินเล่ออย่างร้ายแรง',kw:['รู้ถึงความไม่ชอบ','ประมาทเลินเล่ออย่างร้ายแรง','ร้ายแรง','รู้ว่าไม่ชอบ']}],
@@ -155,7 +157,7 @@ const PAPER_A={id:'A',name:'ชุด ก · แบบปี 2566',sub:'ข้�
    mae:['แม้นายขจรจะได้รับบาดเจ็บ','แม้นายขจรจะยื่นคำขอต่อเทศบาลตาม ม.11','แม้คดีจะเป็นคดีละเมิด'],ma:1,
    tae:['แต่การยื่นคำขอเป็นช่องทางทางเลือกที่ไม่ตัดสิทธิฟ้องคดี และเทศบาลไม่วินิจฉัยภายใน 180 วัน นายขจรจึงฟ้องได้','แต่ต้องรอให้เทศบาลวินิจฉัยก่อนเสมอ','แต่ต้องฟ้องศาลยุติธรรม'],ta:0}],
   why:'แต่ละประโยค "แม้…แต่…" ต้องยกข้อเท็จจริงล่อขึ้นมา แล้วหักล้างด้วยหลักกฎหมายพร้อมเลขมาตรา'},
- {k:'timeline',w:9,code:'ต',title:'📅 ปักหมุดเส้นตาย',q:'นายขจรรู้ถึงเหตุแห่งการฟ้องคดีในวันเกิดเหตุ 10 ม.ค. 2569 ต้องฟ้องภายในวันใด',start:'10 ม.ค. 2569',opts:['9 ม.ค. 2570','10 ม.ค. 2570','10 เม.ย. 2569','10 ม.ค. 2579'],a:1,pins:[['10 ม.ค. 69 · รู้เหตุ',0],['10 ม.ค. 70 · ครบ 1 ปี',55],['ไม่เกิน 10 ปี',100]],
+ {k:'timeline',w:9,code:'ต',title:'📅 ปักหมุดเส้นตาย',q:'นายขจรรู้ถึงเหตุแห่งการฟ้องคดีในวันเกิดเหตุ 10 ม.ค. 2569 ต้องฟ้องภายในวันใด',start:'10 ม.ค. 2569',hint:'กำหนดเป็นปี ไม่นับวันแรก ครบกำหนดวันที่ตรงกันของปีถัดไป',opts:['9 ม.ค. 2570','10 ม.ค. 2570','10 เม.ย. 2569','10 ม.ค. 2579'],a:1,pins:[['10 ม.ค. 69 · รู้เหตุ',0],['10 ม.ค. 70 · ครบ 1 ปี',55],['ไม่เกิน 10 ปี',100]],
   why:'<span class="sec">ศป. ม.51</span>: <span class="num">1 ปี</span>นับแต่รู้หรือควรรู้ถึงเหตุแห่งการฟ้องคดี (ไม่นับวันแรก ครบ 1 ปีวันที่ 10 ม.ค. 2570) แต่ไม่เกิน <span class="num">10 ปี</span>นับแต่วันที่มีเหตุ'},
  {k:'build',w:15,code:'บ',title:'🧱 เรียงคำพิพากษา',q:'แตะบล็อกเรียงเป็นย่อหน้าวินิจฉัยตามโครง: ตัวบท → ข้อเท็จจริง → แม้…แต่… → ดังนั้น…จึง…',blocks:[
   'พระราชบัญญัติจัดตั้งศาลปกครองฯ มาตรา 9 วรรคหนึ่ง (3) กำหนดให้ศาลปกครองมีอำนาจพิจารณาคดีพิพาทเกี่ยวกับการกระทำละเมิดที่เกิดจากการละเลยต่อหน้าที่ตามที่กฎหมายกำหนดให้ต้องปฏิบัติ',
@@ -170,7 +172,7 @@ const PAPER_A={id:'A',name:'ชุด ก · แบบปี 2566',sub:'ข้�
  {k:'evidence',w:12,code:'บ',title:'🔍 ไต่สวนหาพยาน',q:'ในระบบไต่สวน ตุลาการเรียกพยานหลักฐานเองได้ เลือกพยานที่ช่วยพิสูจน์เงื่อนไขการทุเลา (เลือกได้หลายข้อ)',opts:[
   ['ผลตรวจคุณภาพน้ำที่ระบุเลขที่ตั้งของร้านข้างเคียง',true],['บัญชีรายชื่อลูกจ้างและสัญญาซื้อวัตถุดิบล่วงหน้า',true],['ข้อมูลว่าร้านเดียวปิด 30 วันไม่กระทบบริการสาธารณะ',true],['ใบประกาศเกียรติคุณร้านอาหารยอดนิยม',false],['รายชื่อร้านอื่นในซอยที่ไม่ถูกตรวจ',false]],
   why:'พยานต้องตอบเงื่อนไขทุเลาสามข้อ: คำสั่ง<b>น่าจะไม่ชอบ</b> (ผลตรวจเป็นของร้านอื่น) · <b>เสียหายร้ายแรงยากเยียวยา</b> (ลูกจ้าง วัตถุดิบ) · <b>ไม่เป็นอุปสรรค</b>ต่อการบริหารงานของรัฐหรือบริการสาธารณะ'},
- {k:'recall',w:15,code:'ป',title:'✍️ เงื่อนไขทุเลาการบังคับ',q:'พิมพ์เงื่อนไขที่ศาลใช้สั่งทุเลาการบังคับตามกฎหรือคำสั่งให้ครบ 3 ข้อ',items:[
+ {k:'recall',w:15,code:'ป',title:'✍️ เงื่อนไขทุเลาการบังคับ',decoy:['ผู้ฟ้องคดีวางเงินประกันเต็มจำนวนความเสียหาย','คำสั่งออกโดยผู้บังคับบัญชาระดับสูง'],q:'พิมพ์เงื่อนไขที่ศาลใช้สั่งทุเลาการบังคับตามกฎหรือคำสั่งให้ครบ 3 ข้อ',items:[
   {label:'กฎหรือคำสั่งนั้นน่าจะไม่ชอบด้วยกฎหมาย',kw:['ไม่ชอบ']},
   {label:'การให้กฎหรือคำสั่งมีผลใช้บังคับต่อไปจะทำให้เกิดความเสียหายอย่างร้ายแรงที่ยากแก่การเยียวยาแก้ไขในภายหลัง',kw:['ร้ายแรง','เยียวยา']},
   {label:'การทุเลาไม่เป็นอุปสรรคแก่การบริหารงานของรัฐหรือแก่บริการสาธารณะ',kw:['อุปสรรค','บริการสาธารณะ','บริหารงาน']}],
@@ -180,7 +182,7 @@ const PAPER_A={id:'A',name:'ชุด ก · แบบปี 2566',sub:'ข้�
    mae:['แม้การทุเลาจะทำให้คำสั่งยังไม่มีผลบังคับชั่วคราว','แม้นางคำแก้วจะอุทธรณ์แล้ว','แม้ร้านจะมีลูกจ้าง 20 คน'],ma:0,
    tae:['แต่คำสั่งเจ้าหน้าที่ต้องมีผลบังคับเสมอ','แต่คำสั่งนี้กระทบร้านเดียว และผลตรวจที่อ้างเป็นของร้านข้างเคียง การทุเลาจึงไม่เป็นอุปสรรคต่อการบริหารงานของรัฐหรือบริการสาธารณะ','แต่ศาลต้องรอพิพากษาก่อน'],ta:1}],
   why:'ข้ออ้างว่า "คำสั่งจะไร้ผล" เป็นผลปกติของการทุเลาทุกคดี จึงไม่ใช่เหตุที่จะไม่ทุเลา ต้องดูว่ากระทบการบริหารงานของรัฐหรือบริการสาธารณะจริงหรือไม่'},
- {k:'timeline',w:12,code:'ต',title:'📅 ม.49 ทางที่สอง',q:'นางคำแก้วมีหนังสือร้องขอวันที่ 1 ม.ค. 2569 เทศบาลเงียบ (กฎหมายไม่กำหนดเวลาไว้) ต้องฟ้องภายในวันใด',start:'1 ม.ค. 2569',opts:['31 มี.ค. 2569','1 เม.ย. 2569','30 มิ.ย. 2569','1 ม.ค. 2570'],a:2,pins:[['1 ม.ค. · มีหนังสือ',0],['1 เม.ย. · พ้น 90 วัน',50],['30 มิ.ย. · วันสุดท้าย',100]],
+ {k:'timeline',w:12,code:'ต',title:'📅 ม.49 ทางที่สอง',q:'นางคำแก้วมีหนังสือร้องขอวันที่ 1 ม.ค. 2569 เทศบาลเงียบ (กฎหมายไม่กำหนดเวลาไว้) ต้องฟ้องภายในวันใด',start:'1 ม.ค. 2569',hint:'มีหนังสือ → รอ 90 วัน (ครบ 1 เม.ย.) → นับต่ออีก 90 วัน',opts:['31 มี.ค. 2569','1 เม.ย. 2569','30 มิ.ย. 2569','1 ม.ค. 2570'],a:2,pins:[['1 ม.ค. · มีหนังสือ',0],['1 เม.ย. · พ้น 90 วัน',50],['30 มิ.ย. · วันสุดท้าย',100]],
   why:'<span class="sec">ศป. ม.49</span>: ฟ้องภายใน <span class="num">90 วัน</span>นับแต่วันที่<b>พ้นกำหนด 90 วัน</b>นับแต่มีหนังสือร้องขอ → ช่วงแรกครบ 1 เม.ย. 2569 → ช่วงที่สองครบ 30 มิ.ย. 2569 (ไม่นับวันแรกทั้งสองช่วง) · ปี 2569 เดือนกุมภาพันธ์มี 28 วัน'},
  {k:'gate',w:9,code:'ม',title:'🚪 ประตูมาตรา',q:'พิมพ์เลขมาตรา',gates:[
   {q:'ศป. — คุ้มครองชั่วคราว / ทุเลาการบังคับ',a:['66']},
@@ -205,20 +207,20 @@ const PAPER_A={id:'A',name:'ชุด ก · แบบปี 2566',sub:'ข้�
 /* ---------- ห้องฝึก (โหมด A) ---------- */
 const ROOMS=[
 {id:'r-desc',name:'📖 ห้องบรรยาย',sub:'ไล่รายการให้ครบ · ตารางเปรียบเทียบ',c:'var(--blue)',steps:[
- {k:'recall',w:10,code:'ป',title:'ข้อยกเว้นการให้โอกาสโต้แย้ง ม.30 วรรคสอง',q:'พิมพ์ให้ครบ 6 กรณี',items:[
+ {k:'recall',w:10,code:'ป',title:'ข้อยกเว้นการให้โอกาสโต้แย้ง ม.30 วรรคสอง',decoy:['ผู้รับคำสั่งเป็นนิติบุคคล','คำสั่งมีผลกระทบสิทธิเพียงเล็กน้อย'],q:'พิมพ์ให้ครบ 6 กรณี',items:[
   {label:'(1) จำเป็นรีบด่วน หากชักช้าจะเสียหายร้ายแรงแก่ผู้หนึ่งผู้ใดหรือประโยชน์สาธารณะ',kw:['รีบด่วน','ฉุกเฉิน']},
   {label:'(2) ทำให้ระยะเวลาที่กฎหมายหรือกฎกำหนดไว้ต้องล่าช้าออกไป',kw:['ล่าช้า','ระยะเวลา']},
   {label:'(3) เป็นข้อเท็จจริงที่คู่กรณีได้ให้ไว้ในคำขอ คำให้การ หรือคำแถลง',kw:['คู่กรณีให้','คำขอ','คำให้การ','คำแถลง']},
   {label:'(4) โดยสภาพเห็นได้ชัดว่าการให้โอกาสดังกล่าวไม่อาจกระทำได้',kw:['สภาพ','ไม่อาจ']},
   {label:'(5) เป็นมาตรการบังคับทางปกครอง',kw:['บังคับทางปกครอง','มาตรการบังคับ']},
   {label:'(6) กรณีอื่นตามที่กำหนดในกฎกระทรวง',kw:['กฎกระทรวง']}],why:'ส่วนวรรคสามห้ามให้โอกาส ถ้าจะก่อผลเสียหายร้ายแรงต่อประโยชน์สาธารณะ'},
- {k:'recall',w:10,code:'ป',title:'เหตุเพิกถอนคำสั่งชอบที่ให้ประโยชน์ ม.53',q:'พิมพ์ให้ครบ 5 เหตุ',items:[
+ {k:'recall',w:10,code:'ป',title:'เหตุเพิกถอนคำสั่งชอบที่ให้ประโยชน์ ม.53',decoy:['เจ้าหน้าที่ผู้ออกคำสั่งย้ายไปแล้ว','ผู้รับประโยชน์ไม่ได้คัดค้าน'],q:'พิมพ์ให้ครบ 5 เหตุ',items:[
   {label:'(1) มีกฎหมายให้เพิกถอนได้ หรือมีข้อกำหนดให้เพิกถอนได้ในคำสั่งนั้นเอง',kw:['ข้อกำหนด','สงวน','กฎหมายให้']},
   {label:'(2) มีเงื่อนไขให้ผู้รับประโยชน์ต้องปฏิบัติ แต่ไม่ปฏิบัติภายในเวลาที่กำหนด',kw:['เงื่อนไข']},
   {label:'(3) ข้อเท็จจริงและพฤติการณ์เปลี่ยนไป ซึ่งถ้ามีมาแต่แรกจะไม่ออกคำสั่ง และถ้าไม่เพิกถอนอาจเกิดความเสียหายต่อประโยชน์สาธารณะ',kw:['ข้อเท็จจริง','พฤติการณ์']},
   {label:'(4) บทกฎหมายเปลี่ยนแปลงไป ซึ่งถ้ามีมาแต่แรกจะไม่ออกคำสั่ง (เฉพาะผู้รับประโยชน์ยังไม่ได้ใช้ประโยชน์) และถ้าไม่เพิกถอนอาจเกิดความเสียหายต่อประโยชน์สาธารณะ',kw:['บทกฎหมาย','กฎหมายเปลี่ยน']},
   {label:'(5) อาจเกิดความเสียหายอย่างร้ายแรงต่อประโยชน์สาธารณะหรือต่อประชาชนอันจำเป็นต้องป้องกันหรือขจัด',kw:['ร้ายแรงต่อประโยชน์สาธารณะ','ร้ายแรง','ขจัด']}],why:'วรรคสามให้ค่าทดแทนความเสียหายเฉพาะเหตุ (3)-(5)'},
- {k:'recall',w:10,code:'ป',title:'ข้อบกพร่องที่แก้ไขได้ ม.41',q:'พิมพ์ให้ครบ 4 กรณี',items:[
+ {k:'recall',w:10,code:'ป',title:'ข้อบกพร่องที่แก้ไขได้ ม.41',decoy:['คำสั่งออกโดยเจ้าหน้าที่ที่ไม่มีอำนาจ','คำสั่งที่ขัดต่อรัฐธรรมนูญ'],q:'พิมพ์ให้ครบ 4 กรณี',items:[
   {label:'(1) ออกคำสั่งโดยยังไม่มีผู้ยื่นคำขอ ถ้าภายหลังมีการยื่นคำขอแล้ว',kw:['คำขอ']},
   {label:'(2) คำสั่งที่ต้องมีเหตุผลตาม ม.37 ถ้าได้จัดให้มีเหตุผลในภายหลัง',kw:['เหตุผล']},
   {label:'(3) การรับฟังคู่กรณีไม่สมบูรณ์ ถ้าได้รับฟังให้สมบูรณ์ในภายหลัง',kw:['รับฟัง','โต้แย้ง','ฟังความ']},
@@ -228,7 +230,7 @@ const ROOMS=[
  {k:'compare',w:10,code:'บ',title:'สัญญาทางปกครอง / สัญญาทางแพ่ง',q:'แตะเพื่อสลับ',cols:['ทางปกครอง','ทางแพ่ง'],items:[['สัญญาสัมปทาน',0],['จ้างก่อสร้างถนนสาธารณะ (สิ่งสาธารณูปโภค)',0],['ซื้อคอมพิวเตอร์ใช้ในสำนักงาน',1],['สัญญาแสวงประโยชน์จากทรัพยากรธรรมชาติ',0],['เช่ารถตู้รับส่งพนักงาน',1]],why:'ศป. <span class="sec">ม.3</span> สี่ประเภท + สัญญาที่มีข้อกำหนดแสดงเอกสิทธิ์ของรัฐ'}]},
 {id:'r-case',name:'🏛️ ห้องอุทาหรณ์',sub:'ขีดสำนวน · ประตูรับฟ้อง · ดวลทนาย · คำนวณ',c:'var(--red)',steps:[
  {k:'highlight',w:10,code:'ห',title:'รถราชการ / ละเมิดส่วนตัว',q:'ส้ม = ใช้ปรับบท · แดง = ข้อเท็จจริงล่อ',segs:[['นายเอกเป็นข้าราชการของกรม','trap'],['ใช้รถราชการ','trap'],['หลังเลิกงาน','use'],['ขับไปรับลูกที่โรงเรียน','use'],['ชนรถของนายบุญ','use']],why:'ไปรับลูกหลังเลิกงานไม่ใช่การปฏิบัติหน้าที่ → <span class="sec">ม.6</span> ฟ้องนายเอกเองต่อ<span class="jus">ศาลยุติธรรม</span> · สถานะข้าราชการและรถราชการเป็นข้อเท็จจริงล่อ'},
- {k:'calc',w:10,code:'ต',title:'🧮 แบ่งความรับผิด ม.8',q:'กรมชดใช้ให้ผู้เสียหายไปแล้ว 1,000,000 บาท ความเสียหายส่วนหนึ่ง 20% เกิดจากระบบงานของกรมบกพร่อง ส่วนที่เหลือเกิดจากเจ้าหน้าที่ 2 คนซึ่งประมาทเลินเล่ออย่างร้ายแรงในสัดส่วนเท่ากัน กรมเรียกให้เจ้าหน้าที่แต่ละคนชดใช้ได้คนละกี่บาท',a:400000,unit:'บาท',why:'หักส่วนความบกพร่องของหน่วยงาน 20% (<span class="sec">ม.8</span>) → เหลือ 800,000 · ไม่ใช่ลูกหนี้ร่วม แต่ละคนรับผิดเฉพาะส่วนของตน (<span class="sec">ม.8 ว.4</span>) → คนละ <span class="num">400,000 บาท</span> (ในทางจริงยังต้องคำนึงถึงระดับความร้ายแรงและความเป็นธรรมด้วย)'},
+ {k:'calc',w:10,code:'ต',title:'🧮 แบ่งความรับผิด ม.8',q:'กรมชดใช้ให้ผู้เสียหายไปแล้ว 1,000,000 บาท ความเสียหายส่วนหนึ่ง 20% เกิดจากระบบงานของกรมบกพร่อง ส่วนที่เหลือเกิดจากเจ้าหน้าที่ 2 คนซึ่งประมาทเลินเล่ออย่างร้ายแรงในสัดส่วนเท่ากัน กรมเรียกให้เจ้าหน้าที่แต่ละคนชดใช้ได้คนละกี่บาท',a:400000,unit:'บาท',hint:'หักส่วนของหน่วยงาน 20% ก่อน แล้วแบ่งที่เหลือตามส่วนของแต่ละคน (ไม่ใช่ลูกหนี้ร่วม)',why:'หักส่วนความบกพร่องของหน่วยงาน 20% (<span class="sec">ม.8</span>) → เหลือ 800,000 · ไม่ใช่ลูกหนี้ร่วม แต่ละคนรับผิดเฉพาะส่วนของตน (<span class="sec">ม.8 ว.4</span>) → คนละ <span class="num">400,000 บาท</span> (ในทางจริงยังต้องคำนึงถึงระดับความร้ายแรงและความเป็นธรรมด้วย)'},
  {k:'gate',w:10,code:'ม',title:'ผู้พิพากษาถูกฟ้องต่อศาลปกครอง',q:'พิมพ์เลขมาตรา',gates:[{q:'รัฐธรรมนูญ — ศาลยุติธรรมมีอำนาจพิจารณาคดีทั้งปวง',a:['194']},{q:'ศป. — นิยามหน่วยงานทางปกครอง / เจ้าหน้าที่ของรัฐ',a:['3']},{q:'ป.วิ.พ. — คำพิพากษาผูกพันคู่ความ',a:['145']}],why:'แนวธง 2567 ข้อ 3: การพิพากษาเป็นอำนาจตุลาการ ไม่ใช่การกระทำทางปกครอง'},
  {k:'duel',w:10,code:'ห',title:'ใบสั่งจราจร',rounds:[{arg:'"เจ้าพนักงานจราจรเป็นเจ้าหน้าที่ของรัฐ ใบสั่งจึงเป็นคำสั่งทางปกครอง ฟ้องศาลปกครองได้"',mae:['แม้เจ้าพนักงานจราจรเป็นเจ้าหน้าที่ของรัฐ','แม้ใบสั่งจะมีผลกระทบสิทธิ','แม้ผู้ฟ้องจะอุทธรณ์แล้ว'],ma:0,tae:['แต่ใบสั่งและการเปรียบเทียบปรับเป็นขั้นตอนในกระบวนการยุติธรรมทางอาญา ผู้ต้องหาโต้แย้งในศาลยุติธรรมได้ จึงไม่ใช่คดีปกครอง','แต่ต้องอุทธรณ์ก่อน','แต่ต้องฟ้องภายใน 90 วัน'],ta:0}],why:'ต่างจากประกาศ สตช. ที่ใช้บังคับเป็นการทั่วไป ซึ่งเป็นกฎ ฟ้องศาลปกครองได้ (อ.50/2568)'},
  {k:'evidence',w:10,code:'บ',title:'คำสั่งให้ชดใช้ตาม ม.12',q:'อธิบดีออกคำสั่งให้เจ้าหน้าที่ชดใช้ตาม ม.12 เจ้าหน้าที่ฟ้องเพิกถอน ตุลาการควรเรียกเอกสารใดเพื่อตรวจความชอบของคำสั่ง (เลือกได้หลายข้อ)',opts:[['คำสั่งแต่งตั้งคณะกรรมการสอบข้อเท็จจริงความรับผิดทางละเมิด',true],['รายงานผลการสอบข้อเท็จจริงความรับผิดทางละเมิด',true],['หลักฐานการให้โอกาสเจ้าหน้าที่ชี้แจง',true],['ผลการสอบสวนวินัยเพียงอย่างเดียว',false],['ประวัติการลาของเจ้าหน้าที่',false]],why:'ระเบียบสำนักนายกฯ ข้อ 8 ต้องตั้งกรรมการสอบข้อเท็จจริงความรับผิดทางละเมิดก่อน ผลสอบวินัยใช้แทนไม่ได้ (แนวธง 2566)'}]},
@@ -250,6 +252,10 @@ const thd=s=>String(s).replace(/[๐-๙]/g,d=>'๐๑๒๓๔๕๖๗๘๙'.
 const normNum=s=>{const m=thd(s).match(/\d+(?:\/\d+)?/);return m?m[0]:''};
 const normEn=s=>s.toLowerCase().replace(/[‐-—]/g,'-').replace(/[^a-z\- ]/g,' ').replace(/\s+/g,' ').trim();
 let best=store.get('courtBest',{});
+let EASY=store.get('courtEasy',true);
+const THEMES=[['cream','☀️ ครีม'],['mint','🌊 มินต์'],['dark','🌙 มืด']];
+function curTheme(){return document.documentElement.dataset.theme||'cream'}
+function setTheme(t){document.documentElement.dataset.theme=t;try{localStorage.setItem('courtTheme',t)}catch(e){}const m={cream:'#f4ecdc',mint:'#eaf4f4',dark:'#1d1b18'}[t];document.querySelectorAll('meta[name=theme-color]').forEach(x=>x.setAttribute('content',m))}
 function dock(btns){dockIn.innerHTML='';btns.forEach(([l,f,m,dis])=>{const b=document.createElement('button');b.className='btn'+(m?' main':'');b.textContent=l;b.onclick=f;if(dis)b.disabled=true;dockIn.appendChild(b)});dockEl.hidden=!btns.length}
 const RANKS=[[0,'พนักงานคดีปกครอง'],[40,'ตุลาการศาลปกครองชั้นต้น'],[55,'ตุลาการหัวหน้าคณะ'],[70,'ตุลาการศาลปกครองสูงสุด'],[85,'ประธานศาลปกครองสูงสุด']];
 const rankOf=p=>RANKS.filter(r=>p>=r[0]).pop()[1];
@@ -257,6 +263,7 @@ const rankOf=p=>RANKS.filter(r=>p>=r[0]).pop()[1];
 /* ---------- หน้าแรก ---------- */
 function home(){window.scrollTo(0,0);dock([]);
  let h='<h1>⚖️ ตุลาการเจ้าของสำนวน</h1><p class="sub">เกมข้อสอบจำลองพนักงานคดีปกครอง · รูปแบบตามข้อสอบจริง: อุทาหรณ์ · บรรยาย · แปลสองทิศทาง</p>';
+ h+='<div class="card" style="--c:var(--gold)"><div class="lbl" style="margin-top:0">ระดับความยาก</div><div class="slotrow" id="diff"><button class="slot" data-e="1" aria-pressed="'+EASY+'">🌱 ง่าย · แตะเลือก มีคำใบ้ ลองใหม่ได้ 1 ครั้ง</button><button class="slot" data-e="0" aria-pressed="'+!EASY+'">🔥 ปกติ · พิมพ์เอง ไม่มีคำใบ้</button></div><div class="lbl">ธีมสี</div><div class="slotrow" id="thm">'+THEMES.map(([k,l])=>'<button class="slot" data-t="'+k+'" aria-pressed="'+(curTheme()===k)+'">'+l+'</button>').join('')+'</div></div>';
  h+='<h2>โหมด B · ข้อสอบจำลองแบบเกม</h2>';
  h+=tileHTML('A','📝',PAPER_A.name,PAPER_A.sub,'var(--navy)',best.A!=null?'🏆 '+best.A+'/200':'');
  h+='<div class="card" style="--c:var(--line)"><b>ชุด ข (แบบปี 2562 · ข้อ ก/ข) และชุด ค (แบบปี 2567)</b><div class="hint">จะเพิ่มหลังสอบ ตามร่างที่ตกลงไว้</div></div>';
@@ -264,6 +271,9 @@ function home(){window.scrollTo(0,0);dock([]);
  ROOMS.forEach(r=>{h+=tileHTML(r.id,r.name.split(' ')[0],r.name.slice(r.name.indexOf(' ')+1),r.sub+' · '+r.steps.length+' ด่าน',r.c,best[r.id]!=null?'🏆 '+best[r.id]+'%':'')});
  h+='<p class="hint" style="margin-top:16px">กลไก: 🖍️ ขีดสำนวน · 🚪 ประตูมาตรา · 🔍 ไต่สวน · ⚔️ ดวลทนาย · 📅 เส้นเวลา · 🧮 คำนวณ · 🧱 เรียงคำพิพากษา · 🗂️ โครงบรรยาย · ✍️ ไล่รายการ · ⚖️ เปรียบเทียบ · 🌐 แปล<br>เนื้อหาเพื่อการเตรียมสอบ · ตรวจถ้อยคำเต็มของตัวบทก่อนอ้างอิง · <a href="/pkp/game/quiz.html" style="color:var(--navy)">ควิซสายฟ้า (เกมเดิม)</a> · <a href="/pkp/" style="color:var(--navy)">แฟลชการ์ด</a></p>';
  app.innerHTML=h;
+
+ app.querySelectorAll('#diff .slot').forEach(b=>b.onclick=()=>{EASY=b.dataset.e==='1';store.set('courtEasy',EASY);home()});
+ app.querySelectorAll('#thm .slot').forEach(b=>b.onclick=()=>{setTheme(b.dataset.t);home()});
  app.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{const id=b.dataset.go;if(id==='A')startPaper(PAPER_A);else startRoom(ROOMS.find(r=>r.id===id))})}
 function tileHTML(id,ic,name,sub,c,bst){return '<button class="btn tile" data-go="'+id+'" style="--c:'+c+'"><span class="ic">'+ic+'</span><span><b>'+name+'</b><small>'+sub+'</small></span><span class="best">'+bst+'</span></button>'}
 
@@ -286,9 +296,15 @@ function header(){const it=curItem();const s=it.steps[run.si];
 let clkT=null;function tick(){clearInterval(clkT);clkT=setInterval(()=>{const e=document.getElementById('clk');if(!e)return;const sec=Math.floor((Date.now()-(run.itemT0||run.t0))/1000);e.textContent='⏱ '+Math.floor(sec/60)+':'+String(sec%60).padStart(2,'0')},500)}
 
 function step(){const it=curItem();const s=it.steps[run.si];window.scrollTo(0,0);
- app.innerHTML=header()+'<div class="card pop" style="--c:'+it.c+'" id="sc"><div class="badge">'+s.title+' · '+s.w+' คะแนน</div><div class="q" style="margin-top:8px">'+(s.q||'')+'</div><div id="body"></div><div id="fb"></div></div>';
- tick();const body=document.getElementById('body');const api=R[s.k](s,body);
- dock([['ส่งคำตอบ',()=>{const got=Math.max(0,Math.min(s.w,api.check()));finishStep(s,got)},true]])}
+ app.innerHTML=header()+'<div class="card pop" style="--c:'+it.c+'" id="sc"><div class="badge">'+s.title+' · '+s.w+' คะแนน'+(EASY?' · 🌱 ง่าย':'')+'</div><div class="q" style="margin-top:8px">'+(s.q||'')+'</div><div id="body"></div><div id="fb"></div></div>';
+ tick();const body=document.getElementById('body');const api=R[s.k](s,body,EASY);let tries=0,first=0;
+ const submit=()=>{const g=Math.max(0,Math.min(s.w,api.grade()));
+  if(EASY&&tries===0&&g<s.w-0.01){tries=1;first=g;const fb=document.getElementById('fb');
+   fb.innerHTML='<div class="fb" style="--c:var(--gold)"><span class="v">ยังไม่ครบ · ได้ '+(Math.round(g*10)/10)+' / '+s.w+'</span><br>ลองแก้คำตอบอีกครั้งได้ 1 ครั้ง (ถ้าแก้แล้วถูก ได้ 80% ของคะแนนเต็ม หรือคงคะแนนเดิมถ้าดีกว่า)'+(s.hint?'<br>💡 '+s.hint:'')+'</div>';
+   fb.scrollIntoView({behavior:'smooth',block:'nearest'});
+   dock([['ดูเฉลยเลย',()=>{api.reveal();finishStep(s,first)},false],['ส่งอีกครั้ง',submit,true]]);return}
+  api.reveal();finishStep(s,tries?Math.max(first,g*.8):g)};
+ dock([['ส่งคำตอบ',submit,true]])}
 function finishStep(s,got){const it=curItem();got=Math.round(got*10)/10;
  run.res.push({item:it.no,itemTitle:it.title,title:s.title,got,w:s.w,code:s.code});
  const full=got>=s.w-0.01;const fb=document.getElementById('fb');
@@ -323,68 +339,84 @@ function roomEnd(){clearInterval(clkT);const r=run.r;const tot=run.res.reduce((a
    กลไกแต่ละด่าน: R[k](step, el) → {check(): คะแนน}
    ===================================================================== */
 const R={};
-R.highlight=(s,el)=>{let pen='use';const marks=s.segs.map(()=>null);
- el.innerHTML='<div class="pens"><button class="pen use" data-p="use" aria-pressed="true">🟧 ใช้ปรับบท</button><button class="pen trap" data-p="trap" aria-pressed="false">🟥 ข้อเท็จจริงล่อ</button><button class="pen erase" data-p="erase" aria-pressed="false">⌫ ลบ</button></div><div style="line-height:2.2">'+s.segs.map((g,i)=>'<span class="seg" data-i="'+i+'">'+esc(g[0])+'</span>').join(' ')+'</div>';
+const NUMPOOL=['3','5','6','8','9','11','12','13','37','41','42','44','45','49','51','52','53','66','72','73','75','15','30','90','145','194'];
+function chipsFor(ans){const pool=sh(NUMPOOL.filter(n=>n!==ans)).slice(0,3);return sh([ans,...pool])}
+R.highlight=(s,el,E)=>{let pen='use';const marks=s.segs.map(()=>null);const nU=s.segs.filter(g=>g[1]==='use').length,nT=s.segs.filter(g=>g[1]==='trap').length;
+ el.innerHTML=(E?'<div class="hint">💡 มีข้อเท็จจริงที่ใช้ปรับบท '+nU+' จุด · ข้อเท็จจริงล่อ '+nT+' จุด · ขีดเกินหักคะแนนน้อย</div>':'')+'<div class="pens"><button class="pen use" data-p="use" aria-pressed="true">🟧 ใช้ปรับบท</button><button class="pen trap" data-p="trap" aria-pressed="false">🟥 ข้อเท็จจริงล่อ</button><button class="pen erase" data-p="erase" aria-pressed="false">⌫ ลบ</button></div><div style="line-height:2.2">'+s.segs.map((g,i)=>'<span class="seg" data-i="'+i+'">'+esc(g[0])+'</span>').join(' ')+'</div>';
  el.querySelectorAll('.pen').forEach(b=>b.onclick=()=>{pen=b.dataset.p;el.querySelectorAll('.pen').forEach(x=>x.setAttribute('aria-pressed',x===b))});
  el.querySelectorAll('.seg').forEach(sp=>sp.onclick=()=>{const i=+sp.dataset.i;marks[i]=pen==='erase'||marks[i]===pen?null:pen;sp.className='seg'+(marks[i]?' m-'+marks[i]:'')});
- return{check(){const truth=s.segs.map(g=>g[1]||null);const need=truth.filter(Boolean).length;let hit=0,bad=0;
-  el.querySelectorAll('.seg').forEach((sp,i)=>{if(truth[i]&&marks[i]===truth[i]){hit++;sp.classList.add('t-ok')}else if(truth[i]){sp.classList.add('t-miss');sp.classList.add('m-'+truth[i]);if(marks[i])bad++}else if(marks[i]){bad++;sp.classList.add('t-bad')}});
-  el.querySelectorAll('.seg,.pen').forEach(x=>x.onclick=null);return s.w*Math.max(0,hit-bad*.5)/need}}};
-R.gate=(s,el)=>{el.innerHTML=s.gates.map((g,i)=>'<div class="door" id="d'+i+'"><span class="lk">🔒</span><span style="flex:1;font-size:.95rem">'+g.q+'</span><input inputmode="numeric" autocomplete="off" id="g'+i+'"></div>').join('');
- return{check(){let ok=0;s.gates.forEach((g,i)=>{const inp=document.getElementById('g'+i);const v=normNum(inp.value);const d=document.getElementById('d'+i);const good=g.a.includes(v);if(good)ok++;d.classList.add(good?'ok':'bad');d.querySelector('.lk').textContent=good?'🔓':'🔒';inp.disabled=true;if(!good){const t=document.createElement('b');t.style.cssText='color:var(--green);margin-left:6px';t.textContent=g.a[0];d.appendChild(t)}});return s.w*ok/s.gates.length}}};
-R.evidence=(s,el)=>{const sel=new Set();const order=sh(s.opts.map((o,i)=>i));
- el.innerHTML='<div class="hint">เลือกแล้วกดส่ง · เลือกผิดหักคะแนน</div>'+order.map(i=>'<button class="opt" data-i="'+i+'" aria-pressed="false">'+esc(s.opts[i][0])+'</button>').join('');
+ const truth=s.segs.map(g=>g[1]||null);
+ return{grade(){let hit=0,bad=0;truth.forEach((t,i)=>{if(t&&marks[i]===t)hit++;else if(marks[i])bad++});return s.w*Math.max(0,hit-bad*(E?.25:.5))/(nU+nT)},
+  reveal(){el.querySelectorAll('.seg').forEach((sp,i)=>{sp.onclick=null;if(truth[i]&&marks[i]===truth[i])sp.classList.add('t-ok');else if(truth[i]){sp.className='seg m-'+truth[i]+' t-miss'}else if(marks[i])sp.classList.add('t-bad')});el.querySelectorAll('.pen').forEach(x=>x.onclick=null)}}};
+R.gate=(s,el,E)=>{const val=s.gates.map(()=>'');
+ el.innerHTML=s.gates.map((g,i)=>'<div class="door" id="d'+i+'" style="flex-wrap:wrap"><span class="lk">🔒</span><span style="flex:1;font-size:.95rem">'+g.q+'</span>'+(E?'<div class="slotrow" style="width:100%;margin:6px 0 0">'+chipsFor(g.a[0]).map(n=>'<button class="slot" data-v="'+n+'" aria-pressed="false" style="font-size:1rem;padding:6px 14px">'+n+'</button>').join('')+'</div>':'<input inputmode="numeric" autocomplete="off" id="g'+i+'">')+'</div>').join('');
+ if(E)el.querySelectorAll('.door').forEach((d,i)=>d.querySelectorAll('.slot').forEach(b=>b.onclick=()=>{val[i]=b.dataset.v;d.querySelectorAll('.slot').forEach(z=>z.setAttribute('aria-pressed',z===b))}));
+ const get=i=>E?val[i]:normNum(el.querySelector('#g'+i).value);
+ return{grade(){let ok=0;s.gates.forEach((g,i)=>{if(g.a.includes(get(i)))ok++});return s.w*ok/s.gates.length},
+  reveal(){s.gates.forEach((g,i)=>{const d=document.getElementById('d'+i);const good=g.a.includes(get(i));d.classList.add(good?'ok':'bad');d.querySelector('.lk').textContent=good?'🔓':'🔒';d.querySelectorAll('input,.slot').forEach(x=>{x.disabled=true;x.onclick=null});if(!good)d.insertAdjacentHTML('beforeend','<b style="color:var(--green);margin-left:6px">✔ '+g.a[0]+'</b>')})}}};
+R.evidence=(s,el,E)=>{const sel=new Set();const order=sh(s.opts.map((o,i)=>i));const need=s.opts.filter(o=>o[1]).length;
+ el.innerHTML='<div class="hint">'+(E?'💡 มีพยานที่ใช่ '+need+' รายการ · ':'')+'เลือกได้หลายข้อ · เลือกผิดหักคะแนน</div>'+order.map(i=>'<button class="opt" data-i="'+i+'" aria-pressed="false">'+esc(s.opts[i][0])+'</button>').join('');
  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;sel.has(i)?sel.delete(i):sel.add(i);b.setAttribute('aria-pressed',sel.has(i))});
- return{check(){const need=s.opts.filter(o=>o[1]).length;let hit=0,bad=0;el.querySelectorAll('.opt').forEach(b=>{const i=+b.dataset.i;b.onclick=null;if(s.opts[i][1]){b.classList.add('right');if(sel.has(i))hit++}else if(sel.has(i)){bad++;b.classList.add('wrong')}});return s.w*Math.max(0,hit-bad)/need}}};
-R.duel=(s,el)=>{let r=0,me=100,op=100,pts=0;const per=s.w/s.rounds.length;
- function draw(){const x=s.rounds[r];let pick={m:null,t:null};
-  el.innerHTML='<div class="hp"><span>⚖️ คุณ</span><i><b style="width:'+me+'%;background:var(--green)"></b></i><span>🧑‍💼 ทนายรัฐ</span><i><b style="width:'+op+'%;background:var(--red)"></b></i></div>'+
-  '<div class="hint">ข้อโต้แย้ง '+(r+1)+' / '+s.rounds.length+'</div><div class="arg">'+esc(x.arg)+'</div><div class="lbl">เลือกท่อน "แม้…"</div><div id="m"></div><div class="lbl">เลือกท่อน "แต่…"</div><div id="t"></div><div id="dr"></div>';
-  const mk=(id,arr,key)=>{const box=el.querySelector('#'+id);sh(arr.map((o,i)=>i)).forEach(i=>{const b=document.createElement('button');b.className='opt';b.textContent=arr[i];b.dataset.i=i;b.setAttribute('aria-pressed','false');b.onclick=()=>{pick[key]=i;box.querySelectorAll('.opt').forEach(z=>z.setAttribute('aria-pressed',z===b))};box.appendChild(b)})};
-  mk('m',x.mae,'m');mk('t',x.tae,'t');
-  if(r<s.rounds.length-1){const b=document.createElement('button');b.className='btn main';b.style.cssText='width:100%;margin-top:10px';b.textContent='⚔️ โต้กลับ แล้วไปข้อโต้แย้งถัดไป';b.onclick=()=>{if(pick.m==null||pick.t==null)return;resolve(pick);r++;draw()};el.querySelector('#dr').appendChild(b)}
-  el._pick=pick}
- function resolve(p){const x=s.rounds[r];const a=p.m===x.ma,b=p.t===x.ta;pts+=per*((a?.4:0)+(b?.6:0));if(a&&b)op=Math.max(0,op-100/s.rounds.length);else me=Math.max(0,me-100/s.rounds.length)}
- draw();
- return{check(){const p=el._pick;if(p.m!=null&&p.t!=null)resolve(p);const x=s.rounds[r];
-  el.querySelectorAll('#m .opt').forEach(b=>{b.onclick=null;if(+b.dataset.i===x.ma)b.classList.add('right');else if(b.getAttribute('aria-pressed')==='true')b.classList.add('wrong')});
-  el.querySelectorAll('#t .opt').forEach(b=>{b.onclick=null;if(+b.dataset.i===x.ta)b.classList.add('right');else if(b.getAttribute('aria-pressed')==='true')b.classList.add('wrong')});
-  el.querySelector('#dr').innerHTML='<div class="fb" style="--c:var(--red)"><b>ประโยคที่ถูก:</b> <span class="but">'+esc(x.mae[x.ma])+'</span> <span class="but">'+esc(x.tae[x.ta])+'</span></div>';return pts}}};
-R.timeline=(s,el)=>{let pick=null;el.innerHTML=s.opts.map((o,i)=>'<button class="opt" data-i="'+i+'" aria-pressed="false">📌 '+o+'</button>').join('')+'<div id="tlv"></div>';
+ return{grade(){let hit=0,bad=0;s.opts.forEach((o,i)=>{if(o[1]&&sel.has(i))hit++;else if(!o[1]&&sel.has(i))bad++});return s.w*Math.max(0,hit-bad*(E?.5:1))/need},
+  reveal(){el.querySelectorAll('.opt').forEach(b=>{const i=+b.dataset.i;b.onclick=null;if(s.opts[i][1])b.classList.add('right');else if(sel.has(i))b.classList.add('wrong')})}}};
+R.duel=(s,el,E)=>{const picks=s.rounds.map(()=>({m:null,t:null}));const per=s.w/s.rounds.length;
+ let h='<div class="hp"><span>⚖️ คุณ</span><i><b id="hpMe" style="width:100%;background:var(--green)"></b></i><span>🧑‍💼 ฝ่ายรัฐ</span><i><b id="hpOp" style="width:100%;background:var(--red)"></b></i></div>'+(E?'<div class="hint">💡 ท่อน "แม้" ต้องยกข้อเท็จจริงหรือข้ออ้างของอีกฝ่ายขึ้นมา · ท่อน "แต่" ต้องมีเหตุผลทางกฎหมายที่ตอบข้ออ้างนั้นตรง ๆ</div>':'');
+ s.rounds.forEach((x,r)=>{h+='<div class="hint" style="margin-top:12px">ยกที่ '+(r+1)+' / '+s.rounds.length+'</div><div class="arg">'+esc(x.arg)+'</div><div class="lbl">ท่อน "แม้…"</div><div data-r="'+r+'" data-k="m"></div><div class="lbl">ท่อน "แต่…"</div><div data-r="'+r+'" data-k="t"></div><div id="dr'+r+'"></div>'});
+ el.innerHTML=h;
+ el.querySelectorAll('[data-k]').forEach(box=>{const r=+box.dataset.r,k=box.dataset.k;const arr=k==='m'?s.rounds[r].mae:s.rounds[r].tae;sh(arr.map((o,i)=>i)).forEach(i=>{const b=document.createElement('button');b.className='opt';b.textContent=arr[i];b.dataset.i=i;b.setAttribute('aria-pressed','false');b.onclick=()=>{picks[r][k]=i;box.querySelectorAll('.opt').forEach(z=>z.setAttribute('aria-pressed',z===b))};box.appendChild(b)})});
+ const sc=()=>{let p=0,won=0;s.rounds.forEach((x,r)=>{const a=picks[r].m===x.ma,b=picks[r].t===x.ta;p+=per*((a?.4:0)+(b?.6:0));if(a&&b)won++});return[p,won]};
+ return{grade(){return sc()[0]},reveal(){const[p,won]=sc();el.querySelector('#hpOp').style.width=Math.round(100-won/s.rounds.length*100)+'%';el.querySelector('#hpMe').style.width=Math.round(100-(s.rounds.length-won)/s.rounds.length*100)+'%';
+  el.querySelectorAll('[data-k]').forEach(box=>{const r=+box.dataset.r,k=box.dataset.k;const a=k==='m'?s.rounds[r].ma:s.rounds[r].ta;box.querySelectorAll('.opt').forEach(b=>{b.onclick=null;if(+b.dataset.i===a)b.classList.add('right');else if(b.getAttribute('aria-pressed')==='true')b.classList.add('wrong')})});
+  s.rounds.forEach((x,r)=>{el.querySelector('#dr'+r).innerHTML='<div class="fb" style="--c:var(--green)"><b>ประโยคที่ถูก:</b> <span class="but">'+esc(x.mae[x.ma])+'</span> <span class="but">'+esc(x.tae[x.ta])+'</span></div>'})}}};
+R.timeline=(s,el,E)=>{let pick=null;el.innerHTML=(E&&s.hint?'<div class="hint">💡 '+s.hint+'</div>':'')+s.opts.map((o,i)=>'<button class="opt" data-i="'+i+'" aria-pressed="false">📌 '+o+'</button>').join('')+'<div id="tlv"></div>';
  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{pick=+b.dataset.i;el.querySelectorAll('.opt').forEach(z=>z.setAttribute('aria-pressed',z===b))});
- return{check(){el.querySelectorAll('.opt').forEach(b=>{b.onclick=null;const i=+b.dataset.i;if(i===s.a)b.classList.add('right');else if(i===pick)b.classList.add('wrong')});
-  el.querySelector('#tlv').innerHTML='<div class="tl"><div class="line"></div>'+s.pins.map((p,i)=>'<div class="pin" style="left:'+Math.min(92,Math.max(8,p[1]))+'%;--c:'+(i===s.pins.length-1?'var(--red)':'var(--navy)')+'"><i></i>'+p[0]+'</div>').join('')+'</div>';return pick===s.a?s.w:0}}};
-R.calc=(s,el)=>{el.innerHTML='<div style="display:flex;gap:8px;align-items:center"><input type="text" inputmode="numeric" id="cv" placeholder="ตัวเลข" style="flex:1;font-size:1.2rem;font-weight:800"><b>'+s.unit+'</b></div>';
- return{check(){const v=+thd(el.querySelector('#cv').value).replace(/[^0-9.]/g,'');el.querySelector('#cv').disabled=true;return v===s.a?s.w:0}}};
-R.build=(s,el)=>{const order=[];const pool=sh(s.blocks.map((b,i)=>i));
- function draw(){el.innerHTML='<div class="lbl">ย่อหน้าของคุณ</div><div class="built" id="bt"></div><div class="lbl">บล็อกที่เหลือ</div><div class="pool" id="pl"></div>';
-  order.forEach((i,pos)=>{const b=document.createElement('button');b.className='chip blk';b.textContent=(pos+1)+'. '+s.blocks[i];b.onclick=()=>{order.splice(pos,1);draw()};el.querySelector('#bt').appendChild(b)});
-  pool.filter(i=>!order.includes(i)).forEach(i=>{const b=document.createElement('button');b.className='chip blk';b.textContent=s.blocks[i];b.onclick=()=>{order.push(i);draw()};el.querySelector('#pl').appendChild(b)})}
- draw();return{check(){let ok=0;order.forEach((i,pos)=>{if(i===pos)ok++});el.querySelectorAll('.chip').forEach(c=>c.onclick=null);
-  el.insertAdjacentHTML('beforeend','<div class="fb"><b>ลำดับที่ถูก</b><br>'+s.blocks.map((b,i)=>(i+1)+'. '+esc(b)).join('<br>')+'</div>');return s.w*ok/s.blocks.length}}};
-R.outline=(s,el)=>{const pick=s.blocks.map(()=>null);const order=sh(s.blocks.map((b,i)=>i));
- el.innerHTML=order.map(i=>'<div style="margin-top:8px;font-size:.95rem">'+esc(s.blocks[i][0])+'</div><div class="slotrow" data-i="'+i+'">'+s.slots.map((sl,j)=>'<button class="slot" data-j="'+j+'" aria-pressed="false">'+sl+'</button>').join('')+'</div>').join('');
+ return{grade(){return pick===s.a?s.w:0},reveal(){el.querySelectorAll('.opt').forEach(b=>{b.onclick=null;const i=+b.dataset.i;if(i===s.a)b.classList.add('right');else if(i===pick)b.classList.add('wrong')});
+  el.querySelector('#tlv').innerHTML='<div class="tl"><div class="line"></div>'+s.pins.map((p,i)=>'<div class="pin" style="left:'+Math.min(90,Math.max(10,p[1]))+'%;--c:'+(i===s.pins.length-1?'var(--red)':'var(--navy)')+'"><i></i>'+p[0]+'</div>').join('')+'</div>'}}};
+R.calc=(s,el,E)=>{el.innerHTML=(E&&s.hint?'<div class="hint">💡 '+s.hint+'</div>':'')+'<div style="display:flex;gap:8px;align-items:center"><input type="text" inputmode="numeric" id="cv" placeholder="ตัวเลข" style="flex:1;font-size:1.2rem;font-weight:800"><b>'+s.unit+'</b></div>';
+ const v=()=>+thd(el.querySelector('#cv').value).replace(/[^0-9.]/g,'');
+ return{grade(){return v()===s.a?s.w:0},reveal(){el.querySelector('#cv').disabled=true}}};
+R.build=(s,el,E)=>{const order=[];const pool=sh(s.blocks.map((b,i)=>i));let locked=false;
+ function draw(){el.innerHTML=(E?'<div class="hint">💡 เริ่มด้วยย่อหน้าที่มีคำว่า "กำหนดให้" และจบด้วย "ดังนั้น…จึง…"</div>':'')+'<div class="lbl">ย่อหน้าของคุณ (แตะเพื่อเอาออก)</div><div class="built" id="bt"></div><div class="lbl">บล็อกที่เหลือ</div><div class="pool" id="pl"></div>';
+  order.forEach((i,pos)=>{const b=document.createElement('button');b.className='chip blk';b.textContent=(pos+1)+'. '+s.blocks[i];b.onclick=()=>{if(locked)return;order.splice(pos,1);draw()};el.querySelector('#bt').appendChild(b)});
+  pool.filter(i=>!order.includes(i)).forEach(i=>{const b=document.createElement('button');b.className='chip blk';b.textContent=s.blocks[i];b.onclick=()=>{if(locked)return;order.push(i);draw()};el.querySelector('#pl').appendChild(b)})}
+ draw();return{grade(){let ok=0;order.forEach((i,pos)=>{if(i===pos)ok++});return s.w*ok/s.blocks.length},reveal(){locked=true;el.insertAdjacentHTML('beforeend','<div class="fb"><b>ลำดับที่ถูก</b><br>'+s.blocks.map((b,i)=>(i+1)+'. '+esc(b)).join('<br>')+'</div>')}}};
+R.outline=(s,el,E)=>{const pick=s.blocks.map(()=>null);const order=sh(s.blocks.map((b,i)=>i));
+ el.innerHTML=(E?'<div class="hint">💡 ลำดับโครง: หลัก/ความหมาย → ฐานกฎหมาย (มีเลขมาตรา) → องค์ประกอบ/เงื่อนไข → ข้อยกเว้น → ตัวอย่าง (มีข้อเท็จจริงเฉพาะเรื่อง)</div>':'')+order.map(i=>'<div style="margin-top:8px;font-size:.95rem">'+esc(s.blocks[i][0])+'</div><div class="slotrow" data-i="'+i+'">'+s.slots.map((sl,j)=>'<button class="slot" data-j="'+j+'" aria-pressed="false">'+sl+'</button>').join('')+'</div>').join('');
  el.querySelectorAll('.slotrow').forEach(row=>row.querySelectorAll('.slot').forEach(b=>b.onclick=()=>{const i=+row.dataset.i;pick[i]=+b.dataset.j;row.querySelectorAll('.slot').forEach(z=>z.setAttribute('aria-pressed',z===b))}));
- return{check(){let ok=0;el.querySelectorAll('.slotrow').forEach(row=>{const i=+row.dataset.i;const a=s.blocks[i][1];if(pick[i]===a)ok++;row.querySelectorAll('.slot').forEach(b=>{b.onclick=null;const j=+b.dataset.j;if(j===a)b.classList.add('right');else if(j===pick[i])b.classList.add('wrong')})});return s.w*ok/s.blocks.length}}};
-R.recall=(s,el)=>{el.innerHTML='<textarea id="rt" placeholder="ประการแรก …&#10;ประการที่สอง …"></textarea><div class="hint">ระบบตรวจจากคำสำคัญ ไม่ต้องเขียนตรงตัวบททุกคำ</div><div id="rv"></div>';
- return{check(){const t=thd(el.querySelector('#rt').value).replace(/\s+/g,'');let ok=0;const rows=s.items.map(it=>{const hit=it.kw.some(k=>t.includes(k.replace(/\s+/g,'')));if(hit)ok++;return '<div style="margin:4px 0">'+(hit?'✅':'⬜')+' '+esc(it.label)+'</div>'});
-  el.querySelector('#rt').disabled=true;el.querySelector('#rv').innerHTML='<div class="fb">'+rows.join('')+'</div>';return s.w*ok/s.items.length}}};
-R.compare=(s,el)=>{const pick=s.items.map(()=>null);const order=sh(s.items.map((x,i)=>i));
+ return{grade(){let ok=0;s.blocks.forEach((b,i)=>{if(pick[i]===b[1])ok++});return s.w*ok/s.blocks.length},
+  reveal(){el.querySelectorAll('.slotrow').forEach(row=>{const i=+row.dataset.i;const a=s.blocks[i][1];row.querySelectorAll('.slot').forEach(b=>{b.onclick=null;const j=+b.dataset.j;if(j===a)b.classList.add('right');else if(j===pick[i])b.classList.add('wrong')})})}}};
+R.recall=(s,el,E)=>{let api;
+ if(E){const opts=sh([...s.items.map((it,i)=>({t:it.label,ok:true,i})),...(s.decoy||[]).map(t=>({t,ok:false}))]);const sel=new Set();
+  el.innerHTML='<div class="hint">💡 โหมดง่าย: แตะเลือกรายการที่ใช่ให้ครบ '+s.items.length+' ข้อ · มีตัวหลอกปนอยู่</div>'+opts.map((o,k)=>'<button class="opt" data-k="'+k+'" aria-pressed="false">'+esc(o.t)+'</button>').join('');
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const k=+b.dataset.k;sel.has(k)?sel.delete(k):sel.add(k);b.setAttribute('aria-pressed',sel.has(k))});
+  api={grade(){let hit=0,bad=0;opts.forEach((o,k)=>{if(sel.has(k)){o.ok?hit++:bad++}});return s.w*Math.max(0,hit-bad*.5)/s.items.length},reveal(){el.querySelectorAll('.opt').forEach(b=>{const k=+b.dataset.k;b.onclick=null;if(opts[k].ok)b.classList.add('right');else if(sel.has(k))b.classList.add('wrong')})}}}
+ else{el.innerHTML='<textarea id="rt" placeholder="ประการแรก …&#10;ประการที่สอง …"></textarea><div class="hint">ระบบตรวจจากคำสำคัญ ไม่ต้องเขียนตรงตัวบททุกคำ</div><div id="rv"></div>';
+  const hits=()=>{const t=thd(el.querySelector('#rt').value).replace(/\s+/g,'');return s.items.map(it=>it.kw.some(k=>t.includes(k.replace(/\s+/g,''))))};
+  api={grade(){const h=hits();return s.w*h.filter(Boolean).length/s.items.length},reveal(){const h=hits();el.querySelector('#rt').disabled=true;el.querySelector('#rv').innerHTML='<div class="fb">'+s.items.map((it,i)=>'<div style="margin:4px 0">'+(h[i]?'✅':'⬜')+' '+esc(it.label)+'</div>').join('')+'</div>'}}}
+ return api};
+R.compare=(s,el,E)=>{const pick=s.items.map(()=>null);const order=sh(s.items.map((x,i)=>i));
  el.innerHTML='<div class="hint">แตะปุ่มเพื่อสลับ: '+s.cols[0]+' ⇄ '+s.cols[1]+'</div>'+order.map(i=>'<div class="cmp"><span>'+esc(s.items[i][0])+'</span><button class="btn" data-i="'+i+'">เลือก</button></div>').join('');
  el.querySelectorAll('.cmp .btn').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;pick[i]=pick[i]===0?1:0;b.textContent=s.cols[pick[i]];b.style.background=pick[i]===0?'var(--blue-bg)':'var(--orange-bg)'});
- return{check(){let ok=0;el.querySelectorAll('.cmp .btn').forEach(b=>{const i=+b.dataset.i;b.onclick=null;const good=pick[i]===s.items[i][1];if(good)ok++;b.style.background=good?'var(--green-bg)':'var(--red-bg)';if(!good)b.textContent='→ '+s.cols[s.items[i][1]]});return s.w*ok/s.items.length}}};
-R.term=(s,el)=>{el.innerHTML=s.pairs.map((p,i)=>'<div style="margin:8px 0"><b>'+p[0]+'</b><input type="text" id="tm'+i+'" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="English"></div>').join('');
- return{check(){let ok=0;s.pairs.forEach((p,i)=>{const inp=el.querySelector('#tm'+i);const v=normEn(inp.value);const good=p[1].some(a=>normEn(a)===v);if(good)ok++;inp.disabled=true;inp.style.borderColor=good?'var(--green)':'var(--red)';if(!good)inp.insertAdjacentHTML('afterend','<div class="hint" style="color:var(--green)">✔ '+p[1][0]+'</div>')});return s.w*ok/s.pairs.length}}};
-R.tiles=(s,el)=>{const words=s.en.split(' ');const order=[];const pool=sh(words.map((w,i)=>i));
- function draw(){el.innerHTML='<div class="built" id="bt"></div><div class="pool" id="pl"></div>';
-  order.forEach((i,pos)=>{const b=document.createElement('button');b.className='chip';b.textContent=words[i];b.onclick=()=>{order.splice(pos,1);draw()};el.querySelector('#bt').appendChild(b)});
-  pool.filter(i=>!order.includes(i)).forEach(i=>{const b=document.createElement('button');b.className='chip';b.textContent=words[i];b.onclick=()=>{order.push(i);draw()};el.querySelector('#pl').appendChild(b)})}
- draw();return{check(){let ok=0;order.forEach((i,pos)=>{if(words[i]===words[pos])ok++});el.querySelectorAll('.chip').forEach(c=>c.onclick=null);
-  el.insertAdjacentHTML('beforeend','<div class="fb"><b>เฉลย</b><br>'+esc(s.en.replace(/ ([,.])/g,'$1'))+'</div>');return s.w*ok/words.length}}};
-R.clause=(s,el)=>{const pick=s.rows.map(()=>null);
- el.innerHTML=s.rows.map((r,i)=>'<div style="margin-top:12px"><b>'+esc(r.en)+'</b><div data-r="'+i+'">'+sh(r.o.map((o,j)=>j)).map(j=>'<button class="opt" data-j="'+j+'" aria-pressed="false">'+esc(r.o[j])+'</button>').join('')+'</div></div>').join('');
+ return{grade(){let ok=0;s.items.forEach((x,i)=>{if(pick[i]===x[1])ok++});return s.w*ok/s.items.length},
+  reveal(){el.querySelectorAll('.cmp .btn').forEach(b=>{const i=+b.dataset.i;b.onclick=null;const good=pick[i]===s.items[i][1];b.style.background=good?'var(--green-bg)':'var(--red-bg)';if(!good)b.textContent='→ '+s.cols[s.items[i][1]]})}}};
+const TERMDECOY=['adversarial system','administrative officer','judicial review','high court','government officer','investigation','supreme court','public agency'];
+R.term=(s,el,E)=>{const val=s.pairs.map(()=>'');
+ el.innerHTML=s.pairs.map((p,i)=>{let inner;if(E){const others=s.pairs.filter((q,j)=>j!==i).map(q=>q[1][0]);const pool=sh([...others,...TERMDECOY].filter(x=>!p[1].includes(x))).slice(0,2);inner='<div class="slotrow" data-i="'+i+'">'+sh([p[1][0],...pool]).map(o=>'<button class="slot" data-v="'+esc(o)+'" aria-pressed="false" style="font-size:.95rem;padding:6px 12px">'+esc(o)+'</button>').join('')+'</div>'}else inner='<input type="text" id="tm'+i+'" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="English">';
+  return '<div style="margin:8px 0" id="tw'+i+'"><b>'+p[0]+'</b>'+inner+'</div>'}).join('');
+ if(E)el.querySelectorAll('.slotrow').forEach(row=>row.querySelectorAll('.slot').forEach(b=>b.onclick=()=>{val[+row.dataset.i]=b.dataset.v;row.querySelectorAll('.slot').forEach(z=>z.setAttribute('aria-pressed',z===b))}));
+ const get=i=>E?val[i]:el.querySelector('#tm'+i).value;const good=i=>s.pairs[i][1].some(a=>normEn(a)===normEn(get(i)));
+ return{grade(){let ok=0;s.pairs.forEach((p,i)=>{if(good(i))ok++});return s.w*ok/s.pairs.length},
+  reveal(){s.pairs.forEach((p,i)=>{const w=el.querySelector('#tw'+i);w.querySelectorAll('input,.slot').forEach(x=>{x.disabled=true;x.onclick=null});if(!E){const inp=el.querySelector('#tm'+i);inp.style.borderColor=good(i)?'var(--green)':'var(--red)'}else w.querySelectorAll('.slot').forEach(b=>{if(p[1].includes(b.dataset.v))b.classList.add('right');else if(b.getAttribute('aria-pressed')==='true')b.classList.add('wrong')});if(!good(i)&&!E)w.insertAdjacentHTML('beforeend','<div class="hint" style="color:var(--green)">✔ '+p[1][0]+'</div>')})}}};
+R.tiles=(s,el,E)=>{const words=s.en.split(' ');const order=[];const pool=sh(words.map((w,i)=>i));let locked=false;
+ function draw(){el.innerHTML=(E?'<div class="hint">💡 คำแรกคือ "'+esc(words[0])+'" · เครื่องหมาย , และ . เป็นบล็อกแยก</div>':'')+'<div class="built" id="bt"></div><div class="pool" id="pl"></div>';
+  order.forEach((i,pos)=>{const b=document.createElement('button');b.className='chip';b.textContent=words[i];b.onclick=()=>{if(locked)return;order.splice(pos,1);draw()};el.querySelector('#bt').appendChild(b)});
+  pool.filter(i=>!order.includes(i)).forEach(i=>{const b=document.createElement('button');b.className='chip';b.textContent=words[i];b.onclick=()=>{if(locked)return;order.push(i);draw()};el.querySelector('#pl').appendChild(b)})}
+ draw();return{grade(){let ok=0;order.forEach((i,pos)=>{if(words[i]===words[pos])ok++});return s.w*ok/words.length},reveal(){locked=true;el.insertAdjacentHTML('beforeend','<div class="fb"><b>เฉลย</b><br>'+esc(s.en.replace(/ ([,.])/g,'$1'))+'</div>')}}};
+R.clause=(s,el,E)=>{const pick=s.rows.map(()=>null);
+ el.innerHTML=(E?'<div class="hint">💡 เลือกคำแปลที่แปลความ ไม่แปลทีละคำ และใช้ศัพท์ทางการของศาลปกครอง</div>':'')+s.rows.map((r,i)=>'<div style="margin-top:12px"><b>'+esc(r.en)+'</b><div data-r="'+i+'">'+sh(r.o.map((o,j)=>j)).map(j=>'<button class="opt" data-j="'+j+'" aria-pressed="false">'+esc(r.o[j])+'</button>').join('')+'</div></div>').join('');
  el.querySelectorAll('[data-r]').forEach(box=>box.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{pick[+box.dataset.r]=+b.dataset.j;box.querySelectorAll('.opt').forEach(z=>z.setAttribute('aria-pressed',z===b))}));
- return{check(){let ok=0;el.querySelectorAll('[data-r]').forEach(box=>{const i=+box.dataset.r;if(pick[i]===s.rows[i].a)ok++;box.querySelectorAll('.opt').forEach(b=>{b.onclick=null;const j=+b.dataset.j;if(j===s.rows[i].a)b.classList.add('right');else if(j===pick[i])b.classList.add('wrong')})});return s.w*ok/s.rows.length}}};
+ return{grade(){let ok=0;s.rows.forEach((r,i)=>{if(pick[i]===r.a)ok++});return s.w*ok/s.rows.length},
+  reveal(){el.querySelectorAll('[data-r]').forEach(box=>{const i=+box.dataset.r;box.querySelectorAll('.opt').forEach(b=>{b.onclick=null;const j=+b.dataset.j;if(j===s.rows[i].a)b.classList.add('right');else if(j===pick[i])b.classList.add('wrong')})})}}};
 
 home();
 </script>
