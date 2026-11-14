@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f4ecdc" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1d1b18" media="(prefers-color-scheme: dark)">
 <title>ฝึกท่องตัวเลข พนักงานคดีปกครอง</title>
@@ -10,7 +10,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--ink:#2f2b25;--mute:#6f685c;--line:#e3d9c6;--bg:#f4ecdc;--card:#fbf6ec;--brand:#0b3d66;--brand2:#1f5a8a;--ok:#1e7a46;--no:#b3401f;}
-@media (prefers-color-scheme:dark){:root{--ink:#e6dfd2;--mute:#a59d8f;--line:#3a352d;--bg:#1d1b18;--card:#262320;--brand:#8cc0ec;--brand2:#7fb2e0;--ok:#5cc58b;--no:#f08a6a;}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ink:#e6dfd2;--mute:#a59d8f;--line:#3a352d;--bg:#1d1b18;--card:#262320;--brand:#8cc0ec;--brand2:#7fb2e0;--ok:#5cc58b;--no:#f08a6a;}}
+:root[data-theme="dark"]{--ink:#e6dfd2;--mute:#a59d8f;--line:#3a352d;--bg:#1d1b18;--card:#262320;--brand:#8cc0ec;--brand2:#7fb2e0;--ok:#5cc58b;--no:#f08a6a;}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--ink);font-family:'Sarabun',sans-serif;line-height:1.6;-webkit-text-size-adjust:100%}
 main{max-width:640px;margin:0 auto;padding:16px 16px 40px}
@@ -70,7 +71,8 @@ h1{font-size:1.3rem;margin:4px 0 2px;color:var(--brand)}
 .model{margin-top:12px;padding:12px;border-left:4px solid var(--brand2);background:var(--bg);border-radius:6px}
 
 :root{--c-num:#0a55c2;--c-num-bg:#dfe8f3;--c-sec:#7b3fb3;--c-adm:#1e7a46;--c-adm-bg:#dcecdc;--c-jus:#b35a00;--c-jus-bg:#f6e2c8;--c-but:#c0392b;--c-so:#0b3d66;--c-neg:#c0392b;--c-modal:#a1287a}
-@media (prefers-color-scheme:dark){:root{--c-num:#8ab8ff;--c-num-bg:#1b2c45;--c-sec:#c9a2f0;--c-adm:#6fd39a;--c-adm-bg:#17321f;--c-jus:#ffb36b;--c-jus-bg:#3a2612;--c-but:#ff8a7a;--c-so:#9cc8f0;--c-neg:#ff8a7a;--c-modal:#f08ad0}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--c-num:#8ab8ff;--c-num-bg:#1b2c45;--c-sec:#c9a2f0;--c-adm:#6fd39a;--c-adm-bg:#17321f;--c-jus:#ffb36b;--c-jus-bg:#3a2612;--c-but:#ff8a7a;--c-so:#9cc8f0;--c-neg:#ff8a7a;--c-modal:#f08ad0}}
+:root[data-theme="dark"]{--c-num:#8ab8ff;--c-num-bg:#1b2c45;--c-sec:#c9a2f0;--c-adm:#6fd39a;--c-adm-bg:#17321f;--c-jus:#ffb36b;--c-jus-bg:#3a2612;--c-but:#ff8a7a;--c-so:#9cc8f0;--c-neg:#ff8a7a;--c-modal:#f08ad0}
 .hl-num{color:var(--c-num);background:var(--c-num-bg);border-radius:4px;padding:0 3px;font-weight:700}
 .hl-sec{color:var(--c-sec);font-weight:700}
 .hl-adm{color:var(--c-adm);background:var(--c-adm-bg);border-radius:4px;padding:0 3px;font-weight:700}
@@ -83,11 +85,23 @@ h1{font-size:1.3rem;margin:4px 0 2px;color:var(--brand)}
 .legend summary{cursor:pointer;font-weight:600;color:var(--brand2)}
 .legend div{display:flex;flex-wrap:wrap;gap:6px 12px;margin-top:6px}
 .card,.pane{border-left-width:6px}
+
+main{padding-bottom:calc(120px + env(safe-area-inset-bottom))}
+.modes button[aria-pressed="true"],.chip[aria-pressed="true"],.row button.main,.btns button{color:var(--card)!important}
+.chip{color:var(--cc,var(--ink));border-color:var(--cc,var(--line))}
+.chip[aria-pressed="true"]{background:var(--cc,var(--brand2));border-color:var(--cc,var(--brand2))}
+:root[data-theme="dark"] .chip:not([aria-pressed="true"]){color:color-mix(in srgb,var(--cc,var(--ink)) 50%,#fff);border-color:color-mix(in srgb,var(--cc,var(--line)) 70%,#fff)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip:not([aria-pressed="true"]){color:color-mix(in srgb,var(--cc,var(--ink)) 50%,#fff);border-color:color-mix(in srgb,var(--cc,var(--line)) 70%,#fff)}}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:8px}
+#themeBtn{font:inherit;font-size:.82rem;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer;white-space:nowrap}
 </style>
+<script>
+(function(){var t;try{t=localStorage.getItem('theme')}catch(e){}if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)})();
+</script>
 </head>
 <body>
 <main>
-<h1>ฝึกหลักกฎหมายและภาษาอังกฤษ</h1>
+<div class="topbar"><h1>ฝึกหลักกฎหมายและภาษาอังกฤษ</h1><button id="themeBtn" type="button">🎨 อัตโนมัติ</button></div>
 <div class="modes" role="tablist">
 <button data-m="flash" aria-pressed="true">การ์ด<small>ทุกหมวด</small></button><button data-m="case" aria-pressed="false">ปรับบท<small>กฎหมาย</small></button><button data-m="lcloze" aria-pressed="false">เติมหลัก<small>กฎหมาย</small></button>
 <button data-m="type" aria-pressed="false">พิมพ์ตอบ<small>อังกฤษ</small></button><button data-m="order" aria-pressed="false">เรียงประโยค<small>อังกฤษ</small></button><button data-m="cloze" aria-pressed="false">เติมคำ<small>อังกฤษ</small></button>
@@ -523,11 +537,16 @@ const IDS=['a','q','lA','lQ','kModel','tRes','oRes'];let busy=false;
 function run(){if(busy)return;busy=true;try{IDS.forEach(id=>colorize(document.getElementById(id)));
  const pairs=[['card','tag'],['mLcloze','lTag'],['mCase','kTag']];pairs.forEach(([box,tag])=>{const b=document.getElementById(box),t=document.getElementById(tag);if(b&&t){const c=catColor(t.textContent);b.style.borderLeftColor=c||''}});
  ['mType','mOrder','mCloze'].forEach(id=>{const b=document.getElementById(id);if(b)b.style.borderLeftColor='#c06a00'});
- document.querySelectorAll('#chips .chip').forEach(ch=>{const c=CATCOL[ch.textContent];if(c&&ch.getAttribute('aria-pressed')!=='true'){ch.style.borderColor=c;ch.style.color=c}else{ch.style.borderColor='';ch.style.color=''}});
+ document.querySelectorAll('#chips .chip').forEach(ch=>{const c=CATCOL[ch.textContent];if(c)ch.style.setProperty('--cc',c)});
 }finally{busy=false}}
 const mo=new MutationObserver(()=>{if(!busy){mo.disconnect();run();obs()}});
 function obs(){mo.observe(document.querySelector('main'),{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['aria-pressed']})}
 run();obs();
+const tb=document.getElementById('themeBtn');const L={auto:'🎨 อัตโนมัติ',light:'☀️ ครีม',dark:'🌙 มืด'};
+let cur;try{cur=localStorage.getItem('theme')||'auto'}catch(e){cur='auto'}
+function apply(){if(cur==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',cur);tb.textContent=L[cur];
+ const dark=cur==='dark'||(cur==='auto'&&matchMedia('(prefers-color-scheme: dark)').matches);document.querySelectorAll('meta[name=theme-color]').forEach(m=>m.setAttribute('content',dark?'#1d1b18':'#f4ecdc'))}
+tb.onclick=()=>{cur={auto:'light',light:'dark',dark:'auto'}[cur];try{localStorage.setItem('theme',cur)}catch(e){}apply()};apply();
 })();
 </script>
 </body>
