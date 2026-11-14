@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ฝึกท่องตัวเลข พนักงานคดีปกครอง</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1d1d1f;--mute:#5f6670;--line:#d7dee6;--bg:#f5f7fa;--card:#fff;--brand:#0b3d66;--brand2:#1f5a8a;--ok:#1e7a46;--no:#b3401f;}
+@media (prefers-color-scheme:dark){:root{--ink:#e9edf2;--mute:#9aa4af;--line:#2c3540;--bg:#12161b;--card:#1b2128;--brand:#8cc0ec;--brand2:#7fb2e0;--ok:#5cc58b;--no:#f08a6a;}}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:'Sarabun',sans-serif;line-height:1.6;-webkit-text-size-adjust:100%}
+main{max-width:640px;margin:0 auto;padding:16px 16px 40px}
+h1{font-size:1.3rem;margin:4px 0 2px;color:var(--brand)}
+.sub{color:var(--mute);font-size:.92rem;margin:0 0 14px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 12px;font:inherit;font-size:.9rem;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--brand2);border-color:var(--brand2);color:#fff}
+.bar{height:6px;background:var(--line);border-radius:6px;overflow:hidden;margin:4px 0 6px}
+.bar>i{display:block;height:100%;width:0;background:var(--brand2);transition:width .3s}
+.meta{display:flex;justify-content:space-between;color:var(--mute);font-size:.85rem;margin-bottom:10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;min-height:230px;display:flex;flex-direction:column;cursor:pointer;user-select:none}
+.tag{font-size:.78rem;color:var(--brand2);font-weight:600;letter-spacing:.02em;margin-bottom:6px}
+.q{font-size:1.12rem;font-weight:600}
+.a{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);font-size:1.02rem;display:none}
+.a b{color:var(--brand)}
+.card.open .a{display:block}
+.hint{margin-top:auto;padding-top:12px;color:var(--mute);font-size:.85rem;text-align:center}
+.card.open .hint{display:none}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.btns button{font:inherit;font-weight:600;font-size:1rem;padding:12px;border-radius:12px;border:0;cursor:pointer;color:#fff}
+.btns .no{background:var(--no)}.btns .ok{background:var(--ok)}
+.btns button:disabled{opacity:.35;cursor:default}
+.done{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;text-align:center;display:none}
+.done h2{margin:0 0 6px;color:var(--brand);font-size:1.2rem}
+.done button,.reset{font:inherit;border:1px solid var(--brand2);background:transparent;color:var(--brand2);border-radius:10px;padding:8px 14px;margin:6px 4px 0;cursor:pointer}
+.miss{text-align:left;margin:12px 0 0;padding-left:18px;color:var(--ink);font-size:.95rem}
+.foot{color:var(--mute);font-size:.8rem;margin-top:18px}
+
+.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:0 0 14px}
+.modes button{font:inherit;font-size:.88rem;font-weight:600;padding:9px 4px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.modes button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#fff}
+.pane{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.pane .q{margin-bottom:10px}
+.pane input[type=text]{width:100%;font:inherit;font-size:1.05rem;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.row button,.pill{font:inherit;font-size:.95rem;padding:9px 14px;border-radius:10px;border:1px solid var(--brand2);background:transparent;color:var(--brand2);cursor:pointer}
+.row button.main{background:var(--brand2);color:#fff}
+.res{margin-top:12px;font-size:1rem}
+.res .okt{color:var(--ok);font-weight:700}.res .not{color:var(--no);font-weight:700}
+.res .miss-w{color:var(--no);text-decoration:underline;font-weight:600}
+.res .hit-w{color:var(--ok)}
+.tiles{display:flex;flex-wrap:wrap;gap:6px;min-height:44px;padding:8px;border:1px dashed var(--line);border-radius:10px;margin-top:8px}
+.tile{font:inherit;font-size:.98rem;padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.ans .tile{background:var(--brand2);color:#fff;border-color:var(--brand2)}
+.choice{display:block;width:100%;text-align:left;margin-top:8px;font:inherit;font-size:1rem;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.choice.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 15%,transparent)}
+.choice.wrong{border-color:var(--no);background:color-mix(in srgb,var(--no) 15%,transparent)}
+.blank{display:inline-block;min-width:80px;border-bottom:2px solid var(--brand2)}
+.stat{color:var(--mute);font-size:.85rem;margin-bottom:8px;display:flex;justify-content:space-between}
+.modes small{display:block;font-weight:400;font-size:.72rem;opacity:.8}
+.facts{line-height:2}
+.fact{display:inline;padding:2px 3px;border-radius:5px;cursor:pointer;border-bottom:1px dashed var(--mute)}
+.fact.trap{background:color-mix(in srgb,var(--ok) 22%,transparent);border-bottom-color:var(--ok)}
+.fact.notrap{background:color-mix(in srgb,var(--no) 18%,transparent)}
+.step{font-size:.85rem;font-weight:700;color:var(--brand2);margin:12px 0 4px}
+.model{margin-top:12px;padding:12px;border-left:4px solid var(--brand2);background:var(--bg);border-radius:6px}
+</style>
+</head>
+<body>
+<main>
+<h1>ฝึกหลักกฎหมายและภาษาอังกฤษ</h1>
+<div class="modes" role="tablist">
+<button data-m="flash" aria-pressed="true">การ์ด<small>ทุกหมวด</small></button><button data-m="case" aria-pressed="false">ปรับบท<small>กฎหมาย</small></button><button data-m="lcloze" aria-pressed="false">เติมหลัก<small>กฎหมาย</small></button>
+<button data-m="type" aria-pressed="false">พิมพ์ตอบ<small>อังกฤษ</small></button><button data-m="order" aria-pressed="false">เรียงประโยค<small>อังกฤษ</small></button><button data-m="cloze" aria-pressed="false">เติมคำ<small>อังกฤษ</small></button>
+</div>
+<p class="sub">แตะการ์ดเพื่อดูคำตอบ แล้วกด "ยังไม่แม่น" หรือ "จำได้" การ์ดที่ยังไม่แม่นจะวนกลับมาอีกภายในไม่กี่ข้อ</p>
+<div id="mFlash"><div class="chips" id="chips"></div>
+<div class="bar"><i id="prog"></i></div>
+<div class="meta"><span id="count"></span><span id="score"></span></div>
+<div class="card" id="card" role="button" tabindex="0" aria-live="polite">
+  <div class="tag" id="tag"></div>
+  <div class="q" id="q"></div>
+  <div class="a" id="a"></div>
+  <div class="hint">แตะเพื่อดูคำตอบ</div>
+</div>
+<div class="btns"><button class="no" id="no" disabled>ยังไม่แม่น</button><button class="ok" id="ok" disabled>จำได้</button></div>
+<div class="done" id="done">
+  <h2>จบรอบแล้ว</h2>
+  <div id="sum"></div>
+  <ol class="miss" id="miss"></ol>
+  <button id="again">ฝึกเฉพาะข้อที่พลาด</button><button id="all">เริ่มใหม่ทั้งหมด</button>
+</div>
+</div>
+<div id="mType" class="pane" hidden>
+ <div class="stat"><span id="tCount"></span><span id="tScore"></span></div>
+ <div class="tag">ไทย → อังกฤษ · พิมพ์คำแปลจากความจำ</div>
+ <div class="q" id="tQ"></div>
+ <input type="text" id="tIn" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="พิมพ์ภาษาอังกฤษ แล้วกด ตรวจ">
+ <div class="row"><button class="main" id="tCheck">ตรวจ</button><button id="tHint">ใบ้ตัวแรก</button><button id="tSay">🔊 ฟัง</button><button id="tNext">ข้อต่อไป</button></div>
+ <div class="res" id="tRes"></div>
+</div>
+<div id="mOrder" class="pane" hidden>
+ <div class="stat"><span id="oCount"></span><span id="oScore"></span></div>
+ <div class="tag" id="oTag">เรียงคำให้เป็นประโยค</div>
+ <div class="q" id="oQ"></div>
+ <div class="tiles ans" id="oAns" aria-label="ประโยคที่เรียง"></div>
+ <div class="tiles" id="oPool" aria-label="คำที่เหลือ"></div>
+ <div class="row"><button class="main" id="oCheck">ตรวจ</button><button id="oUndo">ล้าง</button><button id="oSay">🔊 ฟัง</button><button id="oNext">ข้อต่อไป</button></div>
+ <div class="res" id="oRes"></div>
+</div>
+<div id="mCloze" class="pane" hidden>
+ <div class="stat"><span id="cCount"></span><span id="cScore"></span></div>
+ <div class="tag">เลือกคำที่หายไป</div>
+ <div class="q" id="cQ"></div>
+ <div class="mute" id="cHint" style="color:var(--mute);font-size:.9rem"></div>
+ <div id="cOpts"></div>
+ <div class="row"><button id="cSay">🔊 ฟัง</button><button id="cNext">ข้อต่อไป</button></div>
+</div>
+<div id="mCase" class="pane" hidden>
+ <div class="stat"><span id="kCount"></span><span id="kScore"></span></div>
+ <div class="tag" id="kTag"></div>
+ <div class="step">ขั้น 1 · แตะข้อเท็จจริงที่โจทย์ใส่มาล่อ</div>
+ <div class="facts" id="kFacts"></div>
+ <div class="res" id="kTrapRes"></div>
+ <div id="kStep2" hidden><div class="step">ขั้น 2 · <span id="kQ"></span></div><div id="kOpts"></div></div>
+ <div id="kModel" class="model" hidden></div>
+ <div class="row"><button id="kNext">ข้อต่อไป</button></div>
+</div>
+<div id="mLcloze" class="pane" hidden>
+ <div class="stat"><span id="lCount"></span><span id="lScore"></span></div>
+ <div class="tag" id="lTag"></div>
+ <div class="q" id="lQ"></div>
+ <div id="lA" style="margin-top:6px"></div>
+ <div id="lOpts"></div>
+ <div class="row"><button id="lNext">ข้อต่อไป</button></div>
+</div>
+<p class="foot">ข้อมูลตรงกับตารางระยะเวลาในหลักสูตรเร่งรัด เฉพาะแถวที่ยืนยันแล้ว ตรวจกับตัวบทแล้ว (12 พ.ย. 2569)</p>
+</main>
+<script>
+const CARDS=[
+["ว.ป.","ว.ป. ม.39/1 — เจ้าหน้าที่ต้องออกคำสั่งให้เสร็จภายในกี่วัน นับจากอะไร","<b>30 วัน</b> นับแต่วันที่ได้รับคำขอและเอกสารถูกต้องครบถ้วน ใช้เมื่อไม่มีกฎหมายหรือกฎกำหนดเวลาไว้เป็นอย่างอื่น"],
+["ว.ป.","ว.ป. ม.40 — คำสั่งไม่ระบุสิทธิอุทธรณ์ ระยะเวลาอุทธรณ์เป็นอย่างไร","เริ่มนับใหม่เมื่อได้รับแจ้งสิทธิ แต่ถ้าไม่แจ้งเลย ขยายเป็น <b>1 ปี</b> นับแต่ได้รับคำสั่ง"],
+["ว.ป.","ว.ป. ม.44 — อุทธรณ์ต่อใคร ภายในกี่วัน","ต่อ<b>เจ้าหน้าที่ผู้ทำคำสั่ง</b> ภายใน <b>15 วัน</b> นับแต่ได้รับแจ้ง ทำเป็นหนังสือ ระบุข้อโต้แย้ง (ยกเว้นคำสั่งรัฐมนตรี) และการอุทธรณ์ไม่ทุเลาการบังคับ"],
+["ว.ป.","ว.ป. ม.45 — กรอบเวลาพิจารณาอุทธรณ์","ผู้ทำคำสั่ง <b>30 วัน</b> → รายงานผู้มีอำนาจพิจารณาอุทธรณ์ <b>30 วัน</b> ขยายได้อีก <b>30 วัน</b> เป็นกำหนดเร่งรัด พิจารณาเกินไม่ทำให้คำวินิจฉัยเสียไป"],
+["ว.ป.","ว.ป. ม.46 — ผู้พิจารณาอุทธรณ์ทบทวนอะไรได้บ้าง","ทั้ง<b>ข้อเท็จจริง ข้อกฎหมาย และความเหมาะสม</b> และ<b>เพิ่มหรือลดภาระ</b>ได้ แต่ถ้าเพิ่มภาระด้วยข้อเท็จจริงใหม่ต้องให้โอกาสโต้แย้งตาม ม.30"],
+["ว.ป.","ว.ป. ม.48 — คำสั่งที่ออกโดยคณะกรรมการตามกฎหมาย ต้องอุทธรณ์ก่อนฟ้องหรือไม่","<b>ไม่ต้อง</b>อุทธรณ์ตาม ม.44 ก่อนฟ้อง"],
+["ว.ป.","ว.ป. ม.3 วรรคสอง — กฎหมายเฉพาะกำหนดขั้นตอนอุทธรณ์ไว้ ใช้อะไร","ใช้<b>กฎหมายเฉพาะ</b> โดยไม่ต้องดูว่าประกันความเป็นธรรมสูงหรือต่ำกว่า ว.ป. (ธง 2566 ข้อ 1) เรื่องที่กฎหมายเฉพาะไม่ได้กำหนด ยังใช้ ม.45 ม.46"],
+["ว.ป.","ว.ป. ม.13 — ญาติที่เป็นเหตุต้องห้าม","บุพการีหรือผู้สืบสันดาน<b>ไม่ว่าชั้นใด</b> / พี่น้องหรือลูกพี่ลูกน้อง<b>ภายใน 3 ชั้น</b> / ญาติเกี่ยวพันทางแต่งงาน<b>ภายใน 2 ชั้น</b>"],
+["ว.ป.","ว.ป. ม.19 — ภายหลังพบว่าแต่งตั้งกรรมการไม่ชอบหรือกรรมการขาดคุณสมบัติ","การพิจารณาที่ทำไปแล้ว<b>ไม่เสียไป</b> แต่ไม่คุ้มครองกรรมการที่มีเหตุต้องห้ามตาม ม.13"],
+["ว.ป.","ว.ป. ม.49 วรรคสอง — เพิกถอนคำสั่งให้ประโยชน์ที่ไม่ชอบ ภายในกี่วัน","<b>90 วัน</b> นับแต่รู้เหตุ เว้นแต่ได้มาด้วยการ<b>แสดงข้อความเท็จ ปกปิดข้อความจริง ข่มขู่ หรือให้ประโยชน์มิชอบ</b>"],
+["ว.ป.","ว.ป. ม.52 — เรียกค่าทดแทนจากการเพิกถอนคำสั่งให้ประโยชน์ประเภทอื่น","ต้องร้องขอภายใน <b>180 วัน</b> นับแต่ได้รับแจ้งการเพิกถอน"],
+["ว.ป.","ว.ป. ม.53 — ยกเลิกคำสั่งให้ประโยชน์ที่ชอบ ได้ค่าทดแทนเมื่อใด","เฉพาะเหตุตามวรรคสอง <b>(3) (4) (5)</b> ยกเลิกเพราะไม่ปฏิบัติตามภาระหน้าที่ตาม (2) <b>ไม่ได้ค่าทดแทน</b>"],
+["ว.ป.","ว.ป. ม.54 — ขอให้พิจารณาใหม่ ภายในกี่วัน และข้อจำกัด","<b>90 วัน</b> นับแต่รู้เหตุ ยื่นได้แม้พ้นกำหนดอุทธรณ์ ต้องเป็นเหตุที่ยกขึ้นก่อนไม่ได้โดยไม่ใช่ความผิดของตน ถ้าศาลพิพากษาถึงที่สุดแล้วใช้ <b>ศป. ม.75</b> แทน (อ.134/2561)"],
+["บังคับทางปกครอง","ว.ป. ม.63/7 — หนังสือเตือนให้ชำระเงินต้องให้เวลาเท่าไร","<b>ไม่น้อยกว่า 7 วัน</b> หนังสือเตือนนี้ไม่ใช่คำสั่งทางปกครอง (คำสั่ง ศป.สูงสุด 595/2548, 298/2549)"],
+["บังคับทางปกครอง","ว.ป. ม.63/8 — ยึดหรืออายัดทรัพย์สินได้ภายในเมื่อใด","ภายใน <b>10 ปี</b> นับแต่วันที่คำสั่งให้ชำระเงินเป็นที่สุด"],
+["บังคับทางปกครอง","ว.ป. ม.63/21 — เงินเพิ่มกรณีเข้าดำเนินการแทน และเพดานค่าปรับบังคับการ","เงินเพิ่ม<b>ร้อยละ 25 ต่อปี</b>ของค่าใช้จ่าย / ค่าปรับบังคับการ<b>ไม่เกิน 50,000 บาทต่อวัน</b> (แจ้งชำระทุก 15 วัน ตามกฎกระทรวง 2562 ข้อ 3)"],
+["บังคับทางปกครอง","ว.ป. ม.63/22 — คำเตือนก่อนใช้มาตรการบังคับต้องมีอะไร","เป็น<b>หนังสือ</b> กำหนดเวลาตามสมควร ระบุ<b>มาตรการเดียว</b>พร้อมค่าใช้จ่ายหรือจำนวนค่าปรับ คำเตือนนี้<b>เป็นคำสั่งทางปกครอง</b>"],
+["ศาลปกครอง","ศป. ม.49 — ฟ้องคดีตาม ม.9 (1) (2) ภายในกี่วัน","<b>90 วัน</b> นับแต่รู้หรือควรรู้เหตุแห่งการฟ้องคดี หรือนับแต่ครบกำหนดเวลาตามหนังสือที่ร้องขอให้ปฏิบัติหน้าที่"],
+["ศาลปกครอง","ศป. ม.51 — คดีละเมิด ม.9 (3) และคดีสัญญา ม.9 (4)","ละเมิด <b>1 ปี</b> / สัญญา <b>5 ปี</b> นับแต่รู้หรือควรรู้เหตุ แต่<b>ไม่เกิน 10 ปี</b>นับแต่มีเหตุ"],
+["ศาลปกครอง","ศป. ม.73 — อุทธรณ์คำพิพากษาหรือคำสั่ง ภายในกี่วัน","<b>30 วัน</b>"],
+["ศาลปกครอง","ศป. ม.72 วรรคหนึ่ง — คำบังคับที่ศาลออกได้","(1) เพิกถอนกฎ/คำสั่ง หรือสั่งห้ามการกระทำ (2) สั่งให้ปฏิบัติหน้าที่ภายในเวลาที่กำหนด (3) สั่งให้ใช้เงิน ส่งมอบทรัพย์ กระทำหรืองดเว้น (4) สั่งให้ถือปฏิบัติต่อสิทธิหรือหน้าที่ (5) สั่งให้กระทำหรือละเว้นเพื่อให้เป็นไปตามกฎหมาย — <b>สั่งลงโทษวินัยไม่ได้</b>"],
+["ศาลปกครอง","ศป. ม.9 วรรคสอง — เรื่องที่ไม่อยู่ในอำนาจศาลปกครอง","วินัยทหาร / การดำเนินการของ<b>คณะกรรมการตุลาการ</b> / คดีในอำนาจ<b>ศาลชำนัญพิเศษ</b> (เยาวชนและครอบครัว แรงงาน ภาษี ทรัพย์สินทางปัญญา ล้มละลาย)"],
+["ศาลปกครอง","ศป. ม.42 วรรคสอง — ฟ้องได้เมื่อใด ถ้ากฎหมายกำหนดขั้นตอนแก้ไขความเดือดร้อนไว้","ต้องทำขั้นตอนนั้นก่อน แล้วฟ้องได้เมื่อ<b>มีการสั่งการแล้ว</b> หรือ<b>ไม่สั่งการภายในเวลาอันสมควรหรือภายในเวลาที่กฎหมายกำหนด</b>"],
+["ศาลปกครอง","คดีใดไม่ต้องอุทธรณ์ก่อนฟ้อง","คดี<b>สัญญา</b> (บอกเลิกสัญญาเป็นการใช้สิทธิตามสัญญา) คดี<b>ละเมิด</b> คดีขอเพิกถอน<b>กฎ</b> และ<b>คำสั่งที่รัฐมนตรีออกเอง</b>"],
+["วิธีพิจารณา","ระเบียบฯ ข้อ 49/1 / ข้อ 100 วรรคสอง / ข้อ 104 วรรคสอง","49/1 อุทธรณ์คำสั่ง<b>ไม่รับคำฟ้อง</b> ส่ง ศป.สูงสุด<b>โดยพลัน</b> / 100 ว.2 คำสั่งระหว่างพิจารณา<b>อุทธรณ์พร้อมคำพิพากษา</b> / 104 ว.2 อุทธรณ์ต้องห้าม ศาลชั้นต้น<b>ไม่รับ</b>"],
+["วิธีพิจารณา","ระเบียบฯ ข้อ 36 (1) และข้อ 44 วรรคสอง","36 (1) ห้าม<b>ฟ้องซ้อน</b>ระหว่างคดีเดิมพิจารณา / 44 ว.2 ฟ้องแย้ง<b>ต้องเกี่ยวกับฟ้องเดิม</b> คำสั่งไม่รับเพราะไม่เกี่ยว<b>เป็นที่สุด</b>"],
+["วิธีพิจารณา","ศป. ม.66 — เงื่อนไขทุเลาการบังคับตามคำสั่ง","(1) คำสั่ง<b>น่าจะไม่ชอบ</b> (2) มีผลต่อไปจะ<b>เสียหายร้ายแรงยากแก่การเยียวยา</b> (3) <b>ไม่เป็นอุปสรรค</b>แก่การบริหารงานของรัฐหรือบริการสาธารณะ"],
+["วิธีพิจารณา","ไกล่เกลี่ยในศาลปกครอง — ใครขอ เมื่อใด ห้ามอะไร","คู่กรณีขอ<b>ร่วมกัน</b> ตั้งแต่ยื่นฟ้องจน<b>ก่อนสิ้นสุดการแสวงหาข้อเท็จจริง</b> ตุลาการผู้ไกล่เกลี่ย<b>ไม่อยู่ในองค์คณะ</b> ห้ามผลที่ขัดกฎหมายหรือ<b>เกินอำนาจ</b>ของคู่กรณี ตกลงได้ศาลพิพากษาตามข้อตกลง (ม.66/10)"],
+["ละเมิด","ละเมิด ม.5 — ผู้เสียหายฟ้องใคร","ละเมิด<b>ในการปฏิบัติหน้าที่</b> ฟ้อง<b>หน่วยงานของรัฐ</b>โดยตรง ฟ้องเจ้าหน้าที่ไม่ได้"],
+["ละเมิด","ละเมิด ม.6 — ละเมิดที่ไม่ใช่การปฏิบัติหน้าที่","เจ้าหน้าที่<b>รับผิดเป็นการเฉพาะตัว</b> ฟ้องเจ้าหน้าที่ได้โดยตรง (การกลั่นแกล้งผ่านการใช้อำนาจตามหน้าที่ยังเป็นการปฏิบัติหน้าที่)"],
+["ละเมิด","ละเมิด ม.8 — หน่วยงานไล่เบี้ยได้เมื่อใด","เฉพาะเมื่อเจ้าหน้าที่<b>จงใจหรือประมาทเลินเล่ออย่างร้ายแรง</b> โดยคำนึงความร้ายแรงและความเป็นธรรม ไม่ต้องเต็มจำนวนเสมอไป"],
+["ละเมิด","ละเมิด ม.10 วรรคหนึ่ง — เจ้าหน้าที่ทำละเมิดต่อหน่วยงานเอง","ในหน้าที่ → ใช้ <b>ม.8 โดยอนุโลม</b> / นอกหน้าที่ → ใช้ <b>ป.พ.พ.</b> (ฟ้องคดีแพ่ง)"],
+["ละเมิด","ละเมิด ม.10 วรรคสอง — อายุความเรียกให้เจ้าหน้าที่ชดใช้","<b>2 ปี</b> นับแต่รู้ถึงการละเมิดและตัวเจ้าหน้าที่ / <b>1 ปี</b> นับแต่คำสั่งตามความเห็นกระทรวงการคลัง"],
+["ละเมิด","ละเมิด ม.12 — หน่วยงานออกคำสั่งเรียกให้ชำระเงินได้เมื่อใด","เฉพาะกรณี <b>ม.8</b> หรือ <b>ม.10 ประกอบ ม.8</b> คำสั่งนี้เป็น<b>คำสั่งทางปกครอง</b> (คำสั่ง ศป.สูงสุด 331/2546, 565/2546)"],
+["ละเมิด","ป.พ.พ. ม.448 — อายุความละเมิดทั่วไป","<b>1 ปี</b> นับแต่รู้ถึงการละเมิดและรู้ตัวผู้จะพึงใช้ค่าสินไหมทดแทน"],
+["ละเมิด","ระเบียบสำนักนายกฯ ข้อ 8 วรรคหนึ่ง","เกิดความเสียหายและมีเหตุอันควรเชื่อว่าเกิดจากเจ้าหน้าที่ หัวหน้าหน่วยงานต้อง<b>ตั้งคณะกรรมการสอบข้อเท็จจริงความรับผิดทางละเมิดโดยไม่ชักช้า</b>"],
+["กฎหมายเฉพาะ","พ.ร.บ.ระเบียบข้าราชการพลเรือน ม.114","อุทธรณ์คำสั่งลงโทษต่อ <b>ก.พ.ค.</b> ภายใน <b>30 วัน</b> นับแต่ได้รับแจ้ง"],
+["กฎหมายเฉพาะ","พ.ร.บ.ระเบียบข้าราชการพลเรือน ม.116 วรรคสอง","ไม่พอใจคำวินิจฉัย ก.พ.ค. ฟ้อง<b>ศาลปกครองสูงสุด</b>ภายใน <b>90 วัน</b>"],
+["กฎหมายเฉพาะ","พ.ร.บ.ระเบียบข้าราชการพลเรือน ม.118","ก.พ.ค. พิจารณาให้เสร็จใน <b>120 วัน</b> ขยายได้<b>ไม่เกิน 2 ครั้ง ครั้งละ 60 วัน</b>"],
+["กฎหมายเฉพาะ","พ.ร.บ.ระเบียบข้าราชการพลเรือน ม.85 (1)","ปฏิบัติหรือละเว้นการปฏิบัติหน้าที่โดยมิชอบเพื่อให้เกิดความเสียหายอย่างร้ายแรง หรือ<b>โดยทุจริต</b> = ผิดวินัย<b>อย่างร้ายแรง</b>"],
+["กฎหมายเฉพาะ","พ.ร.บ.ข้อมูลข่าวสารฯ ม.17","ต้องแจ้งผู้มีส่วนได้เสียให้คัดค้านภายในเวลาที่กำหนด <b>ไม่น้อยกว่า 15 วัน</b>"],
+["ว.ป.","ว.ป. ม.64 — การนับระยะเวลา","<b>ไม่นับวันแรก</b> / ระยะเวลาที่บุคคลต้องทำ ถ้าวันสุดท้ายตรงวันหยุด ให้สิ้นสุดใน<b>วันทำงานถัดไป</b> / ระยะเวลาที่เจ้าหน้าที่ต้องทำ นับวันสุดท้ายแม้เป็นวันหยุด"],
+["ว.ป.","ว.ป. ม.71 — แจ้งคำสั่งทางไปรษณีย์ตอบรับ ถือว่าได้รับเมื่อใด","ครบ <b>7 วัน</b>นับแต่วันส่ง (ในประเทศ) / <b>15 วัน</b> (ต่างประเทศ) เว้นแต่พิสูจน์ได้ว่าไม่ได้รับหรือได้รับก่อนหรือหลังนั้น"],
+["ว.ป.","ว.ป. ม.30 วรรคสอง — กรณีที่ไม่ต้องให้โอกาสโต้แย้ง","(1) <b>จำเป็นรีบด่วน</b> (2) ทำให้<b>ระยะเวลาที่กฎหมายกำหนดล่าช้า</b> (3) <b>ข้อเท็จจริงที่คู่กรณีให้ไว้เอง</b> (4) <b>โดยสภาพให้โอกาสไม่ได้</b> (5) <b>มาตรการบังคับทางปกครอง</b> (6) <b>กรณีตามกฎกระทรวง</b>"],
+["ว.ป.","ว.ป. ม.41 — ข้อบกพร่องที่แก้ให้สมบูรณ์ภายหลังได้","(1) ยังไม่มีคำขอ แล้วต่อมามีผู้ยื่น (2) <b>ไม่ให้เหตุผล</b> แล้วจัดให้มี (3) <b>รับฟังคู่กรณีไม่ครบ</b> แล้วทำให้ครบ (4) ยังไม่ได้ความเห็นชอบเจ้าหน้าที่อื่น แล้วได้รับ — (2)-(4) ต้องแก้<b>ก่อนสิ้นสุดกระบวนการพิจารณาอุทธรณ์</b>"],
+["ศาลปกครอง","ศป. ม.75 — พิจารณาคดีใหม่ ภายในเมื่อใด","<b>90 วัน</b>นับแต่รู้หรือควรรู้เหตุ แต่<b>ไม่เกิน 5 ปี</b>นับแต่ศาลมีคำพิพากษาหรือคำสั่งชี้ขาดคดี และต้องไม่ทราบเหตุนั้นในการพิจารณาครั้งก่อนโดยไม่ใช่ความผิดของตน"],
+["ศาลปกครอง","ศป. ม.52 วรรคสอง — ยื่นฟ้องเกินกำหนดได้หรือไม่","ศาลรับไว้พิจารณาได้ เมื่อเป็น<b>ประโยชน์แก่ส่วนรวม</b> หรือมี<b>เหตุจำเป็นอื่น</b>"],
+["กฎหมายเฉพาะ","พ.ร.บ.ข้อมูลข่าวสารฯ ม.18 — อุทธรณ์คำสั่งไม่เปิดเผย","ภายใน <b>15 วัน</b>นับแต่ได้รับแจ้งคำสั่ง ยื่นผ่านคณะกรรมการข้อมูลข่าวสารของราชการ ซึ่งส่งให้<b>คณะกรรมการวินิจฉัยการเปิดเผยข้อมูลข่าวสาร</b>ภายใน 7 วัน"],
+["กฎหมายเฉพาะ","รัฐธรรมนูญ ม.215 และ ม.220","215 องค์กรอิสระปฏิบัติหน้าที่<b>อย่างอิสระ สุจริต เที่ยงธรรม ปราศจากอคติ</b> / 220 องค์กรอิสระ (เว้น คตง.) มี<b>หน่วยธุรการที่เป็นอิสระ</b> หัวหน้าขึ้นตรงต่อองค์กรนั้น"],
+["วิธีพิจารณา","เงื่อนไขทุเลาการบังคับอยู่ที่ข้อใดของระเบียบฯ","ระเบียบที่ประชุมใหญ่ฯ <b>ข้อ 73 วรรคสาม</b> (ประกอบ ศป. ม.66)"],
+["กฎหมายเฉพาะ","รัฐธรรมนูญ 2560 ม.197 — ข้อยกเว้นเขตอำนาจศาลปกครอง","ไม่รวมการวินิจฉัยขององค์กรที่<b>ใช้อำนาจโดยตรงตามรัฐธรรมนูญ</b>"]
+,["แปล: ศัพท์", "หน่วยงานทางปกครอง", "<b>administrative agency</b><br>คู่คำ: an administrative agency or State official<br><i>The defendant is an administrative agency under Section 3.</i>"],
+["แปล: ศัพท์", "เจ้าหน้าที่ของรัฐ", "<b>State official</b><br>คู่คำ: an act of a State official<br><i>…a dispute between an administrative agency or State official and a private individual.</i>"],
+["แปล: ศัพท์", "เอกชน (คู่กรณีฝ่ายเอกชน)", "<b>private individual</b><br>คู่คำ: a dispute with a private individual"],
+["แปล: ศัพท์", "ศาลปกครอง", "<b>Administrative Court</b><br>คู่คำ: the Administrative Courts (ทั้งระบบ ใช้พหูพจน์)<br><i>The Administrative Court has jurisdiction over this case.</i>"],
+["แปล: ศัพท์", "ศาลปกครองชั้นต้น", "<b>Administrative Court of First Instance</b><br>คู่คำ: ศาลปกครองกลาง = Central Administrative Court; ศาลปกครองในภูมิภาค = Regional Administrative Court"],
+["แปล: ศัพท์", "ศาลปกครองสูงสุด", "<b>Supreme Administrative Court</b><br>คู่คำ: appeal to the Supreme Administrative Court"],
+["แปล: ศัพท์", "ศาลยุติธรรม", "<b>Court of Justice</b><br>คู่คำ: the Courts of Justice<br><i>The case falls within the jurisdiction of the Court of Justice.</i>"],
+["แปล: ศัพท์", "ตุลาการศาลปกครอง", "<b>administrative judge</b><br>คู่คำ: a panel of administrative judges (องค์คณะ)"],
+["แปล: ศัพท์", "ตุลาการเจ้าของสำนวน", "<b>judge-rapporteur</b><br>คู่คำ: the judge-rapporteur prepares a memorandum summarizing the facts<br>ชื่อตำแหน่งตามเว็บสำนักงานศาลปกครอง"],
+["แปล: ศัพท์", "ตุลาการผู้แถลงคดี", "<b>judge-commissioner of justice</b><br>คู่คำ: a statement of the judge-commissioner of justice<br>⚠ อย่าใช้: Judge-Commissioner เฉย ๆ (ทางการใช้ of justice)"],
+["แปล: ศัพท์", "องค์กรอิสระ", "<b>independent organ</b><br>คู่คำ: independent organs under the Constitution"],
+["แปล: ศัพท์", "ผู้ตรวจการแผ่นดิน", "<b>Ombudsman</b><br>คู่คำ: submit a case to the Administrative Court (ผู้ตรวจการฯ ส่งเรื่อง)"],
+["แปล: ศัพท์", "คำสั่งทางปกครอง", "<b>administrative order</b><br>คู่คำ: issue / revoke an administrative order<br><i>The seizure order is an administrative order under Section 5.</i><br>⚠ อย่าใช้: administrative command"],
+["แปล: ศัพท์", "กฎ", "<b>by-law / rule</b><br>คู่คำ: issue a by-law (คำแปล พ.ร.บ.จัดตั้งศาลปกครองฯ ใช้ by-law; ว.ป. ใช้ rule)"],
+["แปล: ศัพท์", "สัญญาทางปกครอง", "<b>administrative contract</b><br>คู่คำ: a dispute in relation to an administrative contract"],
+["แปล: ศัพท์", "สัญญาสัมปทาน / บริการสาธารณะ / สิ่งสาธารณูปโภค / แสวงประโยชน์จากทรัพยากรธรรมชาติ", "<b>concession contract / public service / public utility / exploitation of natural resources</b><br>คู่คำ: a contract for the provision of a public service"],
+["แปล: ศัพท์", "การใช้อำนาจตามกฎหมาย", "<b>exercise of power under the law</b><br>คู่คำ: arising from the exercise of legal power"],
+["แปล: ศัพท์", "ดุลพินิจ", "<b>discretion</b><br>คู่คำ: exercise of discretion / abuse of discretion (ใช้ดุลพินิจโดยมิชอบ)"],
+["แปล: ศัพท์", "ไม่ชอบด้วยกฎหมาย", "<b>unlawful</b><br>คู่คำ: an unlawful administrative order<br><i>The Court held that the order was unlawful.</i>"],
+["แปล: ศัพท์", "ละเลยต่อหน้าที่ / ปฏิบัติหน้าที่ล่าช้าเกินสมควร", "<b>neglect of official duties / unreasonable delay in performing duties</b><br>คู่คำ: neglect of official duties required by law"],
+["แปล: ศัพท์", "เพิกถอน", "<b>revoke (คำสั่ง) / annul, set aside (ศาลเพิกถอน)</b><br>คู่คำ: revoke the order with retroactive effect (ย้อนหลัง)"],
+["แปล: ศัพท์", "คู่กรณี (ตาม ว.ป.)", "<b>party</b><br>คู่คำ: the party shall be given an opportunity to be heard"],
+["แปล: ศัพท์", "เจ้าหน้าที่ผู้ทำคำสั่ง", "<b>the official who issued the order</b><br>คู่คำ: submit an appeal to the official who issued the order"],
+["แปล: ศัพท์", "มาตรการบังคับทางปกครอง", "<b>administrative enforcement measures</b><br>คู่คำ: impose an administrative fine (ค่าปรับบังคับการ)"],
+["แปล: ศัพท์", "ข้อมูลข่าวสารของราชการ / ข้อมูลส่วนบุคคล", "<b>official information / personal information</b><br>คู่คำ: disclose official information"],
+["แปล: ศัพท์", "ปัญญาประดิษฐ์", "<b>artificial intelligence (AI)</b><br>คู่คำ: the use of artificial intelligence in court proceedings"],
+["แปล: ศัพท์", "คดีปกครอง", "<b>administrative case</b><br>คู่คำ: file an administrative case"],
+["แปล: ศัพท์", "มีอำนาจพิจารณาพิพากษา", "<b>competence to try and adjudicate</b><br>คู่คำ: The Administrative Court has competence to try and adjudicate the following cases:"],
+["แปล: ศัพท์", "เขตอำนาจศาล", "<b>jurisdiction</b><br>คู่คำ: fall within the jurisdiction of …"],
+["แปล: ศัพท์", "ระบบไต่สวน", "<b>inquisitorial system</b><br>คู่คำ: The Administrative Court applies the inquisitorial system."],
+["แปล: ศัพท์", "ระบบกล่าวหา", "<b>adversarial system</b><br>คู่คำ: The Courts of Justice generally adopt the adversarial system."],
+["แปล: ศัพท์", "ระบบศาลคู่", "<b>dual court system</b><br>คู่คำ: Thailand adopts a dual court system."],
+["แปล: ศัพท์", "การแสวงหาข้อเท็จจริง", "<b>fact-finding</b><br>คู่คำ: The Court may conduct fact-finding on its own initiative."],
+["แปล: ศัพท์", "ผู้ฟ้องคดี / ผู้ถูกฟ้องคดี", "<b>plaintiff / defendant</b><br>คู่คำ: the plaintiff filed a plaint against the defendant"],
+["แปล: ศัพท์", "คำฟ้อง", "<b>plaint</b><br>คู่คำ: submit a plaint to the Court"],
+["แปล: ศัพท์", "ผู้ได้รับความเดือดร้อนหรือเสียหาย", "<b>person who is aggrieved or injured</b><br>คู่คำ: …may file a case if he or she is aggrieved or injured"],
+["แปล: ศัพท์", "เหตุแห่งการฟ้องคดี / รู้หรือควรรู้", "<b>cause of action / knew or ought to have known</b><br>คู่คำ: within ninety days from the date the plaintiff knew or ought to have known of the cause of action"],
+["แปล: ศัพท์", "ระยะเวลาการฟ้องคดี", "<b>time limit for filing a case</b><br>คู่คำ: the case was filed after the time limit"],
+["แปล: ศัพท์", "คำพิพากษา / คำสั่ง (ศาล)", "<b>judgment / order</b><br>คู่คำ: render a judgment; issue an order"],
+["แปล: ศัพท์", "อุทธรณ์", "<b>appeal</b><br>คู่คำ: lodge an appeal against the judgment"],
+["แปล: ศัพท์", "ทุเลาการบังคับ", "<b>stay (suspension) of enforcement</b><br>คู่คำ: an application for a stay of enforcement of the order"],
+["แปล: ศัพท์", "วิธีการคุ้มครองชั่วคราวก่อนพิพากษา", "<b>interim measures for temporary protection before judgment</b><br>คู่คำ: apply for interim measures"],
+["แปล: ศัพท์", "การไกล่เกลี่ยข้อพิพาท", "<b>mediation</b><br>คู่คำ: settle the dispute through mediation"],
+["แปล: ศัพท์", "เป็นที่สุด / ผูกพันคู่กรณี", "<b>final / binding on the parties</b><br>คู่คำ: The judgment is final and binding on the parties."],
+["แปล: ศัพท์", "ละเมิด", "<b>wrongful act (tort)</b><br>คู่คำ: commit a wrongful act; liability for wrongful acts"],
+["แปล: ศัพท์", "ความรับผิดทางละเมิด", "<b>tortious liability / liability for wrongful acts</b>"],
+["แปล: ศัพท์", "ในการปฏิบัติหน้าที่", "<b>in the performance of duties</b><br>คู่คำ: committed in the performance of duties<br><i>The official committed the wrongful act in the performance of his duties.</i>"],
+["แปล: ศัพท์", "ค่าสินไหมทดแทน", "<b>compensation</b><br>คู่คำ: be liable to pay compensation"],
+["แปล: ศัพท์", "ไล่เบี้ย", "<b>right of recourse / claim reimbursement</b><br>คู่คำ: the agency may exercise the right of recourse against the official"],
+["แปล: ศัพท์", "จงใจ / ประมาทเลินเล่ออย่างร้ายแรง", "<b>wilfully (intentionally) / gross negligence</b><br>คู่คำ: act wilfully or with gross negligence"],
+["แปล: ศัพท์", "ลูกหนี้ร่วม", "<b>joint debtors</b><br>คู่คำ: the principle of joint debtors shall not apply"],
+["แปล: ศัพท์", "หลักนิติธรรม / นิติรัฐ", "<b>rule of law / legal State (Rechtsstaat)</b>"],
+["แปล: ศัพท์", "หลักความชอบด้วยกฎหมาย", "<b>principle of legality</b><br>คู่คำ: legality of administrative action"],
+["แปล: ศัพท์", "หลักความได้สัดส่วน", "<b>principle of proportionality</b>"],
+["แปล: ศัพท์", "หลักฟังความทุกฝ่าย", "<b>right to be heard (audi alteram partem)</b><br>คู่คำ: give the party an opportunity to be heard"],
+["แปล: ศัพท์", "หลักคุ้มครองความเชื่อโดยสุจริต", "<b>protection of legitimate expectation (reliance)</b>"],
+["แปล: ศัพท์", "ประโยชน์สาธารณะ", "<b>public interest</b><br>คู่คำ: serious damage to the public interest"],
+["แปล: ศัพท์", "อำนาจตุลาการ", "<b>judicial power</b><br>คู่คำ: exercise judicial power"],
+["แปล: ศัพท์", "พ.ร.บ.จัดตั้งศาลปกครองและวิธีพิจารณาคดีปกครอง พ.ศ. 2542", "<b>Act on Establishment of Administrative Courts and Administrative Court Procedure, B.E. 2542 (1999)</b><br>คู่คำ: ชื่อตามคำแปลของสำนักงานศาลปกครอง"],
+["แปล: ศัพท์", "พ.ร.บ.วิธีปฏิบัติราชการทางปกครอง พ.ศ. 2539", "<b>Administrative Procedure Act, B.E. 2539 (1996)</b>"],
+["แปล: ศัพท์", "พ.ร.บ.ความรับผิดทางละเมิดของเจ้าหน้าที่ พ.ศ. 2539", "<b>Liability for Wrongful Acts of Officials Act, B.E. 2539 (1996)</b><br>คู่คำ: ชื่อที่สำนักงานศาลปกครองใช้"],
+["แปล: ศัพท์", "พ.ร.บ.ข้อมูลข่าวสารของราชการ พ.ศ. 2540", "<b>Official Information Act, B.E. 2540 (1997)</b>"],
+["แปล: ศัพท์", "รัฐธรรมนูญแห่งราชอาณาจักรไทย พ.ศ. 2560", "<b>Constitution of the Kingdom of Thailand, B.E. 2560 (2017)</b>"],
+["แปล: ประโยค", "ตามมาตรา 9 วรรคหนึ่ง (3) แห่ง…", "<b>under (pursuant to) Section 9 paragraph one (3) of the …</b>"],
+["แปล: ประโยค", "ให้… (บังคับ) / อาจ… / ห้ามมิให้…", "<b>shall … / may … / shall not … (no person shall …)</b>"],
+["แปล: ประโยค", "เว้นแต่ … / ในกรณีที่ …", "<b>unless … / except where … / in the case where …</b>"],
+["แปล: ประโยค", "ให้นำ … มาใช้บังคับโดยอนุโลม", "<b>… shall apply mutatis mutandis</b>"],
+["แปล: ประโยค", "ให้ถือว่า …", "<b>… shall be deemed …</b>"],
+["แปล: ประโยค", "ทั้งนี้ ตามหลักเกณฑ์และวิธีการที่กำหนดใน…", "<b>in accordance with the rules and procedures prescribed in …</b>"],
+["แปล: ประโยค", "ภายใน 15 วันนับแต่วันที่ได้รับแจ้งคำสั่ง", "<b>within fifteen days from the date of receipt of the notification of the order</b>"],
+["แปล: ประโยค", "ศาลปกครองมีอำนาจพิจารณาพิพากษาคดีพิพาทเกี่ยวกับ…", "<b>The Administrative Court has competence to try and adjudicate cases involving disputes in relation to …</b>"],
+["แปล: ประโยค", "ความรับผิดทางละเมิดอันเกิดจากการใช้อำนาจตามกฎหมาย", "<b>tortious liability arising from the exercise of power under the law</b>"],
+["แปล: ประโยค", "หน่วยงานของรัฐต้องรับผิดต่อผู้เสียหายในผลแห่งละเมิดที่เจ้าหน้าที่ได้กระทำในการปฏิบัติหน้าที่", "<b>A State agency shall be liable to the injured person for a wrongful act committed by its official in the performance of duties.</b>"],
+["แปล: ประโยค", "ผู้เสียหายอาจฟ้องหน่วยงานของรัฐได้โดยตรง แต่จะฟ้องเจ้าหน้าที่ไม่ได้", "<b>The injured person may file a lawsuit directly against the State agency, but not against the official.</b>"],
+["แปล: ประโยค", "ศาลพิพากษาให้เพิกถอนคำสั่ง โดยให้มีผลย้อนหลังไปถึงวันที่ออกคำสั่ง", "<b>The Court revoked the order with retroactive effect to the date of its issuance.</b>"],
+["แปล: ประโยค", "คำพิพากษาของศาลปกครองสูงสุดเป็นที่สุด", "<b>The judgment of the Supreme Administrative Court shall be final.</b>"],
+["แปล: ประโยค", "In the inquisitorial system, the court plays an active role in fact-finding.", "<b>ในระบบไต่สวน ศาลมีบทบาทเชิงรุกในการแสวงหาข้อเท็จจริง</b>"],
+["แปล: ประโยค", "The case falls outside the jurisdiction of the Administrative Court.", "<b>คดีนี้ไม่อยู่ในเขตอำนาจของศาลปกครอง</b>"],
+["แปล: ประโยค", "เช็กลิสต์ก่อนส่งคำแปล (5 ข้อ)", "<b>① กาลของกริยา (ตัวบทใช้ shall; ข้อเท็จจริงใช้อดีต) ② shall / may / shall not ③ เอกพจน์-พหูพจน์ (Court/Courts) ④ ชื่อกฎหมาย + B.E. (ค.ศ.) ⑤ ตัวพิมพ์ใหญ่ชื่อศาลและตำแหน่ง · แปลความ ไม่แปลทีละคำ · ห้ามเว้นว่าง ถ้าไม่รู้คำให้อธิบายความแทน</b>"]
+,["โครงประโยค", "เปิดย่อหน้าด้วยตัวบท", "มาตรา … แห่ง … <b>กำหนดให้</b> …<br><i>ตัวอย่าง: มาตรา 5 วรรคหนึ่ง แห่ง พ.ร.บ.ความรับผิดทางละเมิดฯ กำหนดให้หน่วยงานของรัฐต้องรับผิดต่อผู้เสียหายในผลแห่งละเมิดที่เจ้าหน้าที่ได้กระทำในการปฏิบัติหน้าที่</i>"],
+["โครงประโยค", "ปรับบทข้อเท็จจริงเข้าตัวบท", "<b>เมื่อข้อเท็จจริงปรากฏว่า</b> … กรณี<b>จึง</b>เป็น … ตามมาตรา …<br><i>ตัวอย่าง: เมื่อข้อเท็จจริงปรากฏว่านายสุรชัยออกคำสั่งยึดเรือตามอำนาจของเจ้าพนักงานประมง กรณีจึงเป็นการกระทำในการปฏิบัติหน้าที่ตามมาตรา 5</i>"],
+["โครงประโยค", "หักล้างข้อเท็จจริงล่อ (แก้รหัส ห)", "<b>แม้</b> … <b>แต่</b> … ตามมาตรา … จึง …<br><i>ตัวอย่าง: แม้นายสุรชัยกลั่นแกล้งเพราะโกรธเคืองส่วนตัว แต่กระทำผ่านอำนาจยึดเรือตามหน้าที่ จึงไม่ใช่ละเมิดส่วนตัวตามมาตรา 6</i>"],
+["โครงประโยค", "ปิดย่อหน้าด้วยข้อสรุป (ใช้ครั้งเดียว ท้ายย่อหน้า)", "<b>ดังนั้น</b> … <b>จึง</b> …<br><i>ตัวอย่าง: ดังนั้น นายประสิทธิ์จึงต้องฟ้องกรมประมงต่อศาลยุติธรรม</i>"],
+["โครงประโยค", "สถานะหน่วยงานและเจ้าหน้าที่ (ศป. ม.3)", "… เป็นกรม จึงเป็น<b>หน่วยงานทางปกครอง</b> และ … เป็นข้าราชการในสังกัด จึงเป็น<b>เจ้าหน้าที่ของรัฐ</b>ตามมาตรา 3 แห่ง พ.ร.บ.จัดตั้งศาลปกครองฯ<br><i>ตัวอย่าง: กรมประมงเป็นหน่วยงานทางปกครอง และนายสุรชัยเป็นเจ้าหน้าที่ของรัฐตามมาตรา 3</i>"],
+["โครงประโยค", "ยืนยันว่าเป็นคดีปกครอง", "คดีนี้เป็นคดีพิพาทเกี่ยวกับ … ตามมาตรา 9 วรรคหนึ่ง (…) แห่ง พ.ร.บ.จัดตั้งศาลปกครองฯ จึงอยู่ใน<b>อำนาจพิจารณาพิพากษา</b>ของศาลปกครอง<br><i>ตัวอย่าง: คดีนี้เป็นคดีพิพาทเกี่ยวกับความรับผิดทางละเมิดที่เกิดจากคำสั่งทางปกครองตามมาตรา 9 วรรคหนึ่ง (3)</i>"],
+["โครงประโยค", "ยืนยันว่าไม่ใช่คดีปกครอง", "เมื่อ … ไม่ได้เกิดจากการใช้อำนาจตามกฎหมาย กฎ คำสั่ง หรือการละเลยต่อหน้าที่ คดีจึงไม่อยู่ในอำนาจศาลปกครอง แต่อยู่ในอำนาจ<b>ศาลยุติธรรม</b>ตามรัฐธรรมนูญ มาตรา 194<br><i>ตัวอย่าง: เมื่อการขับเรือชนเป็นการกระทำทางกายภาพ คดีจึงอยู่ในอำนาจศาลยุติธรรม</i>"],
+["โครงประโยค", "วินิจฉัยว่าเป็นคำสั่งทางปกครอง (ว.ป. ม.5)", "การที่ … สั่ง … เป็นการใช้อำนาจตามกฎหมายของเจ้าหน้าที่ที่มีผลเป็นการ<b>กระทบต่อสถานภาพของสิทธิหรือหน้าที่</b>ของ … เป็นการเฉพาะ จึงเป็นคำสั่งทางปกครองตามมาตรา 5<br><i>ตัวอย่าง: การที่เจ้าพนักงานสั่งยึดเรือของนายธนากรกระทบต่อสิทธิในทรัพย์สินของนายธนากรเป็นการเฉพาะ จึงเป็นคำสั่งทางปกครอง</i>"],
+["โครงประโยค", "เงื่อนไขก่อนฟ้อง (ศป. ม.42 วรรคสอง)", "เมื่อกฎหมายกำหนดขั้นตอนแก้ไขความเดือดร้อนไว้ ผู้ฟ้องคดีต้องดำเนินการตามขั้นตอนนั้น และได้มีการสั่งการแล้ว หรือ<b>มิได้มีการสั่งการภายในเวลาอันสมควร</b> จึงจะฟ้องได้ตามมาตรา 42 วรรคสอง<br><i>ตัวอย่าง: นายธนากรต้องอุทธรณ์ตาม ว.ป. มาตรา 44 ก่อน จึงจะฟ้องขอเพิกถอนคำสั่งได้</i>"],
+["โครงประโยค", "ระยะเวลาฟ้องเพิกถอน (ศป. ม.49)", "ต้องฟ้องภายใน<b>เก้าสิบวัน</b>นับแต่วันที่รู้หรือควรรู้ถึงเหตุแห่งการฟ้องคดี<br><i>ตัวอย่าง: นายธนากรได้รับแจ้งผลอุทธรณ์วันที่ 1 มีนาคม จึงต้องฟ้องภายในเก้าสิบวันนับแต่วันนั้น</i>"],
+["โครงประโยค", "ผู้ถูกฟ้องในคดีละเมิด (ละเมิด ม.5)", "ผู้เสียหายฟ้อง<b>หน่วยงานของรัฐ</b>ได้โดยตรง แต่จะฟ้องเจ้าหน้าที่ไม่ได้ตามมาตรา 5 วรรคหนึ่ง<br><i>ตัวอย่าง: นายธนากรต้องฟ้องกรมประมง จะฟ้องนายสุรชัยเป็นส่วนตัวไม่ได้</i>"],
+["โครงประโยค", "ไล่เบี้ย (ละเมิด ม.8)", "หน่วยงานไล่เบี้ยได้<b>เฉพาะ</b>เมื่อเจ้าหน้าที่กระทำโดยจงใจหรือประมาทเลินเล่ออย่างร้ายแรง โดยคำนึงถึงระดับความร้ายแรงและความเป็นธรรม ไม่จำต้องเต็มจำนวน<br><i>ตัวอย่าง: เมื่อนายสุรชัยยึดเรือโดยรู้ว่าไม่มีมูล จึงเป็นการกระทำโดยจงใจ กรมประมงไล่เบี้ยได้ตามสัดส่วนความร้ายแรง</i>"],
+["โครงประโยค", "ไม่ให้โอกาสโต้แย้ง แต่แก้ไขแล้ว (ว.ป. ม.30 + ม.41)", "แม้เจ้าหน้าที่ไม่ได้ให้โอกาสโต้แย้งตามมาตรา 30 แต่ได้ให้โอกาสในชั้นอุทธรณ์แล้ว ข้อบกพร่องจึง<b>ได้รับการแก้ไข</b>ตามมาตรา 41 วรรคหนึ่ง (3) และวรรคสอง<br><i>ตัวอย่าง: ผู้รับคำสั่งได้ชี้แจงในชั้นอุทธรณ์ครบถ้วนแล้ว คำสั่งจึงไม่เสียไปด้วยเหตุนี้</i>"],
+["โครงประโยค", "ข้อเท็จจริงไม่พอ ให้แยกกรณี (แทนคำว่า อาจจะ/น่าจะ)", "<b>ถ้าข้อเท็จจริงปรากฏว่า</b> … ย่อม … <b>แต่ถ้า</b> … ย่อม …<br><i>ตัวอย่าง: ถ้าข้อเท็จจริงปรากฏว่าเจ้าหน้าที่ขับรถไปปฏิบัติงานตามคำสั่ง ย่อมเป็นละเมิดในหน้าที่ แต่ถ้าขับไปทำธุระส่วนตัว ย่อมเป็นละเมิดตามมาตรา 6</i>"],
+["โครงประโยค", "ข้อบรรยาย หลายประการ", "<b>ประการแรก</b> … <b>ประการที่สอง</b> … <b>ประการสุดท้าย</b> …<br><i>ตัวอย่าง: ประการแรก ผู้ฟ้องคดีต้องเป็นผู้เดือดร้อนหรือเสียหาย ประการที่สอง ต้องฟ้องภายในระยะเวลา ประการสุดท้าย ต้องผ่านขั้นตอนแก้ไขความเดือดร้อนก่อน</i>"],
+["โครงประโยค", "ย่อหน้าสรุปท้ายข้อ", "<b>สรุป</b> … ต้องฟ้อง … ต่อ … และ …<br><i>ตัวอย่าง: สรุป เหตุที่ 1 ฟ้องกรมประมงต่อศาลยุติธรรมและไล่เบี้ยไม่ได้ เหตุที่ 2 ฟ้องกรมประมงต่อศาลปกครองและไล่เบี้ยได้</i>"],
+["แปล: ประโยค", "ภายใต้บังคับมาตรา 42 …", "<b>Subject to Section 42, …</b>"],
+["แปล: ประโยค", "ทั้งนี้ ไม่ว่าจะมีบทบัญญัติแห่งมาตรา 5 … (แม้ … จะกำหนดไว้)", "<b>Notwithstanding the provisions of Section 5, …</b>"],
+["แปล: ประโยค", "เว้นแต่กฎหมายจะกำหนดไว้เป็นอย่างอื่น", "<b>Unless otherwise provided by law</b>"],
+["แปล: ประโยค", "เพื่อประโยชน์แห่งพระราชบัญญัตินี้", "<b>For the purposes of this Act</b>"],
+["แปล: ประโยค", "ให้ถือว่าคำสั่งดังกล่าวเป็นคำสั่งทางปกครอง", "<b>Such order shall be deemed to be an administrative order.</b>"],
+["แปล: ประโยค", "คำสั่งนั้นออกโดยไม่ได้ให้คู่กรณีมีโอกาสโต้แย้ง", "<b>The order was issued without giving the party an opportunity to be heard.</b>"],
+["แปล: ประโยค", "ผู้ฟ้องคดีฟ้องภายในเก้าสิบวันนับแต่วันที่รู้ถึงเหตุแห่งการฟ้องคดี", "<b>The plaintiff filed the case within ninety days from the date he knew of the cause of action.</b>"],
+["แปล: ประโยค", "ผู้ถูกฟ้องคดีที่ 1 เป็นหน่วยงานทางปกครอง และผู้ถูกฟ้องคดีที่ 2 เป็นเจ้าหน้าที่ของรัฐ", "<b>The first defendant is an administrative agency and the second defendant is a State official.</b>"],
+["แปล: ประโยค", "ข้อพิพาทนี้เกิดจากการใช้อำนาจตามกฎหมาย", "<b>The dispute arises from the exercise of power under the law.</b>"],
+["แปล: ประโยค", "ศาลพิพากษาว่าคำสั่งไม่ชอบด้วยกฎหมายและให้เพิกถอน", "<b>The Court held that the order was unlawful and revoked it.</b>"],
+["แปล: ประโยค", "หากเจ้าหน้าที่กระทำโดยจงใจหรือประมาทเลินเล่ออย่างร้ายแรง หน่วยงานมีสิทธิไล่เบี้ย", "<b>Where the official acts wilfully or with gross negligence, the agency has the right of recourse against him.</b>"],
+["แปล: ประโยค", "ศาลปกครองจึงมีอำนาจพิจารณาพิพากษาคดีนี้", "<b>The Administrative Court therefore has competence to try and adjudicate this case.</b>"],
+["แปล: ประโยค", "คดีนี้ไม่อยู่ในอำนาจของศาลปกครอง แต่อยู่ในอำนาจของศาลยุติธรรม", "<b>This case is not within the jurisdiction of the Administrative Court but within that of the Court of Justice.</b>"],
+["แปล: ประโยค", "The appeal shall be lodged with the official who issued the order.", "<b>ให้ยื่นอุทธรณ์ต่อเจ้าหน้าที่ผู้ทำคำสั่ง</b>"],
+["แปล: ประโยค", "Notwithstanding the fact that the official acted out of personal anger, the act was committed in the performance of duties.", "<b>แม้เจ้าหน้าที่กระทำเพราะโกรธเคืองส่วนตัว แต่การกระทำนั้นเป็นการกระทำในการปฏิบัติหน้าที่</b>"]
+];
+const CATS=["ทั้งหมด","ว.ป.","บังคับทางปกครอง","ศาลปกครอง","วิธีพิจารณา","ละเมิด","กฎหมายเฉพาะ","โครงประโยค","แปล: ศัพท์","แปล: ประโยค"];
+let cat="ทั้งหมด",queue=[],total=0,okN=0,missed=new Set(),cur=null,open=false;
+const $=id=>document.getElementById(id);
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function start(ids){queue=shuffle(ids.slice());total=queue.length;okN=0;missed=new Set();$('done').style.display='none';$('card').style.display='flex';document.querySelector('.btns').style.display='grid';next()}
+function idsFor(c){return CARDS.map((x,i)=>i).filter(i=>c==="ทั้งหมด"||CARDS[i][0]===c)}
+function next(){
+  if(!queue.length){finish();return}
+  cur=queue[0];open=false;$('card').classList.remove('open');
+  $('tag').textContent=CARDS[cur][0];$('q').textContent=CARDS[cur][1]+(CARDS[cur][1].includes('—')?'':' — สาระสำคัญคืออะไร');$('a').innerHTML=CARDS[cur][2];
+  $('no').disabled=$('ok').disabled=true;render()}
+function render(){
+  $('prog').style.width=(total?okN/total*100:0)+'%';
+  $('count').textContent='จำได้ '+okN+' / '+total;
+  $('score').textContent=missed.size?'เคยพลาด '+missed.size+' ข้อ':'';}
+function reveal(){if(open||cur===null)return;open=true;$('card').classList.add('open');$('no').disabled=$('ok').disabled=false}
+function answer(good){
+  if(!open)return;queue.shift();
+  if(good){okN++}else{missed.add(cur);const pos=Math.min(3,queue.length);queue.splice(pos,0,cur)}
+  next()}
+function finish(){
+  $('card').style.display='none';document.querySelector('.btns').style.display='none';
+  $('done').style.display='block';render();
+  $('sum').textContent=missed.size?('พลาดอย่างน้อยหนึ่งครั้ง '+missed.size+' ข้อ จาก '+total+' ข้อ'):'ครบทุกข้อโดยไม่พลาดเลย';
+  $('miss').innerHTML=[...missed].map(i=>'<li>'+CARDS[i][1]+'</li>').join('');
+  $('again').style.display=missed.size?'inline-block':'none';
+  try{localStorage.setItem('pkp-last-miss',JSON.stringify([...missed]))}catch(e){}}
+$('card').addEventListener('click',reveal);
+$('card').addEventListener('keydown',e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();reveal()}});
+$('no').addEventListener('click',()=>answer(false));
+$('ok').addEventListener('click',()=>answer(true));
+$('again').addEventListener('click',()=>start([...missed]));
+$('all').addEventListener('click',()=>start(idsFor(cat)));
+CATS.forEach(c=>{const b=document.createElement('button');b.className='chip';b.textContent=c;b.setAttribute('aria-pressed',c===cat);
+  b.onclick=()=>{cat=c;document.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x===b));start(idsFor(c))};$('chips').appendChild(b)});
+start(idsFor(cat));
+</script>
+
+<script>
+const LAWCASES=[{"tag": "ละเมิด · เขตอำนาจ", "f": ["นายสุรชัยเจ้าพนักงานประมง", "ขับเรือตรวจการณ์ของกรมออกลาดตระเวนตามหน้าที่", "ด้วยความเร็วสูงโดยประมาทเลินเล่อ", "ชนเรือประมงของนายประสิทธิ์จมลง"], "t": 1, "q": "นายประสิทธิ์ต้องฟ้องใคร ต่อศาลใด", "o": ["ฟ้องกรมประมง ต่อศาลปกครอง", "ฟ้องกรมประมง ต่อศาลยุติธรรม", "ฟ้องนายสุรชัย ต่อศาลยุติธรรม", "ฟ้องทั้งสองคน ต่อศาลปกครอง"], "a": 1, "m": "แม้นายสุรชัยขับเรือขณะลาดตระเวนตามหน้าที่ แต่การขับเรือชนเป็นการกระทำทางกายภาพที่ไม่ได้เกิดจากการใช้อำนาจตามกฎหมาย กฎ คำสั่ง หรือการละเลยต่อหน้าที่ตาม ศป. ม.9 วรรคหนึ่ง (3) จึงอยู่ในอำนาจศาลยุติธรรมตามรัฐธรรมนูญ ม.194 ส่วนผู้ถูกฟ้องต้องเป็นกรมประมงตาม พ.ร.บ.ความรับผิดทางละเมิดฯ ม.5"}, {"tag": "ละเมิด · ในหน้าที่หรือส่วนตัว", "f": ["เจ้าพนักงานประมงออกคำสั่งยึดเรือของนายธนากร", "อ้างว่าใช้เครื่องมือประมงต้องห้ามทั้งที่ไม่จริง", "เพราะโกรธเคืองนายธนากรเป็นการส่วนตัว", "ระหว่างยึด เรือจมเสียหาย"], "t": 2, "q": "นายธนากรต้องฟ้องใคร ต่อศาลใด", "o": ["ฟ้องเจ้าพนักงานเป็นส่วนตัวตาม ม.6 ต่อศาลยุติธรรม", "ฟ้องกรมประมง ต่อศาลปกครอง", "ฟ้องกรมประมง ต่อศาลยุติธรรม", "ต้องฟ้องเพิกถอนคำสั่งยึดก่อน จึงฟ้องค่าเสียหายได้"], "a": 1, "m": "แม้เจ้าพนักงานกลั่นแกล้งเพราะโกรธเคืองส่วนตัว แต่การกลั่นแกล้งกระทำผ่านอำนาจยึดเรือตามหน้าที่ จึงเป็นละเมิดในการปฏิบัติหน้าที่ตาม ม.5 ไม่ใช่ ม.6 และเป็นละเมิดที่เกิดจากคำสั่งทางปกครอง อยู่ในอำนาจศาลปกครองตาม ศป. ม.9 วรรคหนึ่ง (3) โดยไม่ต้องฟ้องเพิกถอนคำสั่งก่อน"}, {"tag": "ละเมิด · ไล่เบี้ย", "f": ["กรมชดใช้ค่าเสียหายให้เอกชนแล้ว", "เจ้าหน้าที่ขับเรือด้วยความเร็วสูง", "ระหว่างลาดตระเวนตามปกติ", "ไม่ปรากฏว่ารู้ถึงอันตรายแล้วยังฝ่าฝืน"], "t": 1, "q": "กรมไล่เบี้ยเอาจากเจ้าหน้าที่ได้หรือไม่", "o": ["ได้เต็มจำนวน เพราะขับเร็วเกินสมควร", "ได้ครึ่งหนึ่ง", "ไม่ได้ เพราะเป็นประมาทเลินเล่อธรรมดา", "ไม่ได้ เพราะหน่วยงานรับผิดแทนเสมอ"], "a": 2, "m": "แม้เจ้าหน้าที่ขับเรือด้วยความเร็วสูง แต่เป็นการขับระหว่างลาดตระเวนตามปกติ และไม่ปรากฏว่ารู้ถึงอันตรายแล้วยังฝ่าฝืน จึงเป็นเพียงประมาทเลินเล่อธรรมดา เมื่อ ม.8 วรรคหนึ่งให้ไล่เบี้ยได้เฉพาะการกระทำโดยจงใจหรือประมาทเลินเล่ออย่างร้ายแรง กรมจึงไล่เบี้ยไม่ได้"}, {"tag": "ละเมิด · ส่วนตัว (แนวธง 2567)", "f": ["ข้าราชการกรมหนึ่ง", "เลิกงานแล้ว", "ขับรถไปรับลูกที่โรงเรียน", "ชนรถของนายเอ"], "t": 0, "q": "นายเอต้องฟ้องใคร ต่อศาลใด", "o": ["ฟ้องกรม ต่อศาลปกครอง", "ฟ้องกรม ต่อศาลยุติธรรม", "ฟ้องข้าราชการผู้นั้นเอง ต่อศาลยุติธรรม", "ฟ้องข้าราชการผู้นั้น ต่อศาลปกครอง"], "a": 2, "m": "แม้ผู้ขับเป็นข้าราชการ แต่การขับรถไปรับลูกหลังเลิกงานไม่ใช่การปฏิบัติหน้าที่ จึงเป็นละเมิดตาม ม.6 ซึ่งเจ้าหน้าที่ต้องรับผิดเป็นการเฉพาะตัวตาม ป.พ.พ. ม.420 นายเอต้องฟ้องข้าราชการผู้นั้นต่อศาลยุติธรรมตามรัฐธรรมนูญ ม.194"}, {"tag": "ละเมิด · ไล่เบี้ยหลายคน", "f": ["เจ้าหน้าที่สองคนร่วมกันทำละเมิดโดยประมาทเลินเล่ออย่างร้ายแรง", "กรมชดใช้ให้ผู้เสียหายแล้ว", "เจ้าหน้าที่คนหนึ่งถูกพิพากษาให้ล้มละลาย"], "t": 2, "q": "กรมเรียกส่วนของคนที่ล้มละลายจากอีกคนได้หรือไม่", "o": ["ได้ เพราะเป็นลูกหนี้ร่วม", "ไม่ได้ แต่ละคนรับผิดเฉพาะส่วนของตน", "ได้ ถ้าศาลอนุญาต", "ได้ เฉพาะเมื่อจงใจ"], "a": 1, "m": "แม้เจ้าหน้าที่คนหนึ่งล้มละลาย แต่ ม.8 วรรคสี่กำหนดว่าการละเมิดที่เกิดจากเจ้าหน้าที่หลายคน มิให้นำหลักลูกหนี้ร่วมมาใช้ และแต่ละคนรับผิดเฉพาะส่วนของตน กรมจึงเรียกส่วนนั้นจากอีกคนไม่ได้"}, {"tag": "ละเมิด · คำสั่งให้ชดใช้ (แนวธง 2566)", "f": ["เจ้าหน้าที่ถูกสอบสวนทางวินัยแล้ว", "ผลสอบวินัยชี้ชัดว่าประมาทเลินเล่ออย่างร้ายแรง", "หัวหน้าหน่วยงานจึงออกคำสั่งให้ชดใช้ค่าเสียหายตาม ม.12 ทันที", "โดยไม่ได้ตั้งคณะกรรมการสอบข้อเท็จจริงความรับผิดทางละเมิด"], "t": 1, "q": "คำสั่งให้ชดใช้ชอบด้วยกฎหมายหรือไม่", "o": ["ชอบ เพราะผลสอบวินัยชัดเจนแล้ว", "ไม่ชอบ เพราะต้องตั้งกรรมการสอบข้อเท็จจริงความรับผิดทางละเมิดก่อน", "ชอบ ถ้าให้โอกาสโต้แย้งแล้ว", "ไม่ชอบ เพราะต้องฟ้องศาลเท่านั้น"], "a": 1, "m": "แม้ผลสอบวินัยจะชี้ชัดว่าประมาทเลินเล่ออย่างร้ายแรง แต่ระเบียบสำนักนายกฯ ข้อ 8 วรรคหนึ่งกำหนดให้ตั้งคณะกรรมการสอบข้อเท็จจริงความรับผิดทางละเมิดก่อนใช้อำนาจตาม ม.12 การสอบวินัยมีวัตถุประสงค์ต่างกัน ใช้แทนกันไม่ได้ คำสั่งจึงไม่ชอบ"}, {"tag": "ว.ป. · ฟังความทุกฝ่าย", "f": ["เจ้าหน้าที่สั่งเพิกถอนใบอนุญาต", "โดยไม่ให้โอกาสผู้รับคำสั่งชี้แจงก่อน", "ต่อมาในชั้นอุทธรณ์ ผู้พิจารณาอุทธรณ์ให้ผู้รับคำสั่งชี้แจงข้อเท็จจริงครบถ้วนแล้ว"], "t": 1, "q": "คำสั่งยังไม่ชอบเพราะไม่ให้โอกาสโต้แย้งหรือไม่", "o": ["ยังไม่ชอบ เพราะต้องให้โอกาสก่อนออกคำสั่งเท่านั้น", "ข้อบกพร่องได้รับการแก้ไขแล้ว คำสั่งไม่เสียไปด้วยเหตุนี้", "ไม่ชอบ ต้องออกคำสั่งใหม่ทั้งหมด", "ชอบ เพราะเข้าข้อยกเว้น ม.30 วรรคสอง"], "a": 1, "m": "แม้เจ้าหน้าที่ไม่ได้ให้โอกาสโต้แย้งก่อนออกคำสั่งตาม ม.30 วรรคหนึ่ง แต่ ม.41 วรรคหนึ่ง (3) ให้แก้ไขข้อบกพร่องนี้ภายหลังได้ และวรรคสองกำหนดให้ทำก่อนสิ้นสุดกระบวนการพิจารณาอุทธรณ์ เมื่อได้ให้โอกาสชี้แจงในชั้นอุทธรณ์แล้ว คำสั่งจึงไม่เสียไปด้วยเหตุนี้"}, {"tag": "ว.ป. · ฟังความทุกฝ่าย ข้อยกเว้น", "f": ["เจ้าหน้าที่พบอาหารบรรจุกล่องเน่าเสีย", "กำลังจะส่งจำหน่ายในวันนั้น", "สั่งยึดและทำลายทันที", "โดยไม่ให้เจ้าของชี้แจงก่อน"], "t": 3, "q": "คำสั่งไม่ชอบเพราะไม่ให้โอกาสโต้แย้งหรือไม่", "o": ["ไม่ชอบ ต้องให้โอกาสก่อนเสมอ", "ชอบ เพราะจำเป็นรีบด่วน หากชักช้าจะเสียหายร้ายแรงต่อประโยชน์สาธารณะ", "ชอบ เพราะเป็นมาตรการบังคับทางปกครอง", "ไม่ชอบ แต่แก้ไขไม่ได้"], "a": 1, "m": "แม้เจ้าหน้าที่ไม่ได้ให้เจ้าของชี้แจงก่อน แต่การปล่อยให้อาหารเน่าเสียออกจำหน่ายย่อมก่อความเสียหายร้ายแรงต่อประโยชน์สาธารณะ จึงเข้าข้อยกเว้นเรื่องความจำเป็นรีบด่วนตาม ม.30 วรรคสอง (1) คำสั่งจึงไม่เสียไปเพราะไม่ให้โอกาสโต้แย้ง"}, {"tag": "ว.ป. · อุทธรณ์ก่อนฟ้อง", "f": ["ผู้รับคำสั่งเห็นว่าคำสั่งไม่ชอบอย่างชัดแจ้ง", "จึงฟ้องศาลปกครองทันที", "โดยไม่ได้อุทธรณ์คำสั่ง", "กฎหมายเฉพาะไม่ได้กำหนดขั้นตอนอุทธรณ์ไว้"], "t": 0, "q": "ศาลปกครองรับคำฟ้องได้หรือไม่", "o": ["รับได้ เพราะคำสั่งไม่ชอบชัดแจ้ง", "รับไม่ได้ ต้องอุทธรณ์ตาม ว.ป. ม.44 ก่อนตาม ศป. ม.42 วรรคสอง", "รับได้ เพราะกฎหมายเฉพาะไม่กำหนดให้อุทธรณ์", "รับได้ ถ้ายื่นภายใน 90 วัน"], "a": 1, "m": "แม้ผู้รับคำสั่งเห็นว่าคำสั่งไม่ชอบอย่างชัดแจ้ง แต่เมื่อกฎหมายเฉพาะไม่ได้กำหนดขั้นตอนอุทธรณ์ไว้ ต้องอุทธรณ์ตาม ว.ป. ม.44 และ ศป. ม.42 วรรคสองกำหนดให้ฟ้องได้ต่อเมื่อดำเนินการแก้ไขความเดือดร้อนตามขั้นตอนนั้นแล้ว ศาลจึงรับคำฟ้องไม่ได้"}, {"tag": "ว.ป. · คำสั่งทางปกครอง (แนวธง 2563)", "f": ["กรมมีหนังสือบอกเลิกสัญญาจ้างเหมาก่อสร้าง", "หนังสือลงนามโดยอธิบดี", "โดยใช้สิทธิตามข้อสัญญาเมื่อผู้รับจ้างผิดสัญญา"], "t": 1, "q": "ผู้รับจ้างฟ้องขอเพิกถอนหนังสือบอกเลิกสัญญาตาม ม.9 วรรคหนึ่ง (1) ได้หรือไม่", "o": ["ได้ เพราะเป็นคำสั่งทางปกครอง", "ไม่ได้ เพราะเป็นการใช้สิทธิตามสัญญา ไม่ใช่คำสั่งทางปกครอง", "ได้ ถ้าอุทธรณ์ก่อน", "ได้ เพราะอธิบดีเป็นเจ้าหน้าที่ของรัฐ"], "a": 1, "m": "แม้หนังสือบอกเลิกสัญญาลงนามโดยอธิบดีซึ่งเป็นเจ้าหน้าที่ของรัฐ แต่เป็นการใช้สิทธิตามข้อสัญญา ไม่ใช่การใช้อำนาจตามกฎหมายที่กระทบสถานภาพสิทธิตาม ว.ป. ม.5 จึงไม่ใช่คำสั่งทางปกครอง ฟ้องเพิกถอนตาม ศป. ม.9 วรรคหนึ่ง (1) ไม่ได้ ถ้าเป็นสัญญาทางปกครอง ต้องฟ้องเป็นคดีพิพาทเกี่ยวกับสัญญาตาม ม.9 วรรคหนึ่ง (4)"}, {"tag": "สัญญา · ทางปกครองหรือทางแพ่ง", "f": ["กรมทำสัญญาซื้อเครื่องคอมพิวเตอร์ใช้ในสำนักงาน", "คู่สัญญาฝ่ายหนึ่งเป็นกรม", "ผู้ขายส่งของไม่ตรงสเปก"], "t": 1, "q": "ข้อพิพาทอยู่ในอำนาจศาลใด", "o": ["ศาลปกครอง เพราะคู่สัญญาเป็นหน่วยงานทางปกครอง", "ศาลยุติธรรม เพราะเป็นสัญญาทางแพ่ง", "ศาลปกครอง เพราะเป็นการจัดซื้อจัดจ้างภาครัฐ", "คณะกรรมการวินิจฉัยข้อพิพาท"], "a": 1, "m": "แม้คู่สัญญาฝ่ายหนึ่งเป็นกรมซึ่งเป็นหน่วยงานทางปกครอง แต่สัญญาซื้อคอมพิวเตอร์ใช้ในสำนักงานไม่ใช่สัมปทาน ไม่ใช่การจัดทำบริการสาธารณะ ไม่ใช่การจัดให้มีสิ่งสาธารณูปโภค และไม่ใช่การแสวงประโยชน์จากทรัพยากรธรรมชาติตาม ศป. ม.3 จึงเป็นสัญญาทางแพ่ง อยู่ในอำนาจศาลยุติธรรม"}, {"tag": "ศาลปกครอง · เจ้าหน้าที่ของรัฐ (แนวธง 2567)", "f": ["ผู้พิพากษาศาลยุติธรรมพิพากษาให้นายบีแพ้คดี", "ผู้พิพากษาเป็นข้าราชการตุลาการ", "นายบีฟ้องศาลปกครองขอให้เพิกถอนคำพิพากษา"], "t": 1, "q": "ศาลปกครองรับฟ้องได้หรือไม่", "o": ["ได้ เพราะผู้พิพากษาเป็นเจ้าหน้าที่ของรัฐ", "ไม่ได้ เพราะการพิพากษาเป็นการใช้อำนาจตุลาการ ไม่ใช่การกระทำทางปกครอง", "ได้ ถ้าคำพิพากษาไม่ชอบด้วยกฎหมาย", "ได้ ถ้ายังไม่ถึงที่สุด"], "a": 1, "m": "แม้ผู้พิพากษาเป็นข้าราชการตุลาการ แต่การพิพากษาคดีเป็นการใช้อำนาจตุลาการตามรัฐธรรมนูญ ม.194 ไม่ใช่การใช้อำนาจทางปกครองตามความหมายของหน่วยงานทางปกครองหรือเจ้าหน้าที่ของรัฐตาม ศป. ม.3 ประกอบกับคำพิพากษาผูกพันคู่ความตาม ป.วิ.พ. ม.145 ศาลปกครองจึงรับฟ้องไม่ได้"}, {"tag": "ศาลปกครอง · ใบสั่งจราจร", "f": ["เจ้าพนักงานจราจรออกใบสั่งให้นายซีชำระค่าปรับ", "เจ้าพนักงานจราจรเป็นเจ้าหน้าที่ของรัฐ", "ความผิดมีโทษจำคุกด้วย", "นายซีฟ้องศาลปกครองขอเพิกถอนใบสั่ง"], "t": 1, "q": "ศาลปกครองรับฟ้องได้หรือไม่", "o": ["ได้ เพราะใบสั่งเป็นคำสั่งทางปกครอง", "ไม่ได้ เพราะเป็นการดำเนินการในกระบวนการยุติธรรมทางอาญา", "ได้ ถ้าอุทธรณ์ก่อน", "ได้ เพราะเจ้าพนักงานจราจรเป็นเจ้าหน้าที่ของรัฐ"], "a": 1, "m": "แม้เจ้าพนักงานจราจรเป็นเจ้าหน้าที่ของรัฐ แต่ใบสั่งและการเปรียบเทียบปรับในความผิดอาญาเป็นขั้นตอนในกระบวนการยุติธรรมทางอาญา ผู้ต้องหาไม่ยินยอมแล้วไปต่อสู้คดีในศาลยุติธรรมได้ จึงไม่ใช่คำสั่งทางปกครองตาม ว.ป. ม.5 และไม่ใช่คดีปกครองตาม ศป. ม.9"}, {"tag": "ศาลปกครอง · กฎ", "f": ["สำนักงานตำรวจแห่งชาติออกประกาศกำหนดบัญชีอัตราค่าปรับจราจรทั่วไป", "เรื่องเกี่ยวกับการเปรียบเทียบปรับในความผิดอาญา", "ผู้ใช้รถฟ้องขอเพิกถอนประกาศ"], "t": 1, "q": "ศาลปกครองรับฟ้องได้หรือไม่", "o": ["ไม่ได้ เพราะเกี่ยวกับคดีอาญา", "ได้ เพราะประกาศมีผลใช้บังคับเป็นการทั่วไปจึงเป็นกฎ ฟ้องเพิกถอนตาม ม.9 วรรคหนึ่ง (1)", "ได้ เฉพาะเมื่อถูกออกใบสั่งแล้ว", "ไม่ได้ เพราะเป็นอำนาจตำรวจ"], "a": 1, "m": "แม้เนื้อหาเกี่ยวกับการเปรียบเทียบปรับในความผิดอาญา แต่ประกาศนั้นมีผลใช้บังคับเป็นการทั่วไปโดยไม่มุ่งหมายใช้กับกรณีหรือบุคคลใดเป็นการเฉพาะ จึงเป็นกฎ ฟ้องเพิกถอนต่อศาลปกครองได้ตาม ศป. ม.9 วรรคหนึ่ง (1) แนวเดียวกับคดีที่ศาลปกครองสูงสุดเพิกถอนประกาศ สตช. (อ.50/2568)"}, {"tag": "วิธีพิจารณา · อุทธรณ์คำสั่งไม่รับฟ้อง (แนวธง 2566)", "f": ["ศาลปกครองชั้นต้นมีคำสั่งไม่รับคำฟ้อง", "ยังไม่ได้มีคำพิพากษา", "ผู้ฟ้องคดีต้องการโต้แย้ง"], "t": 1, "q": "ผู้ฟ้องคดีต้องรอคำพิพากษาก่อนหรืออุทธรณ์ได้ทันที", "o": ["ต้องรอคำพิพากษา เพราะเป็นคำสั่งระหว่างพิจารณา", "อุทธรณ์ได้ทันที เพราะทำให้คดีเสร็จไปจากศาล", "อุทธรณ์ไม่ได้ เพราะเป็นที่สุด", "ต้องยื่นคำร้องขอพิจารณาใหม่"], "a": 1, "m": "แม้คำสั่งไม่รับคำฟ้องไม่ใช่คำพิพากษา แต่คำสั่งนั้นทำให้คดีเสร็จไปจากศาล ไม่ใช่คำสั่งระหว่างพิจารณา ผู้ฟ้องคดีจึงอุทธรณ์ต่อศาลปกครองสูงสุดได้ทันที"}, {"tag": "กฎหมายเฉพาะ · ข้อมูลข่าวสาร", "f": ["นายดีขอดูสำเนาสัญญาจัดซื้อของกรม", "กรมมีคำสั่งไม่เปิดเผย", "นายดีต้องการฟ้องศาลปกครองทันที"], "t": 2, "q": "นายดีต้องทำอย่างไรก่อน", "o": ["ฟ้องศาลปกครองได้ทันที", "อุทธรณ์ต่อคณะกรรมการวินิจฉัยการเปิดเผยข้อมูลข่าวสารภายใน 15 วันตาม ม.18", "ร้องเรียนต่อผู้ตรวจการแผ่นดิน", "อุทธรณ์ต่ออธิบดีตาม ว.ป. ม.44"], "a": 1, "m": "แม้นายดีต้องการฟ้องศาลปกครองทันที แต่ พ.ร.บ.ข้อมูลข่าวสารฯ ม.18 กำหนดให้อุทธรณ์คำสั่งไม่เปิดเผยต่อคณะกรรมการวินิจฉัยการเปิดเผยข้อมูลข่าวสารภายใน 15 วันนับแต่ได้รับแจ้ง ซึ่งเป็นขั้นตอนตามกฎหมายเฉพาะตาม ว.ป. ม.3 วรรคสอง และต้องทำให้ครบก่อนฟ้องตาม ศป. ม.42 วรรคสอง"}];
+(function(){
+const $=id=>document.getElementById(id);
+const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const store={get(k){try{return JSON.parse(localStorage.getItem(k)||'{}')}catch(e){return{}}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let miss=store.get('lawMiss');const bump=(id,d)=>{miss[id]=Math.max(0,(miss[id]||0)+d);store.set('lawMiss',miss)};
+const ord=l=>sh(l).sort((x,y)=>(miss[y.id]||0)-(miss[x.id]||0));
+/* ปรับบท */
+const KS=LAWCASES.map((k,i)=>Object.assign({id:'k'+i},k));let kq=ord(KS),ki=0,kok=0,kn=0,kTrapDone=false,kAnsDone=false,kWrong=false;
+function kShow(){const c=kq[ki];if(!c){$('kTag').textContent='ครบทุกข้อแล้ว';$('kFacts').innerHTML='';$('kStep2').hidden=true;$('kModel').hidden=true;$('kTrapRes').innerHTML='';return}
+ kTrapDone=false;kAnsDone=false;kWrong=false;$('kTag').textContent=c.tag;$('kCount').textContent='ข้อ '+(ki+1)+' / '+kq.length;$('kScore').textContent='ถูกครบ '+kok+' / '+kn;
+ $('kTrapRes').innerHTML='';$('kStep2').hidden=true;$('kModel').hidden=true;const box=$('kFacts');box.innerHTML='';
+ c.f.forEach((t,i)=>{const s=document.createElement('span');s.className='fact';s.textContent=t;s.onclick=()=>{if(kTrapDone)return;kTrapDone=true;
+  [...box.children].forEach((x,j)=>{if(j===c.t)x.classList.add('trap')});if(i!==c.t){s.classList.add('notrap');kWrong=true}
+  $('kTrapRes').innerHTML=i===c.t?'<span class="okt">จับกับดักได้</span> ข้อเท็จจริงนี้ต้องหักล้างด้วย "แม้…แต่…"':'<span class="not">ยังไม่ใช่</span> ข้อเท็จจริงที่ไฮไลต์สีเขียวคือกับดัก';
+  kStep2(c)};box.appendChild(s);box.appendChild(document.createTextNode(' '))})}
+function kStep2(c){$('kQ').textContent=c.q;$('kStep2').hidden=false;const box=$('kOpts');box.innerHTML='';
+ sh(c.o.map((o,i)=>[o,i])).forEach(([o,i])=>{const b=document.createElement('button');b.className='choice';b.textContent=o;b.onclick=()=>{if(kAnsDone)return;kAnsDone=true;kn++;
+  if(i!==c.a){kWrong=true;b.classList.add('wrong')}[...box.children].forEach(x=>{if(x.textContent===c.o[c.a])x.classList.add('right')});
+  if(!kWrong)kok++;bump(c.id,kWrong?1:-1);$('kModel').hidden=false;$('kModel').innerHTML='<b>ประโยคตัวอย่างสำหรับห้องสอบ</b><br>'+c.m;
+  if(kWrong)kq.splice(Math.min(ki+4,kq.length),0,c);$('kScore').textContent='ถูกครบ '+kok+' / '+kn};box.appendChild(b)})}
+$('kNext').onclick=()=>{if(kq[ki]&&!kAnsDone){kn++;bump(kq[ki].id,1);kq.splice(Math.min(ki+4,kq.length),0,kq[ki])}ki++;kShow()};
+/* เติมหลัก */
+const LC=[];CARDS.forEach((c,ci)=>{if(c[0].startsWith('แปล'))return;const bs=[...c[2].matchAll(/<b>([\s\S]*?)<\/b>/g)];bs.forEach((m,bi)=>{const ans=m[1].replace(/<[^>]+>/g,'');if(!ans||ans.length>60)return;
+ LC.push({id:'l'+ci+'_'+bi,cat:c[0],q:c[1],html:c[2],raw:m[0],ans,num:/\d/.test(ans)})})});
+let lq=ord(LC),li=0,lok=0,ln=0,lDone=false;
+function lShow(){const c=lq[li];if(!c){$('lQ').textContent='ครบทุกข้อแล้ว';$('lA').innerHTML='';$('lOpts').innerHTML='';return}lDone=false;
+ $('lTag').textContent=c.cat;$('lQ').textContent=c.q;$('lA').innerHTML=c.html.replace(c.raw,'<span class="blank">&nbsp;?&nbsp;</span>');
+ $('lCount').textContent='ข้อ '+(li+1)+' / '+lq.length;$('lScore').textContent='ถูก '+lok+' / '+ln;
+ const same=[...new Set(LC.filter(x=>x.num===c.num&&x.ans!==c.ans).map(x=>x.ans))];const opts=sh([c.ans,...sh(same).slice(0,3)]);const box=$('lOpts');box.innerHTML='';
+ opts.forEach(o=>{const b=document.createElement('button');b.className='choice';b.textContent=o;b.onclick=()=>{if(lDone)return;lDone=true;ln++;const ok=o===c.ans;if(ok)lok++;bump(c.id,ok?-1:1);
+  if(!ok){b.classList.add('wrong');lq.splice(Math.min(li+4,lq.length),0,c)}[...box.children].forEach(x=>{if(x.textContent===c.ans)x.classList.add('right')});
+  $('lA').innerHTML=c.html;$('lScore').textContent='ถูก '+lok+' / '+ln};box.appendChild(b)})}
+$('lNext').onclick=()=>{if(lq[li]&&!lDone){ln++;bump(lq[li].id,1);lq.splice(Math.min(li+4,lq.length),0,lq[li])}li++;lShow()};
+window.__law={start:{case:kShow,lcloze:lShow},n:{K:KS.length,L:LC.length}};
+})();
+</script>
+<script>
+(function(){
+const strip=h=>{const d=document.createElement('div');d.innerHTML=h;return d.textContent.trim()};
+const pick=(h,re)=>{const m=h.match(re);return m?strip(m[1]):''};
+const isEn=t=>/^[A-Za-z…(]/.test(t.trim());
+const E=CARDS.filter(c=>c[0].startsWith('แปล')).map((c,i)=>({id:'e'+i,cat:c[0],th:c[1],en:pick(c[2],/<b>([\s\S]*?)<\/b>/),col:pick(c[2],/คู่คำ: ([\s\S]*?)(<br>|$)/),ex:pick(c[2],/<i>([\s\S]*?)<\/i>/)}));
+const store={get(k){try{return JSON.parse(localStorage.getItem(k)||'{}')}catch(e){return{}}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let miss=store.get('engMiss');
+const bump=(id,d)=>{miss[id]=Math.max(0,(miss[id]||0)+d);store.set('engMiss',miss)};
+function order(list){const a=list.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a.sort((x,y)=>(miss[y.id]||0)-(miss[x.id]||0))}
+const AUDIO={"A State agency shall be liable to the injured person for a wrongful act committed by its official in the performance of duties.": "a/ee4104db37.mp3", "Act on Establishment of Administrative Courts and Administrative Court Procedure, B.E. 2542 1999": "a/c8c139d7bd.mp3", "Administrative Court": "a/4d8937620e.mp3", "Administrative Court of First Instance": "a/cd56003201.mp3", "Administrative Procedure Act, B.E. 2539 1996": "a/4d9b527634.mp3", "Constitution of the Kingdom of Thailand, B.E. 2560 2017": "a/738c6bf4af.mp3", "Court of Justice": "a/f239bff5b8.mp3", "For the purposes of this Act": "a/5edc6df5f9.mp3", "Liability for Wrongful Acts of Officials Act, B.E. 2539 1996": "a/4d39188e67.mp3", "Notwithstanding the provisions of Section 5,": "a/7a9abf919c.mp3", "Official Information Act, B.E. 2540 1997": "a/0cd47090fc.mp3", "Ombudsman": "a/b1bdb94131.mp3", "State official": "a/5e9365ee84.mp3", "Subject to Section 42,": "a/29cdb4736b.mp3", "Such order shall be deemed to be an administrative order.": "a/b91481d2a6.mp3", "Supreme Administrative Court": "a/269b865aad.mp3", "Thailand adopts a dual court system.": "a/72b6c19326.mp3", "The Administrative Court applies the inquisitorial system.": "a/ff4531fa77.mp3", "The Administrative Court has competence to try and adjudicate cases involving disputes in relation to": "a/475d3ef8d3.mp3", "The Administrative Court has competence to try and adjudicate the following cases:": "a/be98bb1aeb.mp3", "The Administrative Court has jurisdiction over this case.": "a/67c1734a35.mp3", "The Administrative Court therefore has competence to try and adjudicate this case.": "a/403ce92900.mp3", "The Court held that the order was unlawful and revoked it.": "a/6d6e14be45.mp3", "The Court held that the order was unlawful.": "a/148c97829e.mp3", "The Court may conduct fact-finding on its own initiative.": "a/9ca4a3f187.mp3", "The Court revoked the order with retroactive effect to the date of its issuance.": "a/f3b6b248df.mp3", "The Courts of Justice generally adopt the adversarial system.": "a/324ae35849.mp3", "The case falls within the jurisdiction of the Court of Justice.": "a/aab132ceb3.mp3", "The defendant is an administrative agency under Section 3.": "a/248ed5763f.mp3", "The dispute arises from the exercise of power under the law.": "a/b8780aabff.mp3", "The first defendant is an administrative agency and the second defendant is a State official.": "a/4c18ec147a.mp3", "The injured person may file a lawsuit directly against the State agency, but not against the official.": "a/f7863d10ba.mp3", "The judgment is final and binding on the parties.": "a/73e0ec5cf6.mp3", "The judgment of the Supreme Administrative Court shall be final.": "a/a60f4b1701.mp3", "The official committed the wrongful act in the performance of his duties.": "a/f7487e4f98.mp3", "The order was issued without giving the party an opportunity to be heard.": "a/490151f212.mp3", "The plaintiff filed the case within ninety days from the date he knew of the cause of action.": "a/eaa67679be.mp3", "The seizure order is an administrative order under Section 5.": "a/bb47f5fe08.mp3", "This case is not within the jurisdiction of the Administrative Court but within that of the Court of Justice.": "a/90e0ec986d.mp3", "Unless otherwise provided by law": "a/ce05a37e91.mp3", "Where the official acts wilfully or with gross negligence, the agency has the right of recourse against him.": "a/ee92be114c.mp3", "a contract for the provision of a public service": "a/6810b1d0d6.mp3", "a dispute between an administrative agency or State official and a private individual.": "a/87bfc76435.mp3", "a dispute in relation to an administrative contract": "a/15bf81cadb.mp3", "a dispute with a private individual": "a/63948b8fc4.mp3", "a panel of administrative judges องค์คณะ": "a/b2fd5d6339.mp3", "a statement of the judge-commissioner of justice": "a/53bda6447c.mp3", "act wilfully or with gross negligence": "a/f3f7955c70.mp3", "administrative agency": "a/c557081ec0.mp3", "administrative case": "a/e299ff889f.mp3", "administrative contract": "a/90b0f50765.mp3", "administrative enforcement measures": "a/3e794966bd.mp3", "administrative judge": "a/9618c6b132.mp3", "administrative order": "a/273718c588.mp3", "adversarial system": "a/0779fc1b80.mp3", "an act of a State official": "a/6bf7441772.mp3", "an administrative agency or State official": "a/c2e03b6118.mp3", "an application for a stay of enforcement of the order": "a/f868da518c.mp3", "an unlawful administrative order": "a/5bc5c879f8.mp3", "appeal": "a/6c18bce060.mp3", "appeal to the Supreme Administrative Court": "a/b4cc20381e.mp3", "apply for interim measures": "a/c9b78d3ed0.mp3", "arising from the exercise of legal power": "a/472bbaf1f1.mp3", "artificial intelligence AI": "a/0fc8f860d2.mp3", "be liable to pay compensation": "a/05933673a2.mp3", "by-law / rule": "a/331cd618e4.mp3", "cause of action / knew or ought to have known": "a/56fe202da4.mp3", "commit a wrongful act; liability for wrongful acts": "a/0f061618b1.mp3", "committed in the performance of duties": "a/6deed0a9c4.mp3", "compensation": "a/0afc2f168d.mp3", "competence to try and adjudicate": "a/b1a17259ee.mp3", "concession contract / public service / public utility / exploitation of natural resources": "a/413d055b93.mp3", "disclose official information": "a/22404df0bd.mp3", "discretion": "a/9d6fe725b4.mp3", "dual court system": "a/c509cc09e1.mp3", "exercise judicial power": "a/66556c52f7.mp3", "exercise of discretion / abuse of discretion ใช้ดุลพินิจโดยมิชอบ": "a/490c505d71.mp3", "exercise of power under the law": "a/76fb0dfca4.mp3", "fact-finding": "a/97614c643d.mp3", "fall within the jurisdiction of": "a/536b533581.mp3", "file an administrative case": "a/c89dfed6b7.mp3", "final / binding on the parties": "a/a9ba5ebd7c.mp3", "give the party an opportunity to be heard": "a/bd0a24d0b5.mp3", "impose an administrative fine ค่าปรับบังคับการ": "a/000c20aedb.mp3", "in accordance with the rules and procedures prescribed in": "a/0161d0b4a8.mp3", "in the performance of duties": "a/1156475fd3.mp3", "independent organ": "a/515ba4d04d.mp3", "independent organs under the Constitution": "a/4f6dc8c3a0.mp3", "inquisitorial system": "a/a98510dbb1.mp3", "interim measures for temporary protection before judgment": "a/93f4f910a7.mp3", "issue / revoke an administrative order": "a/b574dfd4fc.mp3", "issue a by-law คำแปล พ.ร.บ.จัดตั้งศาลปกครองฯ ใช้ by-law; ว.ป. ใช้ rule": "a/4f0bf29059.mp3", "joint debtors": "a/3c382fa36e.mp3", "judge-commissioner of justice": "a/1f190ebe67.mp3", "judge-rapporteur": "a/7b29245541.mp3", "judgment / order": "a/e43fad55a6.mp3", "judicial power": "a/13e8e97c92.mp3", "jurisdiction": "a/0c0f7464c6.mp3", "legality of administrative action": "a/2d4add2b8f.mp3", "lodge an appeal against the judgment": "a/5d8668bcf9.mp3", "may file a case if he or she is aggrieved or injured": "a/d595543d20.mp3", "mediation": "a/5a188dd7cc.mp3", "neglect of official duties / unreasonable delay in performing duties": "a/61f12cc7f5.mp3", "neglect of official duties required by law": "a/7a268a1e13.mp3", "official information / personal information": "a/dbebfae285.mp3", "party": "a/1aab23051b.mp3", "person who is aggrieved or injured": "a/f850c7920f.mp3", "plaint": "a/63b22825f6.mp3", "plaintiff / defendant": "a/be090fbfa9.mp3", "principle of legality": "a/e0984cbaae.mp3", "principle of proportionality": "a/3907f474f4.mp3", "private individual": "a/8c9c90cf05.mp3", "protection of legitimate expectation reliance": "a/ad21f746c3.mp3", "public interest": "a/1c141fa03c.mp3", "render a judgment; issue an order": "a/bee1b84c9d.mp3", "revoke the order with retroactive effect ย้อนหลัง": "a/68dea3ce2b.mp3", "revoke คำสั่ง / annul, set aside ศาลเพิกถอน": "a/dd91dbb42e.mp3", "right of recourse / claim reimbursement": "a/feba3edb6c.mp3", "right to be heard audi alteram partem": "a/34d64146bb.mp3", "rule of law / legal State Rechtsstaat": "a/cd8b6b070a.mp3", "serious damage to the public interest": "a/90dbecfc5a.mp3", "settle the dispute through mediation": "a/78cd161500.mp3", "shall / may / shall not no person shall": "a/e7236cc95b.mp3", "shall apply mutatis mutandis": "a/7d93ee7486.mp3", "shall be deemed": "a/c8c6f4704a.mp3", "stay suspension of enforcement": "a/665039db46.mp3", "submit a case to the Administrative Court ผู้ตรวจการฯ ส่งเรื่อง": "a/01a9bcd128.mp3", "submit a plaint to the Court": "a/151e95dcce.mp3", "submit an appeal to the official who issued the order": "a/0b71c361bb.mp3", "the Administrative Courts ทั้งระบบ ใช้พหูพจน์": "a/b53745619f.mp3", "the Courts of Justice": "a/49284a8938.mp3", "the agency may exercise the right of recourse against the official": "a/615476f1a4.mp3", "the case was filed after the time limit": "a/ecfbfd9e44.mp3", "the judge-rapporteur prepares a memorandum summarizing the facts": "a/d662256a76.mp3", "the official who issued the order": "a/cf60928828.mp3", "the party shall be given an opportunity to be heard": "a/ae0f8140cb.mp3", "the plaintiff filed a plaint against the defendant": "a/e704c30c25.mp3", "the principle of joint debtors shall not apply": "a/fa33abc768.mp3", "the use of artificial intelligence in court proceedings": "a/639ddc2769.mp3", "time limit for filing a case": "a/7c3d61d00b.mp3", "tortious liability / liability for wrongful acts": "a/d324e211eb.mp3", "tortious liability arising from the exercise of power under the law": "a/9296dd1d5b.mp3", "under pursuant to Section 9 paragraph one 3 of the": "a/4b01a6b665.mp3", "unlawful": "a/e72a3910d9.mp3", "unless / except where / in the case where": "a/955bfc50c9.mp3", "wilfully intentionally / gross negligence": "a/2159c9a585.mp3", "within fifteen days from the date of receipt of the notification of the order": "a/fa3f7cb77a.mp3", "within ninety days from the date the plaintiff knew or ought to have known of the cause of action": "a/b4f22ee85e.mp3", "wrongful act tort": "a/910ccace7c.mp3"};
+const TTS=window.speechSynthesis;let enVoice=null,ttsOK=null;
+function pickVoice(){try{const v=TTS.getVoices();enVoice=v.find(x=>/^en[-_]GB/i.test(x.lang))||v.find(x=>/^en[-_]US/i.test(x.lang))||v.find(x=>/^en/i.test(x.lang))||null}catch(e){}}
+if(TTS){pickVoice();try{TTS.onvoiceschanged=pickVoice}catch(e){}}
+function ttsMsg(h){let el=document.getElementById('ttsMsg');if(!el){el=document.createElement('div');el.id='ttsMsg';el.style.cssText='position:fixed;left:12px;right:12px;bottom:14px;z-index:9;background:var(--card);border:1px solid var(--no);color:var(--ink);border-radius:12px;padding:12px 14px;font-size:.92rem;box-shadow:0 4px 16px rgba(0,0,0,.18)';el.onclick=()=>el.remove();document.body.appendChild(el)}el.innerHTML=h+'<div style="color:var(--mute);font-size:.8rem;margin-top:6px">แตะเพื่อปิด</div>'}
+function say(t){
+ if(!TTS||typeof SpeechSynthesisUtterance==='undefined'){ttsMsg('<b>อุปกรณ์หรือหน้าต่างนี้ไม่รองรับเสียงอ่าน</b><br>ลองเปิดลิงก์หน้านี้ใน Safari หรือ Chrome โดยตรง แทนการเปิดในแอป Claude');return}
+ const text=t.replace(/[…()]/g,' ').replace(/\s+/g,' ').trim();if(!text)return;
+ const f=AUDIO[text];if(f){try{if(window.__aud){__aud.pause()}const au=new Audio(f);window.__aud=au;au.play().catch(()=>ttsMsg('<b>เล่นไฟล์เสียงไม่สำเร็จ</b><br>เพิ่มระดับเสียงแล้วกด 🔊 อีกครั้ง'));return}catch(e){}}
+ const go=()=>{try{const u=new SpeechSynthesisUtterance(text);if(!enVoice)pickVoice();if(enVoice)u.voice=enVoice;u.lang=enVoice?enVoice.lang:'en-US';u.rate=.9;u.volume=1;
+  let started=false;u.onstart=()=>{started=true;ttsOK=true};
+  u.onerror=e=>{if(e&&(e.error==='interrupted'||e.error==='canceled'))return;ttsMsg('<b>เล่นเสียงไม่สำเร็จ</b> ('+(e&&e.error||'error')+')<br>ลองเปิดหน้านี้ใน Safari หรือ Chrome โดยตรง')};
+  TTS.speak(u);try{TTS.resume()}catch(e){}
+  setTimeout(()=>{if(!started&&ttsOK!==true)ttsMsg('<b>ยังไม่มีเสียง?</b><br>1) iPhone: ปิดสวิตช์ปิดเสียงด้านข้างเครื่อง (เสียงอ่านเงียบเมื่อเปิดโหมดเงียบ) และเพิ่มระดับเสียง<br>2) ถ้ายังไม่ได้ ให้เปิดลิงก์หน้านี้ใน Safari หรือ Chrome โดยตรง เพราะหน้าต่างภายในแอปบางแบบปิดเสียงอ่านไว้')},1800)}catch(e){ttsMsg('<b>เล่นเสียงไม่สำเร็จ</b><br>'+e.message)}};
+ try{if(TTS.speaking||TTS.pending){TTS.cancel();setTimeout(go,120)}else go()}catch(e){go()}}
+document.addEventListener('click',function warm(){try{if(TTS){const u=new SpeechSynthesisUtterance(' ');u.volume=0;TTS.speak(u)}}catch(e){}document.removeEventListener('click',warm,true)},true);
+const norm=t=>t.toLowerCase().replace(/[‐-–—]/g,'-').replace(/[^a-z0-9\- ]/g,' ').replace(/\s+/g,' ').trim();
+function alts(en){const out=new Set();en.split(/\s\/\s|;|,(?=\s*[a-z])/).forEach(p=>{p=p.trim();if(!p)return;out.add(norm(p.replace(/\([^)]*\)/g,'')));out.add(norm(p.replace(/[()]/g,'')));const m=p.match(/\(([^)]*)\)/);if(m&&/^[a-z ]+$/i.test(m[1]))out.add(norm(m[1]))});out.add(norm(en.replace(/\([^)]*\)/g,'')));out.delete('');return[...out]}
+function makeQ(list,reinsert){return{q:order(list),i:0,ok:0,n:0,re:reinsert}}
+function nextOf(st){return st.q[st.i]}
+function advance(st,wrong){const cur=st.q[st.i];st.i++;if(wrong){st.q.splice(Math.min(st.i+3,st.q.length),0,cur)}}
+
+/* ---------- พิมพ์ตอบ ---------- */
+const T=E.filter(e=>isEn(e.en)&&!isEn(e.th)&&e.en.length<90);
+let ts=makeQ(T),tDone=false,hintN=0;
+function tShow(){const c=nextOf(ts);if(!c){$('tQ').textContent='ครบทุกข้อแล้ว';$('tRes').innerHTML='';return}tDone=false;hintN=0;$('tQ').textContent=c.th;$('tIn').value='';$('tRes').innerHTML='';$('tCount').textContent='ข้อ '+(ts.i+1)+' / '+ts.q.length;$('tScore').textContent='ถูก '+ts.ok+' / '+ts.n;setTimeout(()=>$('tIn').focus(),50)}
+function tCheck(){const c=nextOf(ts);if(!c||tDone)return;const v=norm($('tIn').value);if(!v)return;tDone=true;ts.n++;
+ const A=alts(c.en);let best=0,bestA=A[0];A.forEach(a=>{const aw=a.split(' '),vw=new Set(v.split(' '));const hit=aw.filter(w=>vw.has(w)).length/aw.length;if(hit>best){best=hit;bestA=a}});
+ const exact=A.includes(v);const wrong=!(exact||best>=0.85);
+ const diff=bestA.split(' ').map(w=>v.split(' ').includes(w)?'<span class="hit-w">'+w+'</span>':'<span class="miss-w">'+w+'</span>').join(' ');
+ if(!wrong)ts.ok++;bump(c.id,wrong?1:-1);
+ $('tRes').innerHTML=(exact?'<span class="okt">ถูกต้อง</span>':best>=0.85?'<span class="okt">เกือบถูก</span> (ตรวจคำที่ขีดเส้น)':'<span class="not">ยังไม่ถูก</span>')+'<br>เฉลย: <b>'+c.en+'</b><br>เทียบคำ: '+diff+(c.col?'<br>คู่คำ: '+c.col:'')+(c.ex?'<br><i>'+c.ex+'</i>':'');
+ say(c.en);advance(ts,wrong)}
+$('tCheck').onclick=tCheck;$('tIn').addEventListener('keydown',e=>{if(e.key==='Enter'){tDone?tShow():tCheck()}});
+$('tNext').onclick=()=>{if(!tDone){ts.n++;bump(nextOf(ts).id,1);advance(ts,true)}tShow()};
+$('tHint').onclick=()=>{const c=nextOf(ts);if(!c||tDone)return;hintN++;const a=alts(c.en)[0];$('tRes').innerHTML='ใบ้: '+a.split(' ').map(w=>w.slice(0,hintN)+'·'.repeat(Math.max(0,w.length-hintN))).join(' ')};
+$('tSay').onclick=()=>{const c=nextOf(ts)||ts.q[ts.i-1];if(c&&tDone)say(c.en);else if(ts.q[ts.i-1])say(ts.q[ts.i-1].en)};
+
+/* ---------- เรียงประโยค ---------- */
+const O=[];E.forEach(e=>{const w=s=>s.split(/\s+/).length;
+ if(isEn(e.en)&&!isEn(e.th)&&w(e.en)>=5&&!/…/.test(e.en))O.push({id:e.id+'s',prompt:e.th,tag:'แปลประโยคนี้เป็นอังกฤษ',en:e.en});
+ if(e.ex&&w(e.ex)>=5&&!/…/.test(e.ex))O.push({id:e.id+'x',prompt:'ประโยคที่ใช้คำว่า "'+e.th+'"',tag:'เรียงคำให้เป็นประโยค',en:e.ex});
+ if(e.col&&w(e.col)>=6&&/^[A-Z]/.test(e.col)&&!/…|\(/.test(e.col))O.push({id:e.id+'c',prompt:'ประโยคที่ใช้คำว่า "'+e.th+'"',tag:'เรียงคำให้เป็นประโยค',en:e.col});});
+let os=makeQ(O),oPicked=[],oDone=false;
+function oRender(){const c=nextOf(os);const pool=$('oPool'),ans=$('oAns');pool.innerHTML='';ans.innerHTML='';
+ c._w.forEach((w,k)=>{if(oPicked.includes(k))return;const b=document.createElement('button');b.className='tile';b.textContent=w;b.onclick=()=>{if(oDone)return;oPicked.push(k);oRender()};pool.appendChild(b)});
+ oPicked.forEach((k,pos)=>{const b=document.createElement('button');b.className='tile';b.textContent=c._w[k];b.onclick=()=>{if(oDone)return;oPicked.splice(pos,1);oRender()};ans.appendChild(b)})}
+function oShow(){const c=nextOf(os);if(!c){$('oQ').textContent='ครบทุกข้อแล้ว';$('oPool').innerHTML='';$('oAns').innerHTML='';return}oDone=false;oPicked=[];
+ const words=c.en.split(/\s+/);let sh;do{sh=words.map((w,i)=>[w,Math.random()]).sort((a,b)=>a[1]-b[1]).map(x=>x[0])}while(words.length>2&&sh.join(' ')===c.en);c._w=sh;
+ $('oTag').textContent=c.tag;$('oQ').textContent=c.prompt;$('oRes').innerHTML='';$('oCount').textContent='ข้อ '+(os.i+1)+' / '+os.q.length;$('oScore').textContent='ถูก '+os.ok+' / '+os.n;oRender()}
+$('oCheck').onclick=()=>{const c=nextOf(os);if(!c||oDone)return;if(oPicked.length<c._w.length){$('oRes').innerHTML='ยังเหลือคำที่ไม่ได้วาง';return}oDone=true;os.n++;
+ const built=oPicked.map(k=>c._w[k]).join(' ');const ok=built===c.en;if(ok)os.ok++;bump(c.id,ok?-1:1);
+ $('oRes').innerHTML=(ok?'<span class="okt">ถูกต้อง</span>':'<span class="not">ลำดับยังไม่ถูก</span>')+'<br>เฉลย: <b>'+c.en+'</b>';say(c.en);advance(os,!ok)};
+$('oUndo').onclick=()=>{if(oDone)return;oPicked=[];oRender()};
+$('oSay').onclick=()=>{const c=oDone?os.q[os.i-1]:null;if(c)say(c.en);else $('oRes').innerHTML='ฟังได้หลังกดตรวจ'};
+$('oNext').onclick=()=>{if(!oDone&&nextOf(os)){os.n++;bump(nextOf(os).id,1);advance(os,true)}oShow()};
+
+/* ---------- เติมคำ ---------- */
+const C=[];const terms=T.map(e=>({e,keys:alts(e.en)}));
+E.forEach(e=>{[e.ex,e.col].forEach(sent=>{if(!sent||!/^[A-Za-z…]/.test(sent))return;const low=sent.toLowerCase();
+ const cand=terms.filter(t=>t.keys.some(k=>k.split(' ').length>=1&&k.length>=5&&low.includes(k))).sort((a,b)=>Math.max(...b.keys.map(k=>low.includes(k)?k.length:0))-Math.max(...a.keys.map(k=>low.includes(k)?k.length:0)));
+ if(!cand.length)return;const t=cand[0];const key=t.keys.filter(k=>low.includes(k)).sort((a,b)=>b.length-a.length)[0];const at=low.indexOf(key);
+ C.push({id:e.id+'z'+C.length,sent,before:sent.slice(0,at),ans:sent.slice(at,at+key.length),after:sent.slice(at+key.length),th:t.e.th,cat:t.e.cat})})});
+let cs=makeQ(C),cDone=false;
+function cShow(){const c=nextOf(cs);if(!c){$('cQ').textContent='ครบทุกข้อแล้ว';$('cOpts').innerHTML='';$('cHint').textContent='';return}cDone=false;
+ $('cQ').innerHTML=c.before.replace(/</g,'&lt;')+'<span class="blank">&nbsp;</span>'+c.after.replace(/</g,'&lt;');$('cHint').textContent='คำไทย: '+c.th;
+ $('cCount').textContent='ข้อ '+(cs.i+1)+' / '+cs.q.length;$('cScore').textContent='ถูก '+cs.ok+' / '+cs.n;
+ const pool=[...new Set(C.map(x=>x.ans.toLowerCase()))].filter(x=>x!==c.ans.toLowerCase());for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]]}
+ const opts=[c.ans,...pool.slice(0,3)].sort(()=>Math.random()-.5);const box=$('cOpts');box.innerHTML='';
+ opts.forEach(o=>{const b=document.createElement('button');b.className='choice';b.textContent=o;b.onclick=()=>{if(cDone)return;cDone=true;cs.n++;const ok=o.toLowerCase()===c.ans.toLowerCase();if(ok)cs.ok++;bump(c.id,ok?-1:1);
+  [...box.children].forEach(x=>{if(x.textContent.toLowerCase()===c.ans.toLowerCase())x.classList.add('right');else if(x===b)x.classList.add('wrong')});
+  $('cQ').innerHTML=c.before.replace(/</g,'&lt;')+'<b>'+c.ans+'</b>'+c.after.replace(/</g,'&lt;');say(c.sent);advance(cs,!ok)};box.appendChild(b)})}
+$('cNext').onclick=()=>{if(!cDone&&nextOf(cs)){cs.n++;bump(nextOf(cs).id,1);advance(cs,true)}cShow()};
+$('cSay').onclick=()=>{const c=cDone?cs.q[cs.i-1]:null;if(c)say(c.sent);else $('cHint').textContent='คำไทย: '+(nextOf(cs)||{}).th+' · ฟังได้หลังเลือกคำตอบ'};
+
+/* ---------- สลับโหมด ---------- */
+const panes={flash:'mFlash',case:'mCase',lcloze:'mLcloze',type:'mType',order:'mOrder',cloze:'mCloze'};const started={};
+document.querySelectorAll('.modes button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.modes button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+ Object.entries(panes).forEach(([m,id])=>$(id).hidden=(m!==b.dataset.m));const m=b.dataset.m;
+ if(!started[m]){started[m]=1;if(window.__law&&__law.start[m])__law.start[m]();if(m==='type')tShow();if(m==='order')oShow();if(m==='cloze')cShow()}
+ document.querySelector('.sub').hidden=(m!=='flash')});
+window.__eng={T:T.length,O:O.length,C:C.length};
+})();
+</script>
+</body>
+</html>
